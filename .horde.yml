@@ -7,3 +7,41 @@ description: >
   functionality for the Horde Application Framework.
 list: dev
 type: library
+homepage: https://www.horde.org/libraries/Horde_Form
+authors:
+  -
+    name: Chuck Hagenbuch
+    user: chuck
+    email: chuck@horde.org
+    active: true
+    role: lead
+  -
+    name: Jan Schneider
+    user: jan
+    email: jan@horde.org
+    active: true
+    role: lead
+version:
+  release: 2.0.19
+  api: 1.1.0
+state:
+  release: stable
+  api: stable
+license:
+  identifier: LGPL-2.1
+  uri: http://www.horde.org/licenses/lgpl21
+dependencies:
+  required:
+    php: ^5.3 || ^7
+    pear:
+      pear.horde.org/Horde_Core: ^2
+      pear.horde.org/Horde_Date: ^2
+      pear.horde.org/Horde_Exception: ^2
+      pear.horde.org/Horde_Mail: ^2
+      pear.horde.org/Horde_Mime: ^2
+      pear.horde.org/Horde_Nls: ^2
+      pear.horde.org/Horde_Token: ^2
+      pear.horde.org/Horde_Translation: ^2.2
+      pear.horde.org/Horde_Util: ^2.3
+    ext:
+      json: '*'
