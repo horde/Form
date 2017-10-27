@@ -1,0 +1,286 @@
+-----------
+v2.0.19-git
+-----------
+
+
+-------
+v2.0.18
+-------
+
+[jan] SECURITY: Fix XSS vulnerability with form sections.
+
+
+-------
+v2.0.17
+-------
+
+[jan] Fix regression when submitting multiple forms (Bug #14604).
+
+
+-------
+v2.0.16
+-------
+
+[jan] Keep submitted checkboxes unchecked if they default to be checked.
+
+
+-------
+v2.0.15
+-------
+
+[jan] Catch errors when checking one-time form tokens.
+
+
+-------
+v2.0.14
+-------
+
+[mjr] Fix handling of incomplete date arrays (Neal Thomas Oakey
+      <oakey@b1-systems.de>).
+[mjr] Fix bug when using multiple sections (Neal Thomas Oakey
+      <oakey@b1-systems.de>).
+
+
+-------
+v2.0.13
+-------
+
+[jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).
+[mjr] Allow non-breaking space to match in a telephone field (Request #14235).
+
+
+-------
+v2.0.12
+-------
+
+[jan] Fix field types being overwritten in certain cases.
+[jan] Allow any empty format specifiers for the monthdayyear field (Bug
+      #14130).
+[jan] Mark PHP 7 as supported.
+
+
+-------
+v2.0.11
+-------
+
+[mjr] Prevent empty email addresses from being detected as a valid "multiple"
+      email (Bug #14063).
+
+
+-------
+v2.0.10
+-------
+
+[jan] SECURITY: Fixed XSS in form renderer.
+
+
+------
+v2.0.9
+------
+
+[jan] Support loading translations from Composer-installed package.
+
+
+------
+v2.0.8
+------
+
+
+------
+v2.0.7
+------
+
+[jan] Don't submit disabled fields.
+
+
+------
+v2.0.6
+------
+
+[mms] Remove duplicate constructor.
+
+
+------
+v2.0.5
+------
+
+[mms] Use changed behavior of '_formvars' in Horde_Variables.
+
+
+------
+v2.0.4
+------
+
+[jan] Update Ukrainian translation (Andriy Kopystyansky
+      <anri@polynet.lviv.ua>).
+[jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+
+
+------
+v2.0.3
+------
+
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+
+
+------
+v2.0.2
+------
+
+[jan] Add Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+
+
+------
+v2.0.1
+------
+
+[jan] Re-packaged 2.0.0 release.
+
+
+------
+v2.0.0
+------
+
+First stable release for Horde 5.
+
+
+---------
+v2.0.0RC1
+---------
+
+[mjr] Fixed autoloading of some field actions.
+
+
+-----------
+v2.0.0beta3
+-----------
+
+[jan] Allow to pass button attribute hashes to setButtons().
+[jan] Allow to set CSS class for 'link' form fields.
+
+
+-----------
+v2.0.0beta2
+-----------
+
+[jan] Add Horde_Form_Type_email#allowMultiple().
+
+
+-----------
+v2.0.0beta1
+-----------
+
+First beta release for Horde 5.
+
+
+------------
+v2.0.0alpha1
+------------
+
+First alpha release for Horde 5.
+[mms] Use new Horde_Mail API.
+
+
+------
+v1.1.1
+------
+
+
+------
+v1.1.0
+------
+
+[jan] Add parameters to specify field size of phone and email fields.
+
+
+------
+v1.0.6
+------
+
+[mms] SECURITY: Fix XSS vulnerability in email validation.
+
+
+------
+v1.0.5
+------
+
+[mjr] Add remove button to image fields (Request #9870).
+
+
+------
+v1.0.4
+------
+
+[jan] Update Latvian translation.
+
+
+------
+v1.0.3
+------
+
+[jan] Update Lithuanian translation.
+[jan] Update Brazilian Portuguese translation.
+
+
+------
+v1.0.2
+------
+
+[jan] Updated Slovak translation.
+
+
+------
+v1.0.1
+------
+
+[jan] Updated Spanish translation.
+
+
+------
+v1.0.0
+------
+
+First stable release for Horde 4.
+
+
+---------
+v1.0.0RC2
+---------
+
+Second release candidate for Horde 4.
+
+
+---------
+v1.0.0RC1
+---------
+
+First release candidate for Horde 4.
+
+
+-----------
+v1.0.0beta1
+-----------
+
+Generate valid id attributes for form elements.
+
+
+------------
+v1.0.0alpha1
+------------
+
+First alpha release for Horde 4.
+
+
+------
+v0.0.2
+------
+
+Converted to package.xml 2.0 for pear.horde.org
+
+
+------
+v0.0.1
+------
+
+Initial release as a PEAR package
