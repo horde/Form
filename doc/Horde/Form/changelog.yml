@@ -1,0 +1,446 @@
+---
+2.0.19:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2017-10-17
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes:
+2.0.18:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2017-08-01
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] SECURITY: Fix XSS vulnerability with form sections.
+2.0.17:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2017-04-03
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Fix regression when submitting multiple forms (Bug #14604).
+2.0.16:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2017-03-20
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Keep submitted checkboxes unchecked if they default to be checked.
+2.0.15:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2016-09-06
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Catch errors when checking one-time form tokens.
+2.0.14:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2016-07-01
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mjr] Fix handling of incomplete date arrays (Neal Thomas Oakey <oakey@b1-systems.de>).
+    [mjr] Fix bug when using multiple sections (Neal Thomas Oakey <oakey@b1-systems.de>).
+2.0.13:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2016-03-08
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).
+    [mjr] Allow non-breaking space to match in a telephone field (Request #14235).
+2.0.12:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2016-02-01
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Fix field types being overwritten in certain cases.
+    [jan] Allow any empty format specifiers for the monthdayyear field (Bug #14130).
+    [jan] Mark PHP 7 as supported.
+2.0.11:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2015-07-31
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mjr] Prevent empty email addresses from being detected as a valid "multiple" email (Bug #14063).
+2.0.10:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2015-07-06
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] SECURITY: Fixed XSS in form renderer.
+2.0.9:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2015-01-08
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Support loading translations from Composer-installed package.
+2.0.8:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2014-04-03
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes:
+2.0.7:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2014-03-03
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Don't submit disabled fields.
+2.0.6:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2013-10-25
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mms] Remove duplicate constructor.
+2.0.5:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2013-06-27
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mms] Use changed behavior of '_formvars' in Horde_Variables.
+2.0.4:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2013-05-28
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Update Ukrainian translation (Andriy Kopystyansky <anri@polynet.lviv.ua>).
+    [jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+2.0.3:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2013-01-29
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Update French translation (Paul De Vlieger <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+2.0.2:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2013-01-09
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Add Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+2.0.1:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2012-11-22
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Re-packaged 2.0.0 release.
+2.0.0:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2012-10-30
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    First stable release for Horde 5.
+2.0.0RC1:
+  api: 1.1.0
+  state:
+    release: beta
+    api: stable
+  date: 2012-10-26
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mjr] Fixed autoloading of some field actions.
+2.0.0beta3:
+  api: 1.1.0
+  state:
+    release: beta
+    api: stable
+  date: 2012-10-12
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Allow to pass button attribute hashes to setButtons().
+    [jan] Allow to set CSS class for 'link' form fields.
+2.0.0beta2:
+  api: 1.1.0
+  state:
+    release: beta
+    api: stable
+  date: 2012-08-29
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Add Horde_Form_Type_email#allowMultiple().
+2.0.0beta1:
+  api: 1.1.0
+  state:
+    release: beta
+    api: stable
+  date: 2012-07-19
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    First beta release for Horde 5.
+2.0.0alpha1:
+  api: 1.1.0
+  state:
+    release: alpha
+    api: stable
+  date: 2012-07-05
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    First alpha release for Horde 5.
+    [mms] Use new Horde_Mail API.
+1.1.1:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2012-04-10
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes:
+1.1.0:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2012-04-10
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Add parameters to specify field size of phone and email fields.
+1.0.6:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2012-01-17
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mms] SECURITY: Fix XSS vulnerability in email validation.
+1.0.5:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2011-08-30
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mjr] Add remove button to image fields (Request #9870).
+1.0.4:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2011-07-27
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Update Latvian translation.
+1.0.3:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2011-07-05
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Update Lithuanian translation.
+    [jan] Update Brazilian Portuguese translation.
+1.0.2:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2011-06-01
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Updated Slovak translation.
+1.0.1:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2011-05-18
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Updated Spanish translation.
+1.0.0:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2011-04-06
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    First stable release for Horde 4.
+1.0.0RC2:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-29
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    Second release candidate for Horde 4.
+1.0.0RC1:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-22
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    First release candidate for Horde 4.
+1.0.0beta1:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-16
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    Generate valid id attributes for form elements.
+1.0.0alpha1:
+  api: 1.0.0
+  state:
+    release: alpha
+    api: alpha
+  date: 2011-03-08
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    First alpha release for Horde 4.
+0.0.2:
+  api: 0.0.2
+  state:
+    release: alpha
+    api: alpha
+  date: 2010-10-22
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    Converted to package.xml 2.0 for pear.horde.org
+0.0.1:
+  api: 0.0.1
+  state:
+    release: alpha
+    api: alpha
+  date: 2003-07-03
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    Initial release as a PEAR package
