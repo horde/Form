@@ -1,23 +1,23 @@
 {
     "name": "horde/form",
-    "description": "Horde Form API",
+    "description": "Form library",
     "type": "library",
-    "homepage": "https://pear.horde.org",
+    "homepage": "https://www.horde.org/libraries/Horde_Form",
     "license": "LGPL-2.1",
     "authors": [
-        {
-            "name": "Chuck Hagenbuch",
-            "email": "chuck@horde.org",
-            "role": "lead"
-        },
         {
             "name": "Jan Schneider",
             "email": "jan@horde.org",
             "role": "lead"
+        },
+        {
+            "name": "Chuck Hagenbuch",
+            "email": "chuck@horde.org",
+            "role": "lead"
         }
     ],
     "version": "2.0.19",
-    "time": "2017-08-01",
+    "time": "2017-11-14",
     "repositories": [
         {
             "type": "pear",
