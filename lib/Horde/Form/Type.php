@@ -1205,7 +1205,7 @@ class Horde_Form_Type_image extends Horde_Form_Type {
             /* Get the temp file if already one uploaded, otherwise create a
              * new temporary file. */
             if (!empty($upload['img']['file'])) {
-                $tmp_file = Horde::getTempDir() . '/' . $upload['img']['file'];
+                $tmp_file = Horde::getTempDir() . '/' . basename($upload['img']['file']);
             } else {
                 $tmp_file = Horde::getTempFile('Horde', false);
             }
