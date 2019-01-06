@@ -18,7 +18,7 @@
  </lead>
  <date>2017-11-11</date>
  <version>
-  <release>2.0.19</release>
+  <release>2.0.20</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -1030,6 +1030,21 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2017-11-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.20</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2019-01-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
