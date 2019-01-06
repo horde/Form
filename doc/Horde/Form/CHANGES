@@ -1,6 +1,11 @@
------------
-v2.0.19-git
------------
+-------
+v2.0.19
+-------
+
+[mjr] SECURITY: Prevent RCE vulnerability due to potential directory traversal
+      in Image uploads (An independent security researcher has reported this
+      vulnerability to SecuriTeam Secure Disclosure program).
+
 
 
 -------
