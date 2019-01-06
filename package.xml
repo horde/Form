@@ -18,7 +18,7 @@
  </lead>
  <date>2019-01-06</date>
  <version>
-  <release>2.0.19</release>
+  <release>2.0.20</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] SECURITY: Prevent RCE vulnerability due to potential directory traversal in Image uploads (An independent security researcher has reported this vulnerability to SecuriTeam Secure Disclosure program).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1096,6 +1096,21 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] SECURITY: Prevent RCE vulnerability due to potential directory traversal in Image uploads (An independent security researcher has reported this vulnerability to SecuriTeam Secure Disclosure program).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.20</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2019-01-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
