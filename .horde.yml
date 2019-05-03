@@ -3,8 +3,8 @@ id: Form
 name: Form
 full: Form library
 description: >-
-  The Horde_Form package provides form rendering, validation, and other
-  functionality for the Horde Application Framework.
+  A library that provides form rendering, validation, and other
+  functionality.
 list: dev
 type: library
 homepage: https://www.horde.org/libraries/Horde_Form
