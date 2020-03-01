@@ -1200,12 +1200,11 @@ class Horde_Form_Type_image extends Horde_Form_Type {
             if (!empty($upload['hash'])) {
                 $upload['img'] = $session->get('horde', 'form/' . $upload['hash']);
                 $session->remove('horde', 'form/' . $upload['hash']);
-            }
-
-            /* Get the temp file if already one uploaded, otherwise create a
-             * new temporary file. */
-            if (!empty($upload['img']['file'])) {
-                $tmp_file = Horde::getTempDir() . '/' . basename($upload['img']['file']);
+                if (!empty($upload['img']['file'])) {
+                    $tmp_file = Horde::getTempDir() . '/' . basename($upload['img']['file']);
+                } else {
+                    $tmp_file = Horde::getTempFile('Horde', false);
+                }
             } else {
                 $tmp_file = Horde::getTempFile('Horde', false);
             }
