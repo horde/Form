@@ -5,7 +5,6 @@ v2.0.20
 [mjr] SECURITY: Prevent ability to specify temporary filename (CVE-2020-8866,
       Reported By: Andrea Cardaci working with Trend Micro Zero Day
       Initiative).
-|+
 
 
 -------
