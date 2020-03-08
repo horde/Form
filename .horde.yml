@@ -2,9 +2,7 @@
 id: Form
 name: Form
 full: Form library
-description: >-
-  A library that provides form rendering, validation, and other
-  functionality.
+description: A library that provides form rendering, validation, and other functionality.
 list: dev
 type: library
 homepage: https://www.horde.org/libraries/Horde_Form

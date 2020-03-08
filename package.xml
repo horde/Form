@@ -3,7 +3,7 @@
  <name>Horde_Form</name>
  <channel>pear.horde.org</channel>
  <summary>Form library</summary>
- <description>The Horde_Form package provides form rendering, validation, and other functionality for the Horde Application Framework.</description>
+ <description>A library that provides form rendering, validation, and other functionality.</description>
  <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
@@ -16,7 +16,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2019-01-06</date>
+ <date>2020-03-08</date>
  <version>
   <release>2.0.20</release>
   <api>1.1.0</api>
@@ -28,7 +28,6 @@
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [mjr] SECURITY: Prevent ability to specify temporary filename (CVE-2020-8866, Reported By: Andrea Cardaci working with Trend Micro Zero Day Initiative).
-* |+
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -714,7 +713,7 @@
    <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+*
    </notes>
   </release>
   <release>
@@ -927,7 +926,7 @@
    <date>2014-04-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+*
    </notes>
   </release>
   <release>
@@ -1108,11 +1107,10 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2019-01-06</date>
+   <date>2020-03-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] SECURITY: Prevent ability to specify temporary filename (CVE-2020-8866, Reported By: Andrea Cardaci working with Trend Micro Zero Day Initiative).
-* |+
    </notes>
   </release>
  </changelog>
