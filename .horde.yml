@@ -45,3 +45,5 @@ dependencies:
       pear.horde.org/Horde_Util: ^2.3
     ext:
       json: '*'
+autoload:
+  classmap: ['lib/']
