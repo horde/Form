@@ -1,8 +1,11 @@
--------
-v2.0.20
--------
+------------
+v3.0.0alpha1
+------------
 
-
+[mjr] SECURITY: Prevent ability to specify temporary filename (CVE-2020-8866,
+      Reported By: Andrea Cardaci working with Trend Micro Zero Day
+      Initiative).
+|+
 
 
 -------
@@ -12,6 +15,7 @@ v2.0.19
 [mjr] SECURITY: Prevent RCE vulnerability due to potential directory traversal
       in Image uploads (An independent security researcher has reported this
       vulnerability to SecuriTeam Secure Disclosure program).
+
 
 
 -------
