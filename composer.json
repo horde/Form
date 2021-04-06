@@ -26,6 +26,7 @@
     ],
     "require": {
         "php": "^7",
+        "horde/log": "^3 || dev-FRAMEWORK_6_0",
         "horde/core": "^3 || dev-FRAMEWORK_6_0",
         "horde/date": "^3 || dev-FRAMEWORK_6_0",
         "horde/exception": "^3 || dev-FRAMEWORK_6_0",
