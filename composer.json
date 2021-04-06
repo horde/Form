@@ -27,7 +27,6 @@
     "require": {
         "php": "^7",
         "horde/log": "^3 || dev-FRAMEWORK_6_0",
-        "horde/core": "^3 || dev-FRAMEWORK_6_0",
         "horde/date": "^3 || dev-FRAMEWORK_6_0",
         "horde/exception": "^3 || dev-FRAMEWORK_6_0",
         "horde/mail": "^3 || dev-FRAMEWORK_6_0",
@@ -38,7 +37,9 @@
         "horde/util": "^3 || dev-FRAMEWORK_6_0",
         "ext-json": "*"
     },
-    "suggest": {},
+    "suggest": {
+        "horde/core": "^3 || dev-FRAMEWORK_6_0"
+    },
     "autoload": {
         "classmap": [
             "lib/"
