@@ -60,7 +60,7 @@ class Horde_Form_Renderer {
      *                         parameter to Horde_Core_Ui_VarRenderer::factory().
      *                       - 'encode_title': @see $_encodeTitle
      */
-    function Horde_Form_Renderer($params = array())
+    function __construct($params = array())
     {
         global $registry;
         if (isset($registry) && is_a($registry, 'Registry')) {
