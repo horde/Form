@@ -75,7 +75,7 @@ class Horde_Form_Action {
      * @return Horde_Form_Action  The concrete Horde_Form_Action reference, or
      *                            false on an error.
      */
-    function &factory($action, $params = null)
+    static function &factory($action, $params = null)
     {
         if (is_array($action)) {
             $app = $action[0];

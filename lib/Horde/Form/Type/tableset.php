@@ -25,10 +25,13 @@ class Horde_Form_Type_tableset extends Horde_Form_Type {
     var $_values;
     var $_header;
 
-    function init($values, $header)
+    /**
+     *     function init($values, $header)
+     */
+    function init(...$params)
     {
-        $this->_values = $values;
-        $this->_header = $header;
+        $this->_values = $params[0];
+        $this->_header = $params[1];
     }
 
     function isValid(&$var, &$vars, $value, &$message)
