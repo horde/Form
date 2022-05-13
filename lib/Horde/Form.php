@@ -57,6 +57,9 @@ class Horde_Form {
         $this->_name = $name;
     }
 
+    /**
+     * @deprecated
+     */
     function singleton($form, &$vars, $title = '', $name = null)
     {
         static $instances = array();
@@ -151,6 +154,8 @@ class Horde_Form {
     }
 
     /**
+     * Initialize a Horde_Form_Type object from a type id
+     * 
      * @throws Horde_Exception
      */
     function getType($type, $params = array())
@@ -166,7 +171,7 @@ class Horde_Form {
         }
         $type_ob = new $type_class();
         if (!$params) {
-            $params = array();
+            $params = [];
         }
         call_user_func_array(array($type_ob, 'init'), $params);
         return $type_ob;

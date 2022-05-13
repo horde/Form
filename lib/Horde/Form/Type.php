@@ -47,11 +47,11 @@ class Horde_Form_Type
     /**
      * Initialize (kind of constructor) - Parameter list may vary on overloading
      */
-    function init()
+    function init(...$params)
     {
     }
 
-    function onSubmit()
+    function onSubmit(...$params)
     {
     }
 
@@ -66,7 +66,7 @@ class Horde_Form_Type
         return str_replace('horde_form_type_', '', Horde_String::lower(get_class($this)));
     }
 
-    function getValues()
+    function getValues(...$params)
     {
         return null;
     }
@@ -153,9 +153,9 @@ class Horde_Form_Type_number extends Horde_Form_Type {
 
     var $_fraction;
 
-    function init($fraction = null)
+    function init(...$params)
     {
-        $this->_fraction = $fraction;
+        $this->_fraction = $params[0] ?? null;
     }
 
     function isValid(&$var, &$vars, $value, &$message)
@@ -329,6 +329,8 @@ class Horde_Form_Type_text extends Horde_Form_Type {
     /**
      * The initialisation function for the text variable type.
      *
+     * function init($regex = '', $size = 40, $maxlength = null)
+     * 
      * @access private
      *
      * @param string $regex       Any valid PHP PCRE pattern syntax that
@@ -342,14 +344,14 @@ class Horde_Form_Type_text extends Horde_Form_Type {
      *                            generated error message is quite generic
      *                            and will not give any indication where
      *                            the regex failed.
-     * @param integer $size       The size of the input field.
-     * @param integer $maxlength  The max number of characters.
+     * @param int     $size       The size of the input field.
+     * @param int     $maxlength  The max number of characters.
      */
-    function init($regex = '', $size = 40, $maxlength = null)
+    public function init(...$params)
     {
-        $this->_regex     = $regex;
-        $this->_size      = $size;
-        $this->_maxlength = $maxlength;
+        $this->_regex     = $params[0] ?? '';
+        $this->_size      = $params[1] ?? 40;
+        $this->_maxlength = $params[2] ?? null;
     }
 
     function isValid(&$var, &$vars, $value, &$message)
@@ -463,9 +465,9 @@ class Horde_Form_Type_phone extends Horde_Form_Type {
     /**
      * @param integer $size  The size of the input field.
      */
-    function init($size = 15)
+    function init(...$params)
     {
-        $this->_size = $size;
+        $this->_size = $params[0] ?? 15;
     }
 
     function isValid(&$var, &$vars, $value, &$message)
@@ -593,8 +595,19 @@ class Horde_Form_Type_longtext extends Horde_Form_Type_text {
     var $_cols;
     var $_helper = array();
 
-    function init($rows = 8, $cols = 80, $helper = array())
+    /**
+     *   Initialize a Longtext field type
+     * 
+     *   @param $rows = $params[0] ?? 8;
+     *   @param $cols = $params[1] ?? 80;
+     *   @param $helper = $params[2] ?? array();
+     */
+    function init(...$params)
     {
+        $rows = $params[0] ?? 8;
+        $cols = $params[1] ?? 80;
+        $helper = $params[2] ?? array();
+        
         if (!is_array($helper)) {
             $helper = array($helper);
         }
@@ -651,8 +664,16 @@ class Horde_Form_Type_countedtext extends Horde_Form_Type_longtext {
 
     var $_chars;
 
-    function init($rows = null, $cols = null, $chars = 1000)
+    /**
+     * Init a longtext field
+     * 
+     * function init($rows = null, $cols = null, $chars = 1000)
+     */
+    function init(...$params)
     {
+        $rows = $params[0] ?? null;
+        $cols = $params[1] ?? null;
+        $chars = $params[2] ?? 1000;
         parent::init($rows, $cols);
         $this->_chars = $chars;
     }
@@ -840,8 +861,19 @@ class Horde_Form_Type_pgp extends Horde_Form_Type_longtext {
      */
     var $_temp;
 
-    function init($gpg, $temp_dir = null, $rows = null, $cols = null)
+
+    /**
+     * Init a PGP field
+     * 
+     * function init($gpg, $temp_dir = null, $rows = null, $cols = null)
+     */
+    function init(...$params)
     {
+        $gpg = $params[0] ?? null;
+        $temp_dir = $params[1] ?? null;
+        $rows = $params[2] ?? null;
+        $cols = $params[3] ?? null;
+
         $this->_gpg = $gpg;
         $this->_temp = $temp_dir;
         parent::init($rows, $cols);
@@ -886,8 +918,17 @@ class Horde_Form_Type_smime extends Horde_Form_Type_longtext {
      */
     var $_temp;
 
-    function init($temp_dir = null, $rows = null, $cols = null)
+    /**
+     * Init a S/MIME field
+     * 
+     * function init($temp_dir = null, $rows = null, $cols = null)
+     */
+    function init(...$params)
     {
+        $temp_dir = $params[0] ?? null;
+        $rows = $params[1] ?? null;
+        $cols = $params[2] ?? null;
+        
         $this->_temp = $temp_dir;
         parent::init($rows, $cols);
     }
@@ -922,8 +963,14 @@ class Horde_Form_Type_smime extends Horde_Form_Type_longtext {
 
 class Horde_Form_Type_country extends Horde_Form_Type_enum {
 
-    function init($prompt = null)
+    /**
+     * Init a Country field
+     * 
+     * function init($prompt = null)
+     */
+    function init(...$params)
     {
+        $prompt = $params[0] ?? null;
         parent::init(Horde_Nls::getCountryISO(), $prompt);
     }
 
@@ -1025,15 +1072,26 @@ class Horde_Form_Type_image extends Horde_Form_Type {
      */
     var $_random;
 
-    function init($show_upload = true, $show_keeporig = false, $max_filesize = null)
+    /**
+     * Init a Country field
+     * 
+     *     function init($show_upload = true, $show_keeporig = false, $max_filesize = null)
+     */
+    function init(...$params)
     {
-        $this->_show_upload   = $show_upload;
-        $this->_show_keeporig = $show_keeporig;
-        $this->_max_filesize  = $max_filesize;
+        $this->_show_upload   = $params[0] ?? true;
+        $this->_show_keeporig = $params[1] ?? false;
+        $this->_max_filesize  = $params[2] ?? null;
     }
 
-    function onSubmit(&$var, &$vars)
+    /**
+     *     function onSubmit(&$var, &$vars)
+     */
+    public function onSubmit(...$params)
     {
+        $var = $params[0];
+        $vars = $params[1];
+
         /* Are we removing an image? */
         if ($vars->get('remove_' . $var->getVarName())) {
             $GLOBALS['session']->remove('horde', 'form/' . $this->getRandomId());
@@ -1391,9 +1449,14 @@ class Horde_Form_Type_link extends Horde_Form_Type {
      */
     var $values;
 
-    function init($values)
+    /**
+     * Init a Link field
+     * 
+     * function init($values)
+     */
+    function init(...$params)
     {
-        $this->values = $values;
+        $this->values = $params[0] ?? null;
     }
 
     function isValid(&$var, &$vars, $value, &$message)
@@ -1488,25 +1551,29 @@ class Horde_Form_Type_email extends Horde_Form_Type {
     var $_size;
 
     /**
-     * @param boolean $allow_multi   Allow multiple addresses?
-     * @param boolean $strip_domain  Protect address from spammers?
-     * @param boolean $link_compose  Link the email address to the compose page
+     * Init an "email" field
+     * 
+     * @param bool $allow_multi   Allow multiple addresses?
+     * @param bool $strip_domain  Protect address from spammers?
+     * @param bool $link_compose  Link the email address to the compose page
      *                               when displaying?
      * @param string $link_name      The name to use when linking to the
      *                               compose page.
      * @param string $delimiters     Character to split multiple addresses with.
-     * @param integer $size          The size of the input field.
+     * @param int $size          The size of the input field.
+     *    function init($allow_multi = false, $strip_domain = false,
+     *             $link_compose = false, $link_name = null,
+     *             $delimiters = ',', $size = null)
+     * {
      */
-    function init($allow_multi = false, $strip_domain = false,
-                  $link_compose = false, $link_name = null,
-                  $delimiters = ',', $size = null)
+    function init(...$params)
     {
-        $this->_allow_multi = $allow_multi;
-        $this->_strip_domain = $strip_domain;
-        $this->_link_compose = $link_compose;
-        $this->_link_name = $link_name;
-        $this->_delimiters = $delimiters;
-        $this->_size = $size;
+        $this->_allow_multi = $params[0] ?? false;
+        $this->_strip_domain = $params[1] ?? false;
+        $this->_link_compose = $params[2] ?? false;
+        $this->_link_name = $params[3] ?? null;
+        $this->_delimiters = $params[4] ?? ',';
+        $this->_size = $params[5] ?? null;
     }
 
     /**
@@ -2112,22 +2179,23 @@ class Horde_Form_Type_matrix extends Horde_Form_Type {
      *            array(fasle, true, false)),
      *      array('Row 4', 'Row 5'));
      * </code>
+     * function init($cols, $rows = array(), $matrix = array(), $new_input = false)
      *
      * @param array $cols               A list of column headers.
      * @param array $rows               A hash with row IDs as the keys and row
      *                                  labels as the values.
      * @param array $matrix             A two dimensional hash with the field
      *                                  values.
-     * @param boolean|array $new_input  If true, a free text field to add a new
+     * @param bool|array $new_input  If true, a free text field to add a new
      *                                  row is displayed on the top, a select
      *                                  box if this parameter is a value.
      */
-    function init($cols, $rows = array(), $matrix = array(), $new_input = false)
+    function init(...$params)
     {
-        $this->_cols       = $cols;
-        $this->_rows       = $rows;
-        $this->_matrix     = $matrix;
-        $this->_new_input  = $new_input;
+        $this->_cols       = $params[0] ?? [];
+        $this->_rows       = $params[1] ?? [];
+        $this->_matrix     = $params[2] ?? [];
+        $this->_new_input  = $params[3] ?? false;
     }
 
     function isValid(&$var, &$vars, $value, &$message)
@@ -2272,12 +2340,16 @@ class Horde_Form_Type_enum extends Horde_Form_Type {
     var $_prompt;
     /**
      * Initialize (kind of constructor)
+     * 
+     * function init($values, $prompt = null)
+     * 
      * @param array $values            A hash map where the key is the internal 'value' to process and the value is the caption presented to the user
-     * @param string|boolean  $prompt  A null value text to prompt user selecting a value. Use a default if boolean true, else use the supplied string. No prompt on false.
+     * @param string|bool  $prompt  A null value text to prompt user selecting a value. Use a default if boolean true, else use the supplied string. No prompt on false.
      */
-    function init($values, $prompt = null)
+    function init(...$params)
     {
-        $this->setValues($values);
+        $this->setValues($params[0] ?? []);
+        $prompt = $params[1] ?? false;
 
         if ($prompt === true) {
             $this->_prompt = Horde_Form_Translation::t("-- select --");
@@ -2302,7 +2374,7 @@ class Horde_Form_Type_enum extends Horde_Form_Type {
         return false;
     }
 
-    function getValues()
+    function getValues(...$params)
     {
         return $this->_values;
     }
@@ -2338,9 +2410,15 @@ class Horde_Form_Type_mlenum extends Horde_Form_Type {
     var $_values;
     var $_prompts;
 
-    function init(&$values, $prompts = null)
+    /**
+     * Initialize an mlenum field
+     * 
+     * function init(&$values, $prompts = null)
+     */
+    function init(...$params)
     {
-        $this->_values = &$values;
+        $this->_values = &$params[0];
+        $prompts = $params[1] ?? null;
 
         if ($prompts === true) {
             $this->_prompts = array(Horde_Form_Translation::t("-- select --"), Horde_Form_Translation::t("-- select --"));
@@ -2351,8 +2429,14 @@ class Horde_Form_Type_mlenum extends Horde_Form_Type {
         }
     }
 
-    function onSubmit(&$var, &$vars)
+    /**
+     *     function onSubmit(&$var, &$vars)
+     */
+    public function onSubmit(...$params)
     {
+        $var = $params[0];
+        $vars = $params[1];
+
         $varname = $var->getVarName();
         $value = $vars->get($varname);
 
@@ -2377,7 +2461,7 @@ class Horde_Form_Type_mlenum extends Horde_Form_Type {
         return false;
     }
 
-    function getValues()
+    function getValues(...$params)
     {
         return $this->_values;
     }
@@ -2420,11 +2504,17 @@ class Horde_Form_Type_multienum extends Horde_Form_Type_enum {
 
     /**
      * Initialize (kind of constructor)
+     * 
+     * function init($values, $size = null)
+     * 
      * @param array $values  A hash map where the key is the internal 'value' to process and the value is the caption presented to the user
-     * @param integer $size  The number of rows the multienum should display before scrolling
+     * @param int $size  The number of rows the multienum should display before scrolling
      */
-    function init($values, $size = null)
+    function init(...$params)
     {
+        $values = $params[0] ?? [];
+        $size = $params[1] ?? null;
+
         if (!is_null($size)) {
             $this->size = (int)$size;
         }
@@ -2523,10 +2613,15 @@ class Horde_Form_Type_set extends Horde_Form_Type {
     var $_values;
     var $_checkAll = false;
 
-    function init($values, $checkAll = false)
+    /**
+     * Initialize a Set form type
+     * 
+     * function init($values, $checkAll = false)
+     */
+    function init(...$params)
     {
-        $this->_values = $values;
-        $this->_checkAll = $checkAll;
+        $this->_values = $params[0];
+        $this->_checkAll = $params[1] ?? false;
     }
 
     function isValid(&$var, &$vars, $value, &$message)
@@ -2548,7 +2643,7 @@ class Horde_Form_Type_set extends Horde_Form_Type {
         return false;
     }
 
-    function getValues()
+    function getValues(...$params)
     {
         return $this->_values;
     }
@@ -2571,9 +2666,14 @@ class Horde_Form_Type_date extends Horde_Form_Type {
 
     var $_format;
 
-    function init($format = '%a %d %B')
+    /**
+     * Initialize a Set form type
+     * 
+     * function init($format = '%a %d %B')
+     */
+    function init(...$params)
     {
-        $this->_format = $format;
+        $this->_format = $params[0] ?? '%a %d %B';
     }
 
     function isValid(&$var, &$vars, $value, &$message)
@@ -2680,9 +2780,14 @@ class Horde_Form_Type_hourminutesecond extends Horde_Form_Type {
 
     var $_show_seconds;
 
-    function init($show_seconds = false)
+    /**
+     * Initialize a Set form type
+     * 
+     * function init($show_seconds = false)
+     */
+    function init(...$params)
     {
-        $this->_show_seconds = $show_seconds;
+        $this->_show_seconds = $params[0] ?? false;
     }
 
     function isValid(&$var, &$vars, $value, &$message)
@@ -2792,8 +2897,16 @@ class Horde_Form_Type_monthyear extends Horde_Form_Type {
     var $_start_year;
     var $_end_year;
 
-    function init($start_year = null, $end_year = null)
+    /**
+     * Initialize a Month/Year form type
+     * 
+     * function init($start_year = null, $end_year = null)
+     */
+    function init(...$params)
     {
+        $start_year = $params[0] ?? null;
+        $end_year = $params[1] ?? null;
+
         if (empty($start_year)) {
             $start_year = 1920;
         }
@@ -2856,18 +2969,26 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type {
     /**
      * Return the date supplied as a Horde_Date object.
      *
-     * @param integer $start_year  The first available year for input.
-     * @param integer $end_year    The last available year for input.
-     * @param boolean $picker      Do we show the DHTML calendar?
-     * @param integer $format_in   The format to use when sending the date
+     *     function init($start_year = '', $end_year = '', $picker = true,
+     *             $format_in = null, $format_out = '%x')
+     *
+     * @param int  $start_year  The first available year for input.
+     * @param int  $end_year    The last available year for input.
+     * @param bool $picker      Do we show the DHTML calendar?
+     * @param int  $format_in   The format to use when sending the date
      *                             for storage. Defaults to Unix epoch.
      *                             Similar to the strftime() function.
-     * @param integer $format_out  The format to use when displaying the
+     * @param int $format_out  The format to use when displaying the
      *                             date. Similar to the strftime() function.
      */
-    function init($start_year = '', $end_year = '', $picker = true,
-                  $format_in = null, $format_out = '%x')
+    function init(...$params)
     {
+        $start_year = $params[0] ?? '';
+        $end_year = $params[1] ?? '';
+        $picker = $params[2] ?? true;
+        $format_in = $params[3] ?? null;
+        $format_out = $params[4] ?? '%x';
+
         if (empty($start_year)) {
             $start_year = date('Y');
         }
@@ -3079,19 +3200,28 @@ class Horde_Form_Type_datetime extends Horde_Form_Type {
     /**
      * Return the date supplied as a Horde_Date object.
      *
-     * @param integer $start_year  The first available year for input.
-     * @param integer $end_year    The last available year for input.
-     * @param boolean $picker      Do we show the DHTML calendar?
-     * @param integer $format_in   The format to use when sending the date
+     * function init($start_year = '', $end_year = '', $picker = true,
+     * $format_in = null, $format_out = '%x', $show_seconds = false)
+     *
+     * @param int  $start_year  The first available year for input.
+     * @param int  $end_year    The last available year for input.
+     * @param bool $picker      Do we show the DHTML calendar?
+     * @param int  $format_in   The format to use when sending the date
      *                             for storage. Defaults to Unix epoch.
      *                             Similar to the strftime() function.
-     * @param integer $format_out  The format to use when displaying the
+     * @param int  $format_out  The format to use when displaying the
      *                             date. Similar to the strftime() function.
-     * @param boolean $show_seconds Include a form input for seconds.
+     * @param bool $show_seconds Include a form input for seconds.
      */
-    function init($start_year = '', $end_year = '', $picker = true,
-                  $format_in = null, $format_out = '%x', $show_seconds = false)
+    function init(...$params)
     {
+        $start_year = $params[0] ?? '';
+        $end_year = $params[1] ?? '';
+        $picker = $params[2] ?? true;
+        $format_in = $params[3] ?? null;
+        $format_out = $params[4] ?? '%x';
+        $show_seconds = $params[5] ?? false;
+
         $this->_mdy = new Horde_Form_Type_monthdayyear();
         $this->_mdy->init($start_year, $end_year, $picker, $format_in, $format_out);
 
@@ -3277,7 +3407,7 @@ class Horde_Form_Type_sound extends Horde_Form_Type {
 
     var $_sounds = array();
 
-    function init()
+    function init(...$params)
     {
         $this->_sounds = array_keys(Horde_Themes::soundList());
     }
@@ -3319,8 +3449,15 @@ class Horde_Form_Type_sorter extends Horde_Form_Type {
     var $_size;
     var $_header;
 
-    function init($values, $size = 8, $header = '')
+    /**
+     *     function init($values, $size = 8, $header = '')
+     */
+    function init(...$params)
     {
+        $values = $params[0];
+        $size = $params[1] ?? 8;
+        $header = $params[2] ?? '';
+
         static $horde_sorter_instance = 0;
 
         /* Get the next progressive instance count for the horde
@@ -3337,7 +3474,7 @@ class Horde_Form_Type_sorter extends Horde_Form_Type {
         return true;
     }
 
-    function getValues()
+    function getValues(...$params)
     {
         return $this->_values;
     }
@@ -3428,10 +3565,19 @@ class Horde_Form_Type_selectfiles extends Horde_Form_Type {
      */
     var $_selectid;
 
-    function init($selectid, $link_text = null, $link_style = '',
-                  $icon = false)
+    /**
+     * Initialize a file selection type
+     * 
+     * function init($selectid, $link_text = null, $link_style = '',
+     *      $icon = false)
+     */
+    function init(...$params)
     {
-        $this->_selectid = $selectid;
+        $this->_selectid = $params[0];
+        $link_text = $params[1] ?? null;
+        $link_style = $params[2] ?? '';
+        $icon =$params[3] ?? false;
+
         if (is_null($link_text)) {
             $link_text = Horde_Form_Translation::t("Select Files");
         }
@@ -3477,15 +3623,20 @@ class Horde_Form_Type_assign extends Horde_Form_Type {
     var $_size;
     var $_width;
 
-    function init($leftValues, $rightValues, $leftHeader = '',
-                  $rightHeader = '', $size = 8, $width = '200px')
+    /**
+     * Initialize an assignment field
+     * 
+     * function init($leftValues, $rightValues, $leftHeader = '',
+     *     $rightHeader = '', $size = 8, $width = '200px')
+     */
+    function init(...$params)
     {
-        $this->_leftValues = $leftValues;
-        $this->_rightValues = $rightValues;
-        $this->_leftHeader = $leftHeader;
-        $this->_rightHeader = $rightHeader;
-        $this->_size = $size;
-        $this->_width = $width;
+        $this->_leftValues = $params[0];
+        $this->_rightValues = $params[1];
+        $this->_leftHeader = $params[2] ?? '';
+        $this->_rightHeader = $params[3] ?? '';
+        $this->_size = $params[4] ?? 8;
+        $this->_width = $params[5] ?? '200px';
     }
 
     function isValid(&$var, &$vars, $value, &$message)
@@ -3493,9 +3644,12 @@ class Horde_Form_Type_assign extends Horde_Form_Type {
         return true;
     }
 
-    function getValues($side)
+    /**
+     *     function getValues($side)
+     */
+    function getValues(...$params)
     {
-        return $side ? $this->_rightValues : $this->_leftValues;
+        return empty($params[0]) ? $this->_rightValues : $this->_leftValues;
     }
 
     function setValues($side, $values)
@@ -3719,9 +3873,22 @@ class Horde_Form_Type_obrowser extends Horde_Form_Type {
 
 class Horde_Form_Type_dblookup extends Horde_Form_Type_enum {
 
-    function init($db, $sql, $prompt = null)
+    /**
+     * Initialize an dblookup field
+     * 
+     * @param Horde_Db_Adapter $db
+     * @param string $sql
+     * @param string|null $prompt
+     * 
+     * function init($db, $sql, $prompt = null)
+     */
+    function init(...$params)
     {
-        $values = array();
+        $db = $params[0];
+        $sql = $params[1];
+        $prompt = $params[2] ?? null;
+
+        $values = [];
         try {
             $col = $db->selectValues($sql);
             $values = array_combine($col, $col);
@@ -3754,10 +3921,15 @@ class Horde_Form_Type_figlet extends Horde_Form_Type {
     var $_text;
     var $_font;
 
-    function init($text, $font)
+    /**
+     * Initialize a Figlet form type
+     * 
+     * function init($text, $font)
+     */
+    function init(...$params)
     {
-        $this->_text = $text;
-        $this->_font = $font;
+        $this->_text = $params[0];
+        $this->_font = $params[1];
     }
 
     function isValid(&$var, &$vars, $value, &$message)
@@ -3859,9 +4031,14 @@ class Horde_Form_Type_invalid extends Horde_Form_Type {
 
     var $message;
 
-    function init($message)
+    /**
+     * Initialize an Invalid Message form type
+     * 
+     * function init($message)
+     */
+    function init(...$params)
     {
-        $this->message = $message;
+        $this->message = $params[0] ?? '';
     }
 
     function isValid(&$var, &$vars, $value, &$message)
