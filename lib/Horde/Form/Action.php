@@ -27,6 +27,12 @@ class Horde_Form_Action {
     var $_params;
     var $_trigger = null;
 
+    public function __construct($params = null) 
+    {
+        $this->_params = $params;
+        $this->_id = md5(mt_rand());
+
+    }
     function Horde_Form_Action($params = null)
     {
         $this->_params = $params;
