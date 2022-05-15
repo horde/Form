@@ -26,19 +26,19 @@ class Horde_Form_Action_updatefield extends Horde_Form_Action {
 
     var $_trigger = array('onchange', 'onload', 'onkeyup');
 
-    function getActionScript(&$form, &$renderer, $varname)
+    function getActionScript($form, $renderer, $varname)
     {
         return 'updateField' . $this->id() . '();';
     }
 
-    function setValues(&$vars, $sourceVal, $arrayVal = false)
+    function setValues(&$vars, $sourceVal, $index = null, $arrayVal = false)
     {
     }
 
     function printJavaScript()
     {
         $pieces = explode('%s', $this->_params['format']);
-        $fields = $this->_params['fields'];
+        $fields = $this->_params['fields'] ?? [];
         $val_first = (substr($this->_params['format'], 0, 2) == '%s');
         if ($val_first) {
             array_shift($pieces);
