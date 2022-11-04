@@ -1,5 +1,4 @@
 {
-    "minimum-stability": "dev",
     "name": "horde/form",
     "description": "Form library",
     "type": "library",
@@ -17,16 +16,16 @@
             "role": "lead"
         }
     ],
-    "time": "2021-03-13",
+    "time": "2022-11-04",
     "repositories": [
         {
             "type": "composer",
-            "url": "https://horde-satis.maintaina.com/"
+            "url": "https://horde-satis.maintaina.com"
         }
     ],
     "require": {
         "php": "^7.4 || ^8",
-        "horde/log": "^3 || dev-FRAMEWORK_6_0",
+        "horde/core": "^3 || dev-FRAMEWORK_6_0",
         "horde/date": "^3 || dev-FRAMEWORK_6_0",
         "horde/exception": "^3 || dev-FRAMEWORK_6_0",
         "horde/mail": "^3 || dev-FRAMEWORK_6_0",
@@ -37,12 +36,21 @@
         "horde/util": "^3 || dev-FRAMEWORK_6_0",
         "ext-json": "*"
     },
-    "suggest": {
-        "horde/core": "^3 || dev-FRAMEWORK_6_0"
-    },
+    "require-dev": {},
+    "suggest": {},
     "autoload": {
         "classmap": [
             "lib/"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Horde\\Form\\Test\\": "test/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "horde/horde-installer-plugin": true
+        }
     }
 }
