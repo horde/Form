@@ -18,28 +18,20 @@
     ],
     "version": "2.0.19",
     "time": "2017-11-11",
-    "repositories": [
-        {
-            "type": "pear",
-            "url": "https://pear.horde.org"
-        }
-    ],
     "require": {
         "php": "^5.3 || ^7",
-        "pear-pear.horde.org/Horde_Core": "^2",
-        "pear-pear.horde.org/Horde_Date": "^2",
-        "pear-pear.horde.org/Horde_Exception": "^2",
-        "pear-pear.horde.org/Horde_Mail": "^2",
-        "pear-pear.horde.org/Horde_Mime": "^2",
-        "pear-pear.horde.org/Horde_Nls": "^2",
-        "pear-pear.horde.org/Horde_Token": "^2",
-        "pear-pear.horde.org/Horde_Translation": "^2.2",
-        "pear-pear.horde.org/Horde_Util": "^2.3",
+        "horde/core": "^2",
+        "horde/date": "^2",
+        "horde/exception": "^2",
+        "horde/mail": "^2",
+        "horde/mime": "^2",
+        "horde/nls": "^2",
+        "horde/token": "^2",
+        "horde/translation": "^2.2",
+        "horde/util": "^2.3",
         "ext-json": "*"
     },
     "replace": {
-        "pear-pear.horde.org/Horde_Form": "2.*",
-        "pear-horde/Horde_Form": "2.*"
     },
     "autoload": {
         "psr-0": {
