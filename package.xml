@@ -16,7 +16,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2022-11-04</date>
+ <date>2024-01-10</date>
  <version>
   <release>3.0.0alpha5</release>
   <api>3.0.0alpha1</api>
@@ -27,7 +27,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1-only</license>
  <notes>
-* 
+* [rla] Fix deprecated string interpolation.
+* |+
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -437,50 +438,6 @@
   </filelist>
  </phprelease>
  <changelog>
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
   <release>
    <version>
     <release>0.0.1</release>
@@ -1161,9 +1118,10 @@
     <api>alpha</api>
    </stability>
    <date>2022-11-04</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1-only</license>
    <notes>
-* 
+* [rla] Fix deprecated string interpolation.
+* |+
    </notes>
   </release>
  </changelog>
