@@ -316,8 +316,8 @@ class Horde_Form_Renderer {
                 default:
                     $isInput = ($active && !$var->isReadonly());
                     $format = $isInput ? 'Input' : 'Display';
-                    $begin = "_renderVar${format}Begin";
-                    $end = "_renderVar${format}End";
+                    $begin = "_renderVar{$format}Begin";
+                    $end = "_renderVar{$format}End";
 
                     $this->$begin($form, $var, $vars);
                     echo $this->_varRenderer->render($form, $var, $vars, $isInput);
