@@ -38,7 +38,7 @@ class Horde_Form_Action_ConditionalEnable extends Horde_Form_Action {
 
     var $_trigger = array('onload');
 
-    function getActionScript(&$form, $renderer, $varname)
+    function getActionScript($form, $renderer, $varname)
     {
         $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('form_helpers.js', 'horde');
 
