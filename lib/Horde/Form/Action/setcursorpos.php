@@ -27,7 +27,7 @@ class Horde_Form_Action_setcursorpos extends Horde_Form_Action {
 
     var $_trigger = array('onload');
 
-    function getActionScript(&$form, $renderer, $varname)
+    function getActionScript($form, $renderer, $varname)
     {
         $injector->getInstance('Horde_PageOutput')->addScriptFile('form_helpers.js', 'horde');
 
