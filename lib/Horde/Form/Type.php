@@ -183,6 +183,7 @@ class Horde_Form_Type_number extends Horde_Form_Type
         }
 
         $message = Horde_Form_Translation::t("This field must be a valid number.");
+        $this->message = $message;
         return false;
     }
 
