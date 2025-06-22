@@ -564,6 +564,7 @@ class Horde_Form_Type_ipaddress extends Horde_Form_Type_text
 
             if (!$valid) {
                 $message = Horde_Form_Translation::t("Please enter a valid IP address.");
+                $this->message = $message;
             }
         } elseif ($var->isRequired()) {
             $valid = false;
@@ -715,14 +716,14 @@ class Horde_Form_Type_countedtext extends Horde_Form_Type_longtext
         if ($var->isRequired() && $length <= 0) {
             $valid = false;
             $message = Horde_Form_Translation::t("This field is required.");
-
+            $this->message = $message;
         } elseif ($length > $this->_chars) {
             $valid = false;
             $message = sprintf(Horde_Form_Translation::ngettext("There are too many characters in this field. You have entered %d character; ", "There are too many characters in this field. You have entered %d characters; ", $length), $length)
                 . sprintf(Horde_Form_Translation::t("you must enter less than %d."), $this->_chars);
+            $this->message = $message;
         }
 
-        $this->message = (string)$message;
         return $valid;
     }
 
@@ -1180,7 +1181,7 @@ class Horde_Form_Type_image extends Horde_Form_Type
             } elseif (!empty($field['hash'])) {
                 if ($this->_img && isset($this->_img['error'])) {
                     $message = $this->_img['error'];
-            $this->message = $message;
+                    $this->message = $message;
                     return false;
                 }
                 /* Nothing uploaded but older upload present. */
@@ -1188,6 +1189,7 @@ class Horde_Form_Type_image extends Horde_Form_Type
             } else {
                 /* Some other error message. */
                 $message = $this->_uploaded->getMessage();
+                $this->message = $message;
                 return false;
             }
         } elseif (empty($this->_img['img']['size'])) {
@@ -1656,7 +1658,7 @@ class Horde_Form_Type_email extends Horde_Form_Type
             } else {
                 $message = Horde_Form_Translation::t("You must enter an email address.");
             }
-            $this->message = (string)$message;
+            $this->message = $message;
             return false;
         }
 
@@ -4181,8 +4183,6 @@ class Horde_Form_Type_category extends Horde_Form_Type
 
 class Horde_Form_Type_invalid extends Horde_Form_Type
 {
-    public string $message;
-
     /**
      * Initialize an Invalid Message form type
      *
