@@ -1178,7 +1178,8 @@ class Horde_Form_Type_image extends Horde_Form_Type
                 $message = Horde_Form_Translation::t("This field is required.");
                 $this->message = $message;
                 return false;
-            } elseif (!empty($field['hash'])) {
+            }
+            if (!empty($field['hash'])) {
                 if ($this->_img && isset($this->_img['error'])) {
                     $message = $this->_img['error'];
                     $this->message = $message;
@@ -1186,17 +1187,18 @@ class Horde_Form_Type_image extends Horde_Form_Type
                 }
                 /* Nothing uploaded but older upload present. */
                 return true;
-            } else {
-                /* Some other error message. */
-                $message = $this->_uploaded->getMessage();
-                $this->message = $message;
-                return false;
             }
-        } elseif (empty($this->_img['img']['size'])) {
+            /* Some other error message. */
+            $message = $this->_uploaded->getMessage();
+            $this->message = $message;
+            return false;
+        }
+        if (empty($this->_img['img']['size'])) {
             $message = Horde_Form_Translation::t("The image file size could not be determined or it was 0 bytes. The upload may have been interrupted.");
             $this->message = $message;
             return false;
-        } elseif ($this->_max_filesize &&
+        }
+        if ($this->_max_filesize &&
                   $this->_img['img']['size'] > $this->_max_filesize) {
             $message = sprintf(Horde_Form_Translation::t("The image file was larger than the maximum allowed size (%d bytes)."), $this->_max_filesize);
             $this->message = $message;
@@ -1217,14 +1219,15 @@ class Horde_Form_Type_image extends Horde_Form_Type
         /* Check if we have image data */
         if (!isset($this->_img) || !isset($this->_img['img'])) {
             $info = '';
-            return;
+            return $info;
         }
 
         $info = $this->_img['img'];
         if (empty($info['file'])) {
             unset($info['file']);
-            return;
+            return $info;
         }
+
         if ($this->_show_keeporig) {
             $info['keep_orig'] = !empty($value['keep_orig']);
         }
@@ -3407,8 +3410,7 @@ class Horde_Form_Type_datetime extends Horde_Form_Type
          * default. */
         $value = $var->getValue($vars);
         if ($this->emptyDateArray($value) == 1 || $this->emptyTimeArray($value)) {
-            $this->_getInfo($var->getDefault(), $info);
-            return;
+            return $this->_getInfo($var->getDefault(), $info);
         }
 
         return $this->_getInfo($value, $info);
@@ -3418,8 +3420,7 @@ class Horde_Form_Type_datetime extends Horde_Form_Type
     {
         // If any component is empty consider it a bad date and return null
         if ($this->emptyDateArray($value) != 0 || $this->emptyTimeArray($value)) {
-            $info = null;
-            return;
+            return null;
         }
 
         $date = $this->getDateOb($value);
