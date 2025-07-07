@@ -265,16 +265,43 @@ class Horde_Form
         $description = null,
         $params = []
     ) {
-        $type = $this->getType($type, $params);
-        $var = new Horde_Form_Variable(
-            $humanName,
-            $varName,
-            $type,
-            $required,
-            $readonly,
-            $description
-        );
+        // V3
+        $v3 = true;  // need some way to enable for development/testing
+        if ($v3) {
+            $arr = explode(':', $type, 2);
+            if (count($arr) == 2) {
+                $app = $arr[0];
+                $name = $arr[1];
+            } else {
+                $app = 'Horde';
+                $name = $arr[0];
+            }
+            $class = $app . '\Form\V3\\' . ucfirst($name) . 'Variable';
+            $v3 = class_exists($class);
+        }
+        if ($v3) {
+            $var = new $class(
+                $humanName,
+                $varName,
+                $required,
+                $readonly,
+               $description
+            );
 
+            call_user_func_array([$var, 'init'], $params);
+            $type = $var;
+        } else {
+            // pre-V3
+            $type = $this->getType($type, $params);
+            $var = new Horde_Form_Variable(
+                $humanName,
+                $varName,
+                $type,
+                $required,
+                $readonly,
+                 $description
+            );
+        }
         /* Set the form object reference in the var. */
         $var->setFormOb($this);
 
@@ -719,7 +746,8 @@ class Horde_Form
 
     public function getError($var)
     {
-        if (is_a($var, 'Horde_Form_Variable')) {
+        //if (is_a($var, 'Horde_Form_Variable')) {
+        if (is_object($var)) {
             $name = $var->getVarName();
         } else {
             $name = $var;
@@ -729,7 +757,8 @@ class Horde_Form
 
     public function setError($var, $message)
     {
-        if (is_a($var, 'Horde_Form_Variable')) {
+        //if (is_a($var, 'Horde_Form_Variable')) {
+        if (is_object($var)) {
             $name = $var->getVarName();
         } else {
             $name = $var;
@@ -739,7 +768,8 @@ class Horde_Form
 
     public function clearError($var)
     {
-        if (is_a($var, 'Horde_Form_Variable')) {
+        //if (is_a($var, 'Horde_Form_Variable')) {
+        if (is_object($var)) {
             $name = $var->getVarName();
         } else {
             $name = $var;
