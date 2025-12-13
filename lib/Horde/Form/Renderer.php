@@ -146,15 +146,28 @@ class Horde_Form_Renderer
 
         /* Add the javascript for the toggling the sections. */
         $page = $GLOBALS['injector']->getInstance('Horde_PageOutput');
-        $page->addScriptFile('form_sections.js', 'horde');
-        $page->addInlineScript(
-            sprintf(
-                'var sections_%1$s = new Horde_Form_Sections(\'%1$s\', \'%2$s\');',
-                $form->getName(),
-                rawurlencode($open_section)
-            )
+        $var_name = 'sections_' . $form->getName();
+        $var_script = sprintf(
+            'var %1$s = new Horde_Form_Sections(\'%2$s\', \'%3$s\');',
+            $var_name,
+            $form->getName(),
+            rawurlencode($open_section)
         );
-
+        
+        /* Output script inline in body to ensure it's loaded synchronously before variable initialization */
+        /* Note: Even though scripts in header are loaded synchronously, there can be timing issues
+         * when the variable is initialized in the body. Inline embedding guarantees the script
+         * is available immediately when the variable is initialized. */
+        $script_path = $GLOBALS['registry']->get('jsfs', 'horde') . 'form_sections.js';
+        if (file_exists($script_path)) {
+            $script_content = file_get_contents($script_path);
+            echo '<script type="text/javascript">' . "\n";
+            echo '//<![CDATA[' . "\n";
+            echo $script_content . "\n";
+            echo '//]]>' . "\n";
+            echo '</script>' . "\n";
+        }
+        
         /* Loop through the sections and print out a tab for each. */
         echo "<div class=\"tabset\"><ul>\n";
         foreach ($form->_sections as $section => $val) {
@@ -174,6 +187,14 @@ class Horde_Form_Renderer
             );
         }
         echo "</ul></div><br class=\"clear\" />\n";
+        
+        /* Output JavaScript variable directly in body, right after tabs, to ensure it's available immediately */
+        /* Script is loaded inline above, so Horde_Form_Sections is guaranteed to be available */
+        echo '<script type="text/javascript">' . "\n";
+        echo '//<![CDATA[' . "\n";
+        echo $var_script . "\n";
+        echo '//]]>' . "\n";
+        echo '</script>' . "\n";
     }
 
     public function _renderSectionBegin($form, $section)
