@@ -963,9 +963,23 @@ class Horde_Form_Type_country extends Horde_Form_Type_enum
      *
      * function init($prompt = null)
      */
-    public function init(...$params)
+public function init(...$params)
     {
-        $prompt = $params[0] ?? null;
+        // When call_user_func_array passes an associative array like ['prompt' => 1],
+        // and the function uses ...$params, PHP passes the array as a single argument,
+        // but $params itself becomes the associative array directly (not $params[0])
+        // So we need to check if $params itself has the 'prompt' key
+        $prompt = null;
+        if (is_array($params) && isset($params['prompt'])) {
+            // $params is directly the associative array with 'prompt' key
+            $prompt = $params['prompt'];
+        } elseif (isset($params[0]) && is_array($params[0]) && isset($params[0]['prompt'])) {
+            // $params[0] is an array with 'prompt' key (fallback for numeric arrays)
+            $prompt = $params[0]['prompt'];
+        } elseif (isset($params[0]) && !is_array($params[0])) {
+            // Direct value passed as first argument
+            $prompt = $params[0];
+        }
         parent::init(Horde_Nls::getCountryISO(), $prompt);
     }
 
