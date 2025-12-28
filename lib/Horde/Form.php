@@ -188,11 +188,19 @@ class Horde_Form
             self::$init_params_cache[$type_class] = $keys;
         }
 
-        // convert named keys to numeric indexes
+        // convert named parameters to positional
         $i = 0;
+        $ni = 0;
         foreach ($keys as $key) {
             if (array_key_exists($key, $params)) {
-                $params[$i] = $params[$key];
+                // make sure prior index(es) exist
+                while ($ni < $i) {
+                    if (!array_key_exists($ni, $params)) {
+                        $params[$ni] = null;
+                    }
+                    ++$ni;
+                }
+                $params[$ni++] = $params[$key];
                 unset($params[$key]);
             }
             ++$i;
