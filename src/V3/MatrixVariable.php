@@ -84,6 +84,18 @@ class MatrixVariable extends BaseVariable
                 'cols' => [
                     'label' => Horde_Form_Translation::t("Column titles"),
                     'type'  => 'stringarray'
+                ],
+                'rows' => [
+                    'label' => Horde_Form_Translation::t("Row titles"),
+                    'type'  => 'stringarray'
+                ],
+                'matrix' => [
+                    'label' => Horde_Form_Translation::t("Values"),
+                    'type'  => 'stringarray'
+                ],
+                'new_input' => [
+                    'label' => Horde_Form_Translation::t("New Input"),
+                    'type'  => 'boolean'
                 ]
             ]
         ];

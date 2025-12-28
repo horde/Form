@@ -113,7 +113,7 @@ class HourminutesecondVariable extends BaseVariable
         return [
             'name' => Horde_Form_Translation::t("Time selection"),
             'params' => [
-                'seconds' => [
+                'show_seconds' => [
                     'label' => Horde_Form_Translation::t("Show seconds?"),
                     'type'  => 'boolean'
                 ]

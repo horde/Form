@@ -29,11 +29,11 @@ class MonthdayyearVariable extends BaseVariable
      */
     public function init(...$params)
     {
-        $start_year = $params['start_year'] ?? $params[0] ?? '';
-        $end_year = $params['end_year'] ?? $params[1] ?? '';
-        $picker = $params['picker'] ?? $params[2] ?? true;
-        $format_in = $params['format_in'] ?? $params[3] ?? null;
-        $format_out = $params['format_out'] ?? $params[4] ?? '%x';
+        $start_year = $params[0] ?? '';
+        $end_year = $params[1] ?? '';
+        $picker = $params[2] ?? true;
+        $format_in = $params[3] ?? null;
+        $format_out = $params[4] ?? '%x';
 
         if (empty($start_year)) {
             $start_year = date('Y');

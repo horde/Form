@@ -12,12 +12,28 @@ class InvalidVariable extends BaseVariable
      */
     public function init(...$params)
     {
-        $this->message = $params['message'] ?? $params[0] ?? '';;
+        $this->message = $params[0] ?? '';
     }
 
     public function isValid(Horde_Variables|array $vars, $value): bool
     {
         return false;
+    }
+
+    /**
+     * Return info about field type.
+     */
+    public function about()
+    {
+        return [
+            'name' => Horde_Form_Translation::t("Invalid"),
+            'params' => [
+                'message' => [
+                    'label' => Horde_Form_Translation::t("Text"),
+                    'type'  => 'text'
+                ]
+            ]
+        ];
     }
 
 }

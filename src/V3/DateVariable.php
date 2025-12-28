@@ -81,7 +81,15 @@ class DateVariable extends BaseVariable
      */
     public function about(): array
     {
-        return [ 'name' => Horde_Form_Translation::t("Date") ];
+        return [
+            'name' => Horde_Form_Translation::t("Date"),
+            'params' => [
+                'format' => [
+                    'label' => Horde_Form_Translation::t("Format"),
+                    'type'  => 'string'
+                ]
+            ]
+        ];
     }
 
 }

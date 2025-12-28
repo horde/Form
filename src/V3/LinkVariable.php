@@ -36,35 +36,11 @@ class LinkVariable extends BaseVariable
         return [
             'name' => Horde_Form_Translation::t("Link"),
             'params' => [
-                'url' => [
-                    'label' => Horde_Form_Translation::t("Link URL"),
-                    'type' => 'text'
-                ],
-                'text' => [
-                    'label' => Horde_Form_Translation::t("Link text"),
-                    'type' => 'text'
-                ],
-                'target' => [
-                    'label' => Horde_Form_Translation::t("Link target"),
-                    'type' => 'text'
-                ],
-                'onclick' => [
-                    'label' => Horde_Form_Translation::t("Onclick event"),
-                    'type' => 'text'
-                ],
-                'title' => [
-                    'label' => Horde_Form_Translation::t("Link title attribute"),
-                    'type' => 'text'
-                ],
-                'accesskey' => [
-                    'label' => Horde_Form_Translation::t("Link access key"),
-                    'type' => 'text'
-                ],
-                'class' => [
-                    'label' => Horde_Form_Translation::t("Link CSS class"),
-                    'type' => 'text'
-                ],
-            ],
+               'values' => [
+                    'label' => Horde_Form_Translation::t("Values"),
+                    'type' => 'array'
+                ]
+            ]
         ];
     }
 

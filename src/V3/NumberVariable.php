@@ -83,6 +83,14 @@ class NumberVariable extends BaseVariable
      */
     public function about(): array
     {
-        return [ 'name' => Horde_Form_Translation::t("Number") ];
+        return [
+            'name' => Horde_Form_Translation::t("Number"),
+            'params' => [
+                'fraction'  => [
+                    'label' => Horde_Form_Translation::t("Fraction"),
+                    'type'  => 'int'
+                ]
+            ]
+        ];
     }
 }

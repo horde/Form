@@ -37,7 +37,7 @@ class DblookupVariable extends EnumVariable
         return [
             'name' => Horde_Form_Translation::t("Database lookup"),
             'params' => [
-                'dsn' => [
+                'db' => [
                     'label' => Horde_Form_Translation::t("DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"),
                     'type'  => 'text'
                 ],

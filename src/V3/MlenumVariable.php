@@ -19,9 +19,9 @@ class MlenumVariable extends BaseVariable
         $prompts = $params[1] ?? null;
 
         if ($prompts === true) {
-            $this->_prompts = [Horde_Form_Translation::t("-- select --"), Horde_Form_Translation::t("-- select --")];
+            $this->_prompts = [ Horde_Form_Translation::t("-- select --"), Horde_Form_Translation::t("-- select --") ];
         } elseif (!is_array($prompts)) {
-            $this->_prompts = [$prompts, $prompts];
+            $this->_prompts = [ $prompts, $prompts ];
         } else {
             $this->_prompts = $prompts;
         }
@@ -83,7 +83,7 @@ class MlenumVariable extends BaseVariable
                     'label' => Horde_Form_Translation::t("Values to select from"),
                     'type'  => 'stringarray'
                 ],
-                'prompt' => [
+                'prompts' => [
                     'label' => Horde_Form_Translation::t("Prompt text"),
                     'type'  => 'text'
                 ]

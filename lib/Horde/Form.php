@@ -32,6 +32,8 @@ if (!class_exists('Horde_Form_Type'))
  */
 class Horde_Form
 {
+    protected static $init_params_cache = [];
+
     protected $_name = '';
     protected $_title = '';
     protected $_extra = '';
@@ -163,7 +165,7 @@ class Horde_Form
      *
      * @throws Horde_Exception
      */
-    public function getType($type, $params = [])
+    private function getType($type, $params = [])
     {
         if (strpos($type, ':') !== false) {
             [$app, $type] = explode(':', $type);
@@ -178,7 +180,25 @@ class Horde_Form
         if (!$params) {
             $params = [];
         }
-        call_user_func_array([$type_ob, 'init'], $params);
+
+        // retrieve list of parameters
+        $keys = self::$init_params_cache[$type_class] ?? null;
+        if (is_null($keys)) {
+            $keys = array_keys($type_ob->about()['params'] ?? []);
+            self::$init_params_cache[$type_class] = $keys;
+        }
+
+        // convert named keys to numeric indexes
+        $i = 0;
+        foreach ($keys as $key) {
+            if (array_key_exists($key, $params)) {
+                $params[$i] = $params[$key];
+                unset($params[$key]);
+            }
+            ++$i;
+        }
+
+        $type_ob->init(...$params);
         return $type_ob;
     }
 

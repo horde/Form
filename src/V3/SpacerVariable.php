@@ -12,7 +12,9 @@ class SpacerVariable extends BaseVariable
 
     public function about(): array
     {
-        return [ 'name' => Horde_Form_Translation::t("Spacer") ];
+        return [
+            'name' => Horde_Form_Translation::t("Spacer")
+        ];
     }
 
 }

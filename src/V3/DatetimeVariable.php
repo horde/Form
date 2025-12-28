@@ -26,12 +26,12 @@ class DatetimeVariable extends BaseVariable
      */
     public function init(...$params)
     {
-        $start_year = $params['start_year'] ?? $params[0] ?? '';
-        $end_year = $params['end_year'] ?? $params[1] ?? '';
-        $picker = $params['picker'] ?? $params[2] ?? true;
-        $format_in = $params['format_in'] ?? $params[3] ?? null;
-        $format_out = $params['format_out'] ?? $params[4] ?? '%x';
-        $show_seconds = $params['show_seconds'] ?? $params[5] ?? false;
+        $start_year = $params[0] ?? '';
+        $end_year = $params[1] ?? '';
+        $picker = $params[2] ?? true;
+        $format_in = $params[3] ?? null;
+        $format_out = $params[4] ?? '%x';
+        $show_seconds = $params[5] ?? false;
 
         $this->_mdy = new MonthdayyearVariable('', '', true);
         $this->_mdy->init($start_year, $end_year, $picker, $format_in, $format_out);
@@ -169,7 +169,7 @@ class DatetimeVariable extends BaseVariable
                     'type'  => 'text'],
                 'format_out' => ['label' => Horde_Form_Translation::t("Display format"),
                     'type'  => 'text'],
-                'seconds'    => ['label' => Horde_Form_Translation::t("Show seconds?"),
+                'show_seconds'    => ['label' => Horde_Form_Translation::t("Show seconds?"),
                     'type'  => 'boolean']]];
     }
 

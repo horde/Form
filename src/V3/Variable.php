@@ -53,5 +53,5 @@ interface Variable
     public function onSubmit($vars);
     //public function isValid(Horde_Variables|array $vars, $value): bool;
     public function getValues(...$params);
-    // TODO: Should about() be part of the interface?
+    public function about(): array;
 }

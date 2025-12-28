@@ -15,8 +15,8 @@ class MonthyearVariable extends BaseVariable
      */
     public function init(...$params)
     {
-        $start_year = $params['start_year'] ?? $params[0] ?? null;
-        $end_year = $params['end_year'] ?? $params[1] ?? null;
+        $start_year = $params[0] ?? null;
+        $end_year = $params[1] ?? null;
 
         if (empty($start_year)) {
             $start_year = 1920;
