@@ -17,10 +17,6 @@ use Horde_Variables;
 use Horde;
 use Horde_Form_Translation;
 
- // transitional
-use Horde_Form_Action;
-use Horde_Form;
-
 /**
  * This class represents a single form variable that may be rendered as one or
  * more form fields.
@@ -95,11 +91,9 @@ class BaseVariable implements Variable
     public $_defValue = null;
 
     /**
-     * A {@link Horde_Form_Action} instance.
-     *
-     * @var Horde_Form_Action
+     * A {@link Action} instance.
      */
-    public ?Horde_Form_Action $_action;
+    public ?Action $_action = null;
 
     /**
      * Whether this variable is disabled.
@@ -189,12 +183,12 @@ class BaseVariable implements Variable
      * Assigns an action to this variable.
      *
      * Example:
-     * <code>
+     * ```php
      * $v = $form->addVariable('My Variable', 'var1', 'text', false);
-     * $v->setAction(Horde_Form_Action::factory('submit'));
-     * </code>
+     * $v->setAction(BaseAction::factory('Submit'));
+     * ```
      *
-     * @param Horde_Form_Action $action  A {@link Horde_Form_Action} instance.
+     * @param Action $action  An {@link Action} instance.
      */
     public function setAction($action)
     {
