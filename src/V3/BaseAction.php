@@ -9,13 +9,15 @@ declare(strict_types=1);
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Ralf Lang <lang@b1-systems.de>
+ * @author   Ralf Lang <ralf.lang@ralf-lang.de>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Form
  */
 
 namespace Horde\Form\V3;
+
+use Horde\Form\Form;
 
 /**
  * Base implementation of the Action interface.
@@ -27,11 +29,11 @@ namespace Horde\Form\V3;
  * - Removed singleton pattern (antipattern)
  * - Removed PHP 4 constructor
  * - Strict typing
- * - Named parameters
+ * Named parameters
  * - Modern factory pattern
  *
  * @author    Chuck Hagenbuch <chuck@horde.org>
- * @author    Ralf Lang <lang@b1-systems.de>
+ * @author    Ralf Lang <ralf.lang@ralf-lang.de>
  * @category  Horde
  * @copyright 2002-2017 Horde LLC
  * @copyright 2026 Horde LLC
@@ -93,12 +95,12 @@ abstract class BaseAction implements Action
      *
      * Default implementation returns empty string. Subclasses override.
      *
-     * @param \Horde\Form\Form $form  The form instance
+     * @param Form $form  The form instance
      * @param mixed $renderer  The form renderer
      * @param string $varname  Variable name
      * @return string  JavaScript code
      */
-    public function getActionScript(\Horde\Form\Form $form, $renderer, string $varname): string
+    public function getActionScript(Form $form, $renderer, string $varname): string
     {
         return '';
     }

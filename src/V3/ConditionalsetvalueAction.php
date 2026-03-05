@@ -9,7 +9,7 @@ declare(strict_types=1);
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Ralf Lang <lang@b1-systems.de>
+ * @author   Ralf Lang <ralf.lang@ralf-lang.de>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Form
@@ -48,7 +48,7 @@ namespace Horde\Form\V3;
  * ```
  *
  * @author    Chuck Hagenbuch <chuck@horde.org>
- * @author    Ralf Lang <lang@b1-systems.de>
+ * @author    Ralf Lang <ralf.lang@ralf-lang.de>
  * @category  Horde
  * @copyright 2002-2017 Horde LLC
  * @copyright 2026 Horde LLC

@@ -9,13 +9,15 @@ declare(strict_types=1);
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Ralf Lang <lang@b1-systems.de>
+ * @author   Ralf Lang <ralf.lang@ralf-lang.de>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Form
  */
 
 namespace Horde\Form\V3;
+
+use Horde\Form\Form;
 
 /**
  * The Action interface provides an API for adding actions to Form variables.
@@ -34,7 +36,7 @@ namespace Horde\Form\V3;
  * - Modern factory pattern
  *
  * @author    Chuck Hagenbuch <chuck@horde.org>
- * @author    Ralf Lang <lang@b1-systems.de>
+ * @author    Ralf Lang <ralf.lang@ralf-lang.de>
  * @category  Horde
  * @copyright 2002-2017 Horde LLC
  * @copyright 2026 Horde LLC
@@ -60,12 +62,12 @@ interface Action
     /**
      * Get JavaScript code for this action.
      *
-     * @param \Horde\Form\Form $form  The form instance
+     * @param Form $form  The form instance
      * @param mixed $renderer  The form renderer
      * @param string $varname  Variable name this action applies to
      * @return string  JavaScript code
      */
-    public function getActionScript(\Horde\Form\Form $form, $renderer, string $varname): string;
+    public function getActionScript(Form $form, $renderer, string $varname): string;
 
     /**
      * Print JavaScript for this action.

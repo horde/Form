@@ -9,7 +9,7 @@ declare(strict_types=1);
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Robert E. Coyle <robertecoyle@hotmail.com>
- * @author   Ralf Lang <lang@b1-systems.de>
+ * @author   Ralf Lang <ralf.lang@ralf-lang.de>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Form
@@ -26,7 +26,7 @@ use Horde\Form\Form;
  * Separates control rendering (input, select, textarea) from form layout.
  * Each variable type can be rendered in different ways (HTML, JSON, etc.).
  *
- * @author    Ralf Lang <lang@b1-systems.de>
+ * @author    Ralf Lang <ralf.lang@ralf-lang.de>
  * @category  Horde
  * @copyright 2026 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1

@@ -9,13 +9,15 @@ declare(strict_types=1);
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Robert E. Coyle <robertecoyle@hotmail.com>
- * @author   Ralf Lang <lang@b1-systems.de>
+ * @author   Ralf Lang <ralf.lang@ralf-lang.de>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Form
  */
 
 namespace Horde\Form\V3;
+
+use Horde\Form\Form;
 
 /**
  * Renderer interface for rendering forms in various formats.
@@ -35,7 +37,7 @@ namespace Horde\Form\V3;
  * - No global state: All config via constructor
  *
  * @author    Robert E. Coyle <robertecoyle@hotmail.com>
- * @author    Ralf Lang <lang@b1-systems.de>
+ * @author    Ralf Lang <ralf.lang@ralf-lang.de>
  * @category  Horde
  * @copyright 2001-2007 Robert E. Coyle
  * @copyright 2026 Horde LLC
@@ -50,22 +52,22 @@ interface Renderer
      * This is the primary method - renders the entire form including
      * opening tag, header, fields, errors, buttons, and closing tag.
      *
-     * @param \Horde\Form\Form $form  The form to render
+     * @param Form $form  The form to render
      * @param string $action  Form action URL
      * @param string $method  HTTP method (get/post)
      * @return string  Complete rendered output
      */
-    public function render(\Horde\Form\Form $form, string $action = '', string $method = 'post'): string;
+    public function render(Form $form, string $action = '', string $method = 'post'): string;
 
     /**
      * Render form opening tag.
      *
-     * @param \Horde\Form\Form $form  The form to render
+     * @param Form $form  The form to render
      * @param string $action  Form action URL
      * @param string $method  HTTP method
      * @return string  Opening form tag
      */
-    public function renderOpen(\Horde\Form\Form $form, string $action, string $method): string;
+    public function renderOpen(Form $form, string $action, string $method): string;
 
     /**
      * Render form closing tag.
@@ -77,51 +79,51 @@ interface Renderer
     /**
      * Render form header (title, description, extra content).
      *
-     * @param \Horde\Form\Form $form  The form to render
+     * @param Form $form  The form to render
      * @return string  Form header HTML
      */
-    public function renderHeader(\Horde\Form\Form $form): string;
+    public function renderHeader(Form $form): string;
 
     /**
      * Render a single variable as a form field.
      *
      * @param Variable $variable  The variable to render
-     * @param \Horde\Form\Form $form  The parent form
+     * @param Form $form  The parent form
      * @return string  Rendered field
      */
-    public function renderVariable(Variable $variable, \Horde\Form\Form $form): string;
+    public function renderVariable(Variable $variable, Form $form): string;
 
     /**
      * Render a form section (group of variables).
      *
      * @param string|int $sectionName  Section identifier
      * @param array<Variable> $variables  Variables in this section
-     * @param \Horde\Form\Form $form  The parent form
+     * @param Form $form  The parent form
      * @return string  Rendered section
      */
-    public function renderSection(string|int $sectionName, array $variables, \Horde\Form\Form $form): string;
+    public function renderSection(string|int $sectionName, array $variables, Form $form): string;
 
     /**
      * Render form buttons (submit, reset).
      *
-     * @param \Horde\Form\Form $form  The form to render
+     * @param Form $form  The form to render
      * @return string  Form buttons HTML
      */
-    public function renderButtons(\Horde\Form\Form $form): string;
+    public function renderButtons(Form $form): string;
 
     /**
      * Render validation errors.
      *
-     * @param \Horde\Form\Form $form  The form to render
+     * @param Form $form  The form to render
      * @return string  Errors HTML
      */
-    public function renderErrors(\Horde\Form\Form $form): string;
+    public function renderErrors(Form $form): string;
 
     /**
      * Render hidden fields.
      *
-     * @param \Horde\Form\Form $form  The form to render
+     * @param Form $form  The form to render
      * @return string  Hidden fields HTML
      */
-    public function renderHidden(\Horde\Form\Form $form): string;
+    public function renderHidden(Form $form): string;
 }

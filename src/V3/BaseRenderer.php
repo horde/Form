@@ -9,7 +9,7 @@ declare(strict_types=1);
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Robert E. Coyle <robertecoyle@hotmail.com>
- * @author   Ralf Lang <lang@b1-systems.de>
+ * @author   Ralf Lang <ralf.lang@ralf-lang.de>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Form
@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace Horde\Form\V3;
 
+use Horde\Form\Form;
 use Horde\Form\V3\Renderer\ControlRenderer;
 use Horde\Form\V3\Renderer\LayoutStrategy;
 use Horde\Form\V3\Renderer\ErrorRenderer;
@@ -32,7 +33,7 @@ use Horde\Form\V3\Renderer\AssetManager;
  * implement specific rendering logic.
  *
  * @author    Robert E. Coyle <robertecoyle@hotmail.com>
- * @author    Ralf Lang <lang@b1-systems.de>
+ * @author    Ralf Lang <ralf.lang@ralf-lang.de>
  * @category  Horde
  * @copyright 2001-2007 Robert E. Coyle
  * @copyright 2026 Horde LLC
@@ -169,7 +170,7 @@ abstract class BaseRenderer implements Renderer
      *
      * Template method - defines the rendering flow.
      */
-    public function render(\Horde\Form\Form $form, string $action = '', string $method = 'post'): string
+    public function render(Form $form, string $action = '', string $method = 'post'): string
     {
         $this->formName = $form->getName();
         $this->currentRow = 0;
@@ -230,10 +231,10 @@ abstract class BaseRenderer implements Renderer
      * Render multiple variables.
      *
      * @param array<Variable> $variables  Variables to render
-     * @param \Horde\Form\Form $form  Parent form
+     * @param Form $form  Parent form
      * @return string  Rendered variables
      */
-    protected function renderVariables(array $variables, \Horde\Form\Form $form): string
+    protected function renderVariables(array $variables, Form $form): string
     {
         $output = [];
         foreach ($variables as $var) {
@@ -245,7 +246,7 @@ abstract class BaseRenderer implements Renderer
     /**
      * Render a single variable.
      */
-    public function renderVariable(Variable $variable, \Horde\Form\Form $form): string
+    public function renderVariable(Variable $variable, Form $form): string
     {
         // Skip hidden variables (rendered separately)
         if ($variable->isHidden()) {
@@ -281,7 +282,7 @@ abstract class BaseRenderer implements Renderer
     /**
      * Render a form section.
      */
-    public function renderSection(string|int $sectionName, array $variables, \Horde\Form\Form $form): string
+    public function renderSection(string|int $sectionName, array $variables, Form $form): string
     {
         $title = is_string($sectionName) && $sectionName !== '__base' ? $sectionName : '';
         $description = $title ? $form->getSectionDesc($sectionName) : '';
@@ -299,7 +300,7 @@ abstract class BaseRenderer implements Renderer
     /**
      * Render validation errors.
      */
-    public function renderErrors(\Horde\Form\Form $form): string
+    public function renderErrors(Form $form): string
     {
         $errors = $form->getErrors();
         if (empty($errors)) {
@@ -312,7 +313,7 @@ abstract class BaseRenderer implements Renderer
     /**
      * Render hidden fields.
      */
-    public function renderHidden(\Horde\Form\Form $form): string
+    public function renderHidden(Form $form): string
     {
         $output = [];
 

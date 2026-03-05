@@ -10,7 +10,7 @@ declare(strict_types=1);
  *
  * @author   Robert E. Coyle <robertecoyle@hotmail.com>
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Ralf Lang <lang@b1-systems.de>
+ * @author   Ralf Lang <ralf.lang@ralf-lang.de>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Form
@@ -41,7 +41,7 @@ use Psr\Http\Message\ServerRequestInterface;
  *
  * @author    Robert E. Coyle <robertecoyle@hotmail.com>
  * @author    Chuck Hagenbuch <chuck@horde.org>
- * @author    Ralf Lang <lang@b1-systems.de>
+ * @author    Ralf Lang <ralf.lang@ralf-lang.de>
  * @category  Horde
  * @copyright 2001-2007 Robert E. Coyle
  * @copyright 2001-2026 Horde LLC
