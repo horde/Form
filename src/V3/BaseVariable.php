@@ -35,10 +35,8 @@ class BaseVariable implements Variable
 {
     /**
      * The form instance this variable is assigned to.
-     *
-     * @var Horde_Form
      */
-    public Horde_Form $form;
+    public \Horde\Form\Form $form;
 
     /**
      * A short description of this variable's purpose.
@@ -154,6 +152,7 @@ class BaseVariable implements Variable
         $this->readonly    = $readonly;
         $this->description = $description;
         $this->_arrayVal   = strpos($varName, '[]') !== false;
+        $this->_action     = null;  // Fix: Initialize typed property
     }
 
     /**
