@@ -60,15 +60,39 @@ class HtmlControlRenderer implements ControlRenderer
     protected array $fieldIds = [];
 
     /**
+     * Control rendering mode.
+     *
+     * - 'modern': HTML5 native controls (date, time, datetime-local)
+     * - 'legacy': JavaScript-based controls (jQuery UI, Flatpickr, etc.)
+     * - 'fallback': Plain text inputs with patterns
+     *
+     * @var string
+     */
+    protected string $controlMode = 'modern';
+
+    /**
+     * Asset manager for adding JS/CSS dependencies.
+     */
+    protected ?AssetManager $assetManager = null;
+
+    /**
      * Construct renderer.
      *
      * @param string $requiredMarker  Required field marker
      * @param string $helpMarker  Help text marker
+     * @param string $controlMode  Control rendering mode (modern|legacy|fallback)
+     * @param AssetManager|null $assetManager  Asset manager for legacy mode
      */
-    public function __construct(string $requiredMarker = '*', string $helpMarker = '?')
-    {
+    public function __construct(
+        string $requiredMarker = '*',
+        string $helpMarker = '?',
+        string $controlMode = 'modern',
+        ?AssetManager $assetManager = null
+    ) {
         $this->requiredMarker = $requiredMarker;
         $this->helpMarker = $helpMarker;
+        $this->controlMode = $controlMode;
+        $this->assetManager = $assetManager;
     }
 
     /**
@@ -408,8 +432,25 @@ class HtmlControlRenderer implements ControlRenderer
 
     /**
      * Render date input.
+     *
+     * Supports three rendering modes:
+     * - modern: HTML5 <input type="date">
+     * - legacy: JavaScript datepicker
+     * - fallback: Plain text with pattern validation
      */
     protected function renderDate(Variable $var, Form $form, bool $readonly): string
+    {
+        return match($this->controlMode) {
+            'legacy' => $this->renderDateLegacy($var, $form, $readonly),
+            'fallback' => $this->renderDateFallback($var, $form, $readonly),
+            default => $this->renderDateModern($var, $form, $readonly)
+        };
+    }
+
+    /**
+     * Render date input using HTML5 native control.
+     */
+    protected function renderDateModern(Variable $var, Form $form, bool $readonly): string
     {
         $value = $this->getValue($var, $form);
 
@@ -417,7 +458,57 @@ class HtmlControlRenderer implements ControlRenderer
             'type' => 'date',
             'name' => $var->getVarName(),
             'id' => $this->getFieldId($var),
-            'value' => $value,
+            'value' => $this->formatDateValue($value),
+            'required' => $var->required ? 'required' : null,
+            'readonly' => $readonly ? 'readonly' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+        ];
+
+        return $this->buildTag('input', $attrs);
+    }
+
+    /**
+     * Render date input using JavaScript datepicker.
+     */
+    protected function renderDateLegacy(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+
+        // Add datepicker assets
+        if ($this->assetManager) {
+            $this->assetManager->addStylesheet('datepicker.css');
+            $this->assetManager->addScript('datepicker.js');
+        }
+
+        $attrs = [
+            'type' => 'text',
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'class' => 'datepicker',
+            'value' => $this->formatDateValue($value),
+            'required' => $var->required ? 'required' : null,
+            'readonly' => $readonly ? 'readonly' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+            'data-date-format' => 'yyyy-mm-dd',
+        ];
+
+        return $this->buildTag('input', $attrs);
+    }
+
+    /**
+     * Render date input as plain text with pattern validation.
+     */
+    protected function renderDateFallback(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+
+        $attrs = [
+            'type' => 'text',
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'value' => $this->formatDateValue($value),
+            'pattern' => '\d{4}-\d{2}-\d{2}',
+            'placeholder' => 'YYYY-MM-DD',
             'required' => $var->required ? 'required' : null,
             'readonly' => $readonly ? 'readonly' : null,
             'disabled' => $var->isDisabled() ? 'disabled' : null,
@@ -428,8 +519,25 @@ class HtmlControlRenderer implements ControlRenderer
 
     /**
      * Render time input.
+     *
+     * Supports three rendering modes:
+     * - modern: HTML5 <input type="time">
+     * - legacy: JavaScript timepicker
+     * - fallback: Plain text with pattern validation
      */
     protected function renderTime(Variable $var, Form $form, bool $readonly): string
+    {
+        return match($this->controlMode) {
+            'legacy' => $this->renderTimeLegacy($var, $form, $readonly),
+            'fallback' => $this->renderTimeFallback($var, $form, $readonly),
+            default => $this->renderTimeModern($var, $form, $readonly)
+        };
+    }
+
+    /**
+     * Render time input using HTML5 native control.
+     */
+    protected function renderTimeModern(Variable $var, Form $form, bool $readonly): string
     {
         $value = $this->getValue($var, $form);
 
@@ -437,7 +545,57 @@ class HtmlControlRenderer implements ControlRenderer
             'type' => 'time',
             'name' => $var->getVarName(),
             'id' => $this->getFieldId($var),
-            'value' => $value,
+            'value' => $this->formatTimeValue($value),
+            'required' => $var->required ? 'required' : null,
+            'readonly' => $readonly ? 'readonly' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+        ];
+
+        return $this->buildTag('input', $attrs);
+    }
+
+    /**
+     * Render time input using JavaScript timepicker.
+     */
+    protected function renderTimeLegacy(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+
+        // Add timepicker assets
+        if ($this->assetManager) {
+            $this->assetManager->addStylesheet('timepicker.css');
+            $this->assetManager->addScript('timepicker.js');
+        }
+
+        $attrs = [
+            'type' => 'text',
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'class' => 'timepicker',
+            'value' => $this->formatTimeValue($value),
+            'required' => $var->required ? 'required' : null,
+            'readonly' => $readonly ? 'readonly' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+            'data-time-format' => 'HH:mm',
+        ];
+
+        return $this->buildTag('input', $attrs);
+    }
+
+    /**
+     * Render time input as plain text with pattern validation.
+     */
+    protected function renderTimeFallback(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+
+        $attrs = [
+            'type' => 'text',
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'value' => $this->formatTimeValue($value),
+            'pattern' => '\d{2}:\d{2}',
+            'placeholder' => 'HH:MM',
             'required' => $var->required ? 'required' : null,
             'readonly' => $readonly ? 'readonly' : null,
             'disabled' => $var->isDisabled() ? 'disabled' : null,
@@ -448,8 +606,25 @@ class HtmlControlRenderer implements ControlRenderer
 
     /**
      * Render datetime input.
+     *
+     * Supports three rendering modes:
+     * - modern: HTML5 <input type="datetime-local">
+     * - legacy: JavaScript datetimepicker
+     * - fallback: Plain text with pattern validation
      */
     protected function renderDatetime(Variable $var, Form $form, bool $readonly): string
+    {
+        return match($this->controlMode) {
+            'legacy' => $this->renderDatetimeLegacy($var, $form, $readonly),
+            'fallback' => $this->renderDatetimeFallback($var, $form, $readonly),
+            default => $this->renderDatetimeModern($var, $form, $readonly)
+        };
+    }
+
+    /**
+     * Render datetime input using HTML5 native control.
+     */
+    protected function renderDatetimeModern(Variable $var, Form $form, bool $readonly): string
     {
         $value = $this->getValue($var, $form);
 
@@ -457,7 +632,57 @@ class HtmlControlRenderer implements ControlRenderer
             'type' => 'datetime-local',
             'name' => $var->getVarName(),
             'id' => $this->getFieldId($var),
-            'value' => $value,
+            'value' => $this->formatDatetimeValue($value),
+            'required' => $var->required ? 'required' : null,
+            'readonly' => $readonly ? 'readonly' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+        ];
+
+        return $this->buildTag('input', $attrs);
+    }
+
+    /**
+     * Render datetime input using JavaScript datetimepicker.
+     */
+    protected function renderDatetimeLegacy(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+
+        // Add datetimepicker assets
+        if ($this->assetManager) {
+            $this->assetManager->addStylesheet('datetimepicker.css');
+            $this->assetManager->addScript('datetimepicker.js');
+        }
+
+        $attrs = [
+            'type' => 'text',
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'class' => 'datetimepicker',
+            'value' => $this->formatDatetimeValue($value),
+            'required' => $var->required ? 'required' : null,
+            'readonly' => $readonly ? 'readonly' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+            'data-datetime-format' => 'yyyy-mm-dd HH:mm',
+        ];
+
+        return $this->buildTag('input', $attrs);
+    }
+
+    /**
+     * Render datetime input as plain text with pattern validation.
+     */
+    protected function renderDatetimeFallback(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+
+        $attrs = [
+            'type' => 'text',
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'value' => $this->formatDatetimeValue($value),
+            'pattern' => '\d{4}-\d{2}-\d{2}T\d{2}:\d{2}',
+            'placeholder' => 'YYYY-MM-DDTHH:MM',
             'required' => $var->required ? 'required' : null,
             'readonly' => $readonly ? 'readonly' : null,
             'disabled' => $var->isDisabled() ? 'disabled' : null,
@@ -537,6 +762,149 @@ class HtmlControlRenderer implements ControlRenderer
             $this->buildAttrs($attrs),
             implode('', $options)
         );
+    }
+
+    /**
+     * Format date value for HTML input.
+     *
+     * Converts various date formats to YYYY-MM-DD.
+     *
+     * @param mixed $value  Date value (timestamp, DateTime, string)
+     * @return string  Formatted date or empty string
+     */
+    protected function formatDateValue($value): string
+    {
+        if (empty($value)) {
+            return '';
+        }
+
+        // Handle DateTime objects
+        if ($value instanceof \DateTimeInterface) {
+            return $value->format('Y-m-d');
+        }
+
+        // Handle timestamps
+        if (is_numeric($value)) {
+            return date('Y-m-d', (int)$value);
+        }
+
+        // Handle string dates
+        if (is_string($value)) {
+            // Try to parse as date
+            $timestamp = strtotime($value);
+            if ($timestamp !== false) {
+                return date('Y-m-d', $timestamp);
+            }
+        }
+
+        return (string)$value;
+    }
+
+    /**
+     * Format time value for HTML input.
+     *
+     * Converts various time formats to HH:MM.
+     *
+     * @param mixed $value  Time value (timestamp, DateTime, string)
+     * @return string  Formatted time or empty string
+     */
+    protected function formatTimeValue($value): string
+    {
+        if (empty($value)) {
+            return '';
+        }
+
+        // Handle DateTime objects
+        if ($value instanceof \DateTimeInterface) {
+            return $value->format('H:i');
+        }
+
+        // Handle timestamps
+        if (is_numeric($value)) {
+            return date('H:i', (int)$value);
+        }
+
+        // Handle string times
+        if (is_string($value)) {
+            // Already in HH:MM format?
+            if (preg_match('/^\d{2}:\d{2}$/', $value)) {
+                return $value;
+            }
+
+            // Try to parse as time (need full date context for AM/PM parsing)
+            $timestamp = strtotime('today ' . $value);
+            if ($timestamp !== false) {
+                return date('H:i', $timestamp);
+            }
+        }
+
+        return (string)$value;
+    }
+
+    /**
+     * Format datetime value for HTML input.
+     *
+     * Converts various datetime formats to YYYY-MM-DDTHH:MM.
+     *
+     * @param mixed $value  Datetime value (timestamp, DateTime, string)
+     * @return string  Formatted datetime or empty string
+     */
+    protected function formatDatetimeValue($value): string
+    {
+        if (empty($value)) {
+            return '';
+        }
+
+        // Handle DateTime objects
+        if ($value instanceof \DateTimeInterface) {
+            return $value->format('Y-m-d\TH:i');
+        }
+
+        // Handle timestamps
+        if (is_numeric($value)) {
+            return date('Y-m-d\TH:i', (int)$value);
+        }
+
+        // Handle string datetimes
+        if (is_string($value)) {
+            // Try to parse as datetime
+            $timestamp = strtotime($value);
+            if ($timestamp !== false) {
+                return date('Y-m-d\TH:i', $timestamp);
+            }
+        }
+
+        return (string)$value;
+    }
+
+    /**
+     * Get control rendering mode.
+     *
+     * @return string  Control mode (modern|legacy|fallback)
+     */
+    public function getControlMode(): string
+    {
+        return $this->controlMode;
+    }
+
+    /**
+     * Set control rendering mode.
+     *
+     * @param string $mode  Control mode (modern|legacy|fallback)
+     */
+    public function setControlMode(string $mode): void
+    {
+        $this->controlMode = $mode;
+    }
+
+    /**
+     * Set asset manager for legacy mode.
+     *
+     * @param AssetManager $assetManager  Asset manager
+     */
+    public function setAssetManager(AssetManager $assetManager): void
+    {
+        $this->assetManager = $assetManager;
     }
 
     /**

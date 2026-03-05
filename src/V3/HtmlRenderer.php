@@ -52,11 +52,57 @@ class HtmlRenderer extends BaseRenderer
     protected string $mode = 'active';
 
     /**
+     * Control rendering mode.
+     *
+     * - 'modern': HTML5 native controls (date, time, datetime-local)
+     * - 'legacy': JavaScript-based controls (jQuery UI, Flatpickr, etc.)
+     * - 'fallback': Plain text inputs with patterns
+     */
+    protected string $controlMode = 'modern';
+
+    /**
+     * Construct a new HTML renderer.
+     *
+     * @param ControlRenderer|null $controlRenderer  Control renderer
+     * @param LayoutStrategy|null $layoutStrategy  Layout strategy
+     * @param ErrorRenderer|null $errorRenderer  Error renderer
+     * @param AssetManager|null $assetManager  Asset manager
+     * @param array<string, mixed> $config  Configuration options
+     */
+    public function __construct(
+        ?ControlRenderer $controlRenderer = null,
+        ?LayoutStrategy $layoutStrategy = null,
+        ?ErrorRenderer $errorRenderer = null,
+        ?AssetManager $assetManager = null,
+        array $config = []
+    ) {
+        // Extract controlMode from config before parent constructor
+        if (isset($config['controlMode'])) {
+            $this->controlMode = (string)$config['controlMode'];
+        }
+
+        // Call parent constructor (this will initialize $this->assetManager)
+        parent::__construct($controlRenderer, $layoutStrategy, $errorRenderer, $assetManager, $config);
+
+        // Now configure the control renderer with our settings
+        if ($this->controlRenderer instanceof HtmlControlRenderer) {
+            $this->controlRenderer->setControlMode($this->controlMode);
+            $this->controlRenderer->setAssetManager($this->assetManager);
+        }
+    }
+
+    /**
      * Create default control renderer.
      */
     protected function createDefaultControlRenderer(): ControlRenderer
     {
-        return new HtmlControlRenderer($this->requiredMarker, $this->helpMarker);
+        // Note: AssetManager will be set after construction via setAssetManager()
+        return new HtmlControlRenderer(
+            $this->requiredMarker,
+            $this->helpMarker,
+            $this->controlMode,
+            null  // AssetManager will be set in constructor
+        );
     }
 
     /**
@@ -177,5 +223,30 @@ class HtmlRenderer extends BaseRenderer
     public function getMode(): string
     {
         return $this->mode;
+    }
+
+    /**
+     * Set control rendering mode.
+     *
+     * @param string $mode  Control mode: modern, legacy, fallback
+     */
+    public function setControlMode(string $mode): void
+    {
+        $this->controlMode = $mode;
+
+        // Update control renderer if it supports control mode
+        if ($this->controlRenderer instanceof HtmlControlRenderer) {
+            $this->controlRenderer->setControlMode($mode);
+        }
+    }
+
+    /**
+     * Get control rendering mode.
+     *
+     * @return string  Control mode
+     */
+    public function getControlMode(): string
+    {
+        return $this->controlMode;
     }
 }
