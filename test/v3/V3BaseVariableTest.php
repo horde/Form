@@ -415,11 +415,10 @@ class V3BaseVariableTest extends TestCase
         $vars = new Horde_Variables(['name' => 'John Doe']);
         $var = new TextVariable('Name', 'name', false);
 
-        $info = null;
-        $result = $var->getInfo($vars, $info);
+        // V3: getInfo() returns the value (doesn't set by reference)
+        $result = $var->getInfo($vars);
 
-        // V3 has getInfo() wrapper for compatibility
-        $this->assertEquals('John Doe', $info);
+        $this->assertEquals('John Doe', $result);
     }
 
     // ========================================================================

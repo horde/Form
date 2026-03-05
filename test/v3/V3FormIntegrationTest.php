@@ -209,11 +209,10 @@ class V3FormIntegrationTest extends TestCase
         $var = new TextVariable('Name', 'name', false);
         $vars = new Horde_Variables(['name' => 'John Doe']);
 
-        $info = null;
-        $var->getInfo($vars, $info);
+        // V3: getInfo() returns the value (doesn't set by reference)
+        $result = $var->getInfo($vars);
 
-        // V3 has getInfo() wrapper for seamless transition
-        $this->assertEquals('John Doe', $info);
+        $this->assertEquals('John Doe', $result);
     }
 
     // ========================================================================

@@ -420,12 +420,17 @@ class BaseVariable implements Variable
      * @return mixed           Processed value of the variable, depending on the variable type.
      */
 
-    // This is a temporary wrapper to support legacy getInfo() calls
+    /**
+     * V3 wrapper for getInfo() - returns value directly.
+     *
+     * In lib/, getInfo() had signature: getInfo($vars, &$info)
+     * In V3, we return the value directly (no reference parameter).
+     *
+     * @param Horde_Variables $vars  The variables object
+     * @param mixed ...$args  Ignored (for interface compatibility)
+     * @return mixed  The variable value
+     */
     public function getInfo($vars, ...$args) {
-        // $this->type->getInfo($vars, %this, $info)
-        if (count($args) > 0) {
-            self::Deprecated('Warning: The second ($info) parameter in getinfo() is deprecated/ignored');
-        }
         return $this->getInfoV3($vars);
     }
 
@@ -479,6 +484,11 @@ class BaseVariable implements Variable
                     return $this->invalid('This field is required.');
                 }
                 return true;
+            }
+
+            // Check if array is empty when required
+            if (empty($vals) && $this->required) {
+                return $this->invalid('This field is required.');
             }
 
             foreach ($vals as $i => $value) {
