@@ -1028,6 +1028,15 @@ class HtmlControlRenderer implements ControlRenderer
     }
 
     /**
+     * Render description (display-only text).
+     */
+    protected function renderDescription(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+        return sprintf('<p class="form-description">%s</p>', htmlspecialchars((string)$value));
+    }
+
+    /**
      * Render spacer (visual separator).
      */
     protected function renderSpacer(Variable $var, Form $form, bool $readonly): string
@@ -1158,6 +1167,524 @@ class HtmlControlRenderer implements ControlRenderer
         ];
 
         return $this->buildTag('input', $attrs);
+    }
+
+    /**
+     * Render password confirmation (two password fields).
+     */
+    protected function renderPasswordconfirm(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+        $varName = $var->getVarName();
+
+        if ($readonly) {
+            return '<em>Password (hidden)</em>';
+        }
+
+        $output = [];
+
+        // Original password
+        $attrs1 = [
+            'type' => 'password',
+            'name' => $varName . '[original]',
+            'id' => $this->getFieldId($var) . '_original',
+            'required' => $var->required ? 'required' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+            'autocomplete' => 'new-password',
+        ];
+        $output[] = '<div class="password-confirm-field">';
+        $output[] = '<label for="' . htmlspecialchars($attrs1['id']) . '">Password:</label> ';
+        $output[] = $this->buildTag('input', $attrs1);
+        $output[] = '</div>';
+
+        // Confirmation password
+        $attrs2 = [
+            'type' => 'password',
+            'name' => $varName . '[confirm]',
+            'id' => $this->getFieldId($var) . '_confirm',
+            'required' => $var->required ? 'required' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+            'autocomplete' => 'new-password',
+        ];
+        $output[] = '<div class="password-confirm-field">';
+        $output[] = '<label for="' . htmlspecialchars($attrs2['id']) . '">Confirm:</label> ';
+        $output[] = $this->buildTag('input', $attrs2);
+        $output[] = '</div>';
+
+        return implode("\n", $output);
+    }
+
+    /**
+     * Render email confirmation (two email fields).
+     */
+    protected function renderEmailconfirm(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+        $varName = $var->getVarName();
+
+        if ($readonly) {
+            $email = is_array($value) ? ($value['original'] ?? '') : $value;
+            return htmlspecialchars((string)$email);
+        }
+
+        $output = [];
+
+        // Original email
+        $attrs1 = [
+            'type' => 'email',
+            'name' => $varName . '[original]',
+            'id' => $this->getFieldId($var) . '_original',
+            'required' => $var->required ? 'required' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+        ];
+        $output[] = '<div class="email-confirm-field">';
+        $output[] = '<label for="' . htmlspecialchars($attrs1['id']) . '">Email:</label> ';
+        $output[] = $this->buildTag('input', $attrs1);
+        $output[] = '</div>';
+
+        // Confirmation email
+        $attrs2 = [
+            'type' => 'email',
+            'name' => $varName . '[confirm]',
+            'id' => $this->getFieldId($var) . '_confirm',
+            'required' => $var->required ? 'required' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+        ];
+        $output[] = '<div class="email-confirm-field">';
+        $output[] = '<label for="' . htmlspecialchars($attrs2['id']) . '">Confirm:</label> ';
+        $output[] = $this->buildTag('input', $attrs2);
+        $output[] = '</div>';
+
+        return implode("\n", $output);
+    }
+
+    /**
+     * Render stringlist (text input for list of strings).
+     */
+    protected function renderStringlist(Variable $var, Form $form, bool $readonly): string
+    {
+        // Stringlist extends TextVariable, use text renderer
+        return $this->renderText($var, $form, $readonly);
+    }
+
+    /**
+     * Render stringarray (textarea for array of strings).
+     */
+    protected function renderStringarray(Variable $var, Form $form, bool $readonly): string
+    {
+        // Similar to longtext but for arrays
+        return $this->renderLongtext($var, $form, $readonly);
+    }
+
+    /**
+     * Render intlist (text input for list of integers).
+     */
+    protected function renderIntlist(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+
+        $attrs = [
+            'type' => 'text',
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'value' => $value,
+            'pattern' => '^[0-9, ]+$',
+            'placeholder' => '1, 2, 3, 4',
+            'required' => $var->required ? 'required' : null,
+            'readonly' => $readonly ? 'readonly' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+        ];
+
+        return $this->buildTag('input', $attrs);
+    }
+
+    /**
+     * Render hourminutesecond (time with seconds).
+     */
+    protected function renderHourminutesecond(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+
+        $attrs = [
+            'type' => 'time',
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'value' => $value,
+            'step' => '1',  // Enable seconds
+            'required' => $var->required ? 'required' : null,
+            'readonly' => $readonly ? 'readonly' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+        ];
+
+        return $this->buildTag('input', $attrs);
+    }
+
+    /**
+     * Render monthdayyear (date selector with separate fields).
+     */
+    protected function renderMonthdayyear(Variable $var, Form $form, bool $readonly): string
+    {
+        // Use standard date input (HTML5 provides built-in picker)
+        return $this->renderDate($var, $form, $readonly);
+    }
+
+    /**
+     * Render countedtext (text input with character counter).
+     */
+    protected function renderCountedtext(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+        $maxlength = method_exists($var, 'getMaxLength') ? $var->getMaxLength() : null;
+
+        $attrs = [
+            'type' => 'text',
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'value' => $value,
+            'required' => $var->required ? 'required' : null,
+            'readonly' => $readonly ? 'readonly' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+        ];
+
+        if ($maxlength) {
+            $attrs['maxlength'] = $maxlength;
+        }
+
+        if (method_exists($var, 'getSize')) {
+            $attrs['size'] = $var->getSize();
+        }
+
+        $input = $this->buildTag('input', $attrs);
+
+        // Add character counter
+        if ($maxlength && !$readonly) {
+            $counterId = $this->getFieldId($var) . '_counter';
+            $currentLength = strlen((string)$value);
+            return $input . sprintf(
+                ' <span id="%s" class="char-counter">%d/%d</span>',
+                htmlspecialchars($counterId),
+                $currentLength,
+                $maxlength
+            );
+        }
+
+        return $input;
+    }
+
+    /**
+     * Render IPv6 address input.
+     */
+    protected function renderIp6address(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+
+        $attrs = [
+            'type' => 'text',
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'value' => $value,
+            'pattern' => '^([0-9a-fA-F]{0,4}:){7}[0-9a-fA-F]{0,4}$',
+            'placeholder' => '2001:0db8:85a3:0000:0000:8a2e:0370:7334',
+            'required' => $var->required ? 'required' : null,
+            'readonly' => $readonly ? 'readonly' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+        ];
+
+        if (method_exists($var, 'getSize')) {
+            $attrs['size'] = $var->getSize();
+        } else {
+            $attrs['size'] = 39;  // Max IPv6 length
+        }
+
+        return $this->buildTag('input', $attrs);
+    }
+
+    /**
+     * Render selectfiles (file multi-select).
+     */
+    protected function renderSelectfiles(Variable $var, Form $form, bool $readonly): string
+    {
+        if ($readonly) {
+            return '<em>File selection (readonly)</em>';
+        }
+
+        $attrs = [
+            'type' => 'file',
+            'name' => $var->getVarName() . '[]',
+            'id' => $this->getFieldId($var),
+            'multiple' => 'multiple',
+            'required' => $var->required ? 'required' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+        ];
+
+        return $this->buildTag('input', $attrs);
+    }
+
+    /**
+     * Render sound (audio file upload).
+     */
+    protected function renderSound(Variable $var, Form $form, bool $readonly): string
+    {
+        if ($readonly) {
+            $value = $this->getValue($var, $form);
+            if ($value) {
+                return sprintf('<audio controls><source src="%s"></audio>', htmlspecialchars($value));
+            }
+            return '<em>No audio</em>';
+        }
+
+        $attrs = [
+            'type' => 'file',
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'accept' => 'audio/*',
+            'required' => $var->required ? 'required' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+        ];
+
+        return $this->buildTag('input', $attrs);
+    }
+
+    /**
+     * Render addresslink (address with link).
+     */
+    protected function renderAddresslink(Variable $var, Form $form, bool $readonly): string
+    {
+        // Similar to address but with link functionality
+        return $this->renderAddress($var, $form, $readonly);
+    }
+
+    /**
+     * Render mlenum (multi-language enum).
+     */
+    protected function renderMlenum(Variable $var, Form $form, bool $readonly): string
+    {
+        // Similar to enum
+        return $this->renderEnum($var, $form, $readonly);
+    }
+
+    /**
+     * Render category (hierarchical category selector).
+     */
+    protected function renderCategory(Variable $var, Form $form, bool $readonly): string
+    {
+        // Render as enum/select for now
+        return $this->renderEnum($var, $form, $readonly);
+    }
+
+    /**
+     * Render sorter (drag-drop list sorter).
+     */
+    protected function renderSorter(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+        $values = method_exists($var, 'getValues') ? $var->getValues() : [];
+
+        if (!is_array($values)) {
+            $values = [];
+        }
+
+        // Render as multi-select for now (JS enhancement would add drag-drop)
+        $output = [];
+        $output[] = '<div class="sorter-list" data-sortable="true">';
+
+        foreach ($values as $key => $label) {
+            $output[] = sprintf(
+                '<div class="sorter-item" data-value="%s">%s</div>',
+                htmlspecialchars((string)$key),
+                htmlspecialchars($label)
+            );
+        }
+
+        $output[] = '</div>';
+
+        // Hidden field to store order
+        $output[] = sprintf(
+            '<input type="hidden" name="%s" id="%s" value="%s">',
+            htmlspecialchars($var->getVarName()),
+            htmlspecialchars($this->getFieldId($var)),
+            htmlspecialchars(json_encode($value))
+        );
+
+        return implode("\n", $output);
+    }
+
+    /**
+     * Render assign (assign items between two lists).
+     */
+    protected function renderAssign(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+
+        // Render as multi-select for now
+        $output = [];
+        $output[] = '<div class="assign-container">';
+        $output[] = '<div class="assign-available"><strong>Available:</strong></div>';
+        $output[] = '<div class="assign-selected"><strong>Selected:</strong></div>';
+        $output[] = '</div>';
+
+        // Hidden field for selected values
+        $output[] = sprintf(
+            '<input type="hidden" name="%s" id="%s" value="%s">',
+            htmlspecialchars($var->getVarName()),
+            htmlspecialchars($this->getFieldId($var)),
+            htmlspecialchars(json_encode($value))
+        );
+
+        return implode("\n", $output);
+    }
+
+    /**
+     * Render matrix (matrix/grid selection).
+     */
+    protected function renderMatrix(Variable $var, Form $form, bool $readonly): string
+    {
+        // Render as placeholder for now (complex grid UI)
+        return '<div class="matrix-container"><em>Matrix input (requires JavaScript)</em></div>';
+    }
+
+    /**
+     * Render tableset (tabular data input).
+     */
+    protected function renderTableset(Variable $var, Form $form, bool $readonly): string
+    {
+        // Render as placeholder for now (complex table UI)
+        return '<div class="tableset-container"><em>Tableset input (requires JavaScript)</em></div>';
+    }
+
+    /**
+     * Render dblookup (database lookup field).
+     */
+    protected function renderDblookup(Variable $var, Form $form, bool $readonly): string
+    {
+        // Render as text input with autocomplete attributes
+        $value = $this->getValue($var, $form);
+
+        $attrs = [
+            'type' => 'text',
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'value' => $value,
+            'class' => 'dblookup',
+            'autocomplete' => 'off',
+            'required' => $var->required ? 'required' : null,
+            'readonly' => $readonly ? 'readonly' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+        ];
+
+        return $this->buildTag('input', $attrs);
+    }
+
+    /**
+     * Render obrowser (object browser).
+     */
+    protected function renderObrowser(Variable $var, Form $form, bool $readonly): string
+    {
+        // Render as button that opens browser
+        $value = $this->getValue($var, $form);
+
+        $output = [];
+        $output[] = sprintf(
+            '<input type="text" name="%s" id="%s" value="%s" readonly>',
+            htmlspecialchars($var->getVarName()),
+            htmlspecialchars($this->getFieldId($var)),
+            htmlspecialchars((string)$value)
+        );
+
+        if (!$readonly) {
+            $output[] = sprintf(
+                ' <button type="button" class="obrowser-button" data-target="%s">Browse...</button>',
+                htmlspecialchars($this->getFieldId($var))
+            );
+        }
+
+        return implode('', $output);
+    }
+
+    /**
+     * Render captcha (CAPTCHA field).
+     */
+    protected function renderCaptcha(Variable $var, Form $form, bool $readonly): string
+    {
+        if ($readonly) {
+            return '<em>CAPTCHA (readonly)</em>';
+        }
+
+        $output = [];
+        $output[] = '<div class="captcha-container">';
+        $output[] = '<div class="captcha-image"><em>[CAPTCHA Image]</em></div>';
+        $output[] = sprintf(
+            '<input type="text" name="%s" id="%s" placeholder="Enter code" required autocomplete="off">',
+            htmlspecialchars($var->getVarName()),
+            htmlspecialchars($this->getFieldId($var))
+        );
+        $output[] = '</div>';
+
+        return implode("\n", $output);
+    }
+
+    /**
+     * Render figlet (ASCII art text).
+     */
+    protected function renderFiglet(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+
+        // Display as preformatted text
+        return sprintf('<pre class="figlet">%s</pre>', htmlspecialchars((string)$value));
+    }
+
+    /**
+     * Render PGP key field.
+     */
+    protected function renderPgp(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+
+        $attrs = [
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'rows' => 10,
+            'cols' => 80,
+            'class' => 'pgp-key',
+            'placeholder' => '-----BEGIN PGP PUBLIC KEY BLOCK-----',
+            'required' => $var->required ? 'required' : null,
+            'readonly' => $readonly ? 'readonly' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+        ];
+
+        return $this->buildTag('textarea', $attrs, htmlspecialchars((string)$value));
+    }
+
+    /**
+     * Render S/MIME certificate field.
+     */
+    protected function renderSmime(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+
+        $attrs = [
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'rows' => 10,
+            'cols' => 80,
+            'class' => 'smime-cert',
+            'placeholder' => '-----BEGIN CERTIFICATE-----',
+            'required' => $var->required ? 'required' : null,
+            'readonly' => $readonly ? 'readonly' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+        ];
+
+        return $this->buildTag('textarea', $attrs, htmlspecialchars((string)$value));
+    }
+
+    /**
+     * Render keyvalmultienum (key-value pair multi-select).
+     */
+    protected function renderKeyvalmultienum(Variable $var, Form $form, bool $readonly): string
+    {
+        // Similar to multienum
+        return $this->renderMultienum($var, $form, $readonly);
     }
 
     /**
