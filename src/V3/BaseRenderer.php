@@ -323,10 +323,12 @@ abstract class BaseRenderer implements Renderer
         );
 
         // Hidden variables
+        $vars = $form->getVars();
+        $varsObject = new \Horde_Variables($vars);
         $hiddenVars = $form->getVariables(flat: true, withHidden: true);
         foreach ($hiddenVars as $var) {
             if ($var->isHidden()) {
-                $value = $var->getValue($form->getVars());
+                $value = $var->getValue($varsObject);
                 $output[] = sprintf(
                     '<input type="hidden" name="%s" value="%s">',
                     htmlspecialchars($var->getVarName()),
