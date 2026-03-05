@@ -878,6 +878,289 @@ class HtmlControlRenderer implements ControlRenderer
     }
 
     /**
+     * Render address input (textarea with address parsing).
+     */
+    protected function renderAddress(Variable $var, Form $form, bool $readonly): string
+    {
+        // Address uses longtext textarea
+        return $this->renderLongtext($var, $form, $readonly);
+    }
+
+    /**
+     * Render phone number input.
+     */
+    protected function renderPhone(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+
+        $attrs = [
+            'type' => 'tel',  // HTML5 tel input type
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'value' => $value,
+            'required' => $var->required ? 'required' : null,
+            'readonly' => $readonly ? 'readonly' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+        ];
+
+        // Add size attribute if available
+        if (method_exists($var, 'getSize')) {
+            $attrs['size'] = $var->getSize();
+        }
+
+        return $this->buildTag('input', $attrs);
+    }
+
+    /**
+     * Render cellphone number input.
+     */
+    protected function renderCellphone(Variable $var, Form $form, bool $readonly): string
+    {
+        // Cellphone uses same rendering as phone
+        return $this->renderPhone($var, $form, $readonly);
+    }
+
+    /**
+     * Render country dropdown.
+     */
+    protected function renderCountry(Variable $var, Form $form, bool $readonly): string
+    {
+        // Country extends enum, use enum renderer
+        return $this->renderEnum($var, $form, $readonly);
+    }
+
+    /**
+     * Render credit card number input.
+     */
+    protected function renderCreditcard(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+
+        $attrs = [
+            'type' => 'text',
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'value' => $value,
+            'pattern' => '[0-9]{13,19}',  // Credit cards are 13-19 digits
+            'inputmode' => 'numeric',
+            'autocomplete' => 'cc-number',
+            'required' => $var->required ? 'required' : null,
+            'readonly' => $readonly ? 'readonly' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+        ];
+
+        return $this->buildTag('input', $attrs);
+    }
+
+    /**
+     * Render link/URL input.
+     */
+    protected function renderLink(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+
+        $attrs = [
+            'type' => 'url',  // HTML5 URL input type
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'value' => $value,
+            'required' => $var->required ? 'required' : null,
+            'readonly' => $readonly ? 'readonly' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+        ];
+
+        // Add size attribute if available
+        if (method_exists($var, 'getSize')) {
+            $attrs['size'] = $var->getSize();
+        }
+
+        return $this->buildTag('input', $attrs);
+    }
+
+    /**
+     * Render IP address input.
+     */
+    protected function renderIpaddress(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+
+        $attrs = [
+            'type' => 'text',
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'value' => $value,
+            'pattern' => '^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$',
+            'placeholder' => '192.168.1.1',
+            'required' => $var->required ? 'required' : null,
+            'readonly' => $readonly ? 'readonly' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+        ];
+
+        return $this->buildTag('input', $attrs);
+    }
+
+    /**
+     * Render color picker.
+     */
+    protected function renderColorpicker(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+
+        $attrs = [
+            'type' => 'color',  // HTML5 color input type
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'value' => $value ?: '#000000',  // Default to black if empty
+            'required' => $var->required ? 'required' : null,
+            'disabled' => $var->isDisabled() || $readonly ? 'disabled' : null,
+        ];
+
+        return $this->buildTag('input', $attrs);
+    }
+
+    /**
+     * Render header (display-only text with heading styling).
+     */
+    protected function renderHeader(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+        return sprintf('<h3 class="form-header">%s</h3>', htmlspecialchars((string)$value));
+    }
+
+    /**
+     * Render spacer (visual separator).
+     */
+    protected function renderSpacer(Variable $var, Form $form, bool $readonly): string
+    {
+        return '<hr class="form-spacer">';
+    }
+
+    /**
+     * Render invalid field (always fails validation).
+     */
+    protected function renderInvalid(Variable $var, Form $form, bool $readonly): string
+    {
+        return '<em class="invalid-field">Invalid field</em>';
+    }
+
+    /**
+     * Render HTML content (raw HTML display).
+     */
+    protected function renderHtml(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+        // Raw HTML - use with caution!
+        return '<div class="html-content">' . $value . '</div>';
+    }
+
+    /**
+     * Render image upload.
+     */
+    protected function renderImage(Variable $var, Form $form, bool $readonly): string
+    {
+        if ($readonly) {
+            $value = $this->getValue($var, $form);
+            if ($value) {
+                return sprintf('<img src="%s" alt="Uploaded image" class="form-image">', htmlspecialchars($value));
+            }
+            return '<em>No image</em>';
+        }
+
+        $attrs = [
+            'type' => 'file',
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'accept' => 'image/*',
+            'required' => $var->required ? 'required' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+        ];
+
+        return $this->buildTag('input', $attrs);
+    }
+
+    /**
+     * Render month/year selector.
+     */
+    protected function renderMonthyear(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+
+        $attrs = [
+            'type' => 'month',  // HTML5 month input type
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'value' => $value,
+            'required' => $var->required ? 'required' : null,
+            'readonly' => $readonly ? 'readonly' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+        ];
+
+        return $this->buildTag('input', $attrs);
+    }
+
+    /**
+     * Render set (checkbox group).
+     */
+    protected function renderSet(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+        $values = method_exists($var, 'getValues') ? $var->getValues() : [];
+
+        // Handle null values
+        if (!is_array($values)) {
+            $values = [];
+        }
+
+        $selected = is_array($value) ? $value : [];
+
+        $output = [];
+        foreach ($values as $key => $label) {
+            $id = $this->getFieldId($var, true);
+            $isChecked = in_array($key, $selected, true);
+
+            $attrs = [
+                'type' => 'checkbox',
+                'name' => $var->getVarName() . '[]',
+                'id' => $id,
+                'value' => $key,
+                'checked' => $isChecked ? 'checked' : null,
+                'disabled' => $var->isDisabled() || $readonly ? 'disabled' : null,
+            ];
+
+            $output[] = sprintf(
+                '<div class="checkbox">%s <label for="%s">%s</label></div>',
+                $this->buildTag('input', $attrs),
+                htmlspecialchars($id),
+                htmlspecialchars($label)
+            );
+        }
+
+        return implode("\n", $output);
+    }
+
+    /**
+     * Render octal number input.
+     */
+    protected function renderOctal(Variable $var, Form $form, bool $readonly): string
+    {
+        $value = $this->getValue($var, $form);
+
+        $attrs = [
+            'type' => 'text',
+            'name' => $var->getVarName(),
+            'id' => $this->getFieldId($var),
+            'value' => $value,
+            'pattern' => '[0-7]+',
+            'placeholder' => '755',
+            'required' => $var->required ? 'required' : null,
+            'readonly' => $readonly ? 'readonly' : null,
+            'disabled' => $var->isDisabled() ? 'disabled' : null,
+        ];
+
+        return $this->buildTag('input', $attrs);
+    }
+
+    /**
      * Get control rendering mode.
      *
      * @return string  Control mode (modern|legacy|fallback)
