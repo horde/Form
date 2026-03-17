@@ -22,6 +22,9 @@
  * @copyright 2003-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL
  * @package   Form
+ 
+ *
+ * @see Horde\Form\V3\ReloadAction PSR-4 equivalent in src/V3/ReloadAction.php
  */
 class Horde_Form_Action_reload extends Horde_Form_Action
 {

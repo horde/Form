@@ -6,6 +6,11 @@ use Horde_Form_Translation;
 
 /**
  * CreditcardVariable type for credit card number input fields.
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_creditcard PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class CreditcardVariable extends BaseVariable
 {

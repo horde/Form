@@ -11,6 +11,11 @@ use Horde_Form_Translation;
  * @property array $values Values available for sorting
  * @property int $size Size of the select list
  * @property string $header Header text for the select list
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_sorter PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class SorterVariable extends BaseVariable
 {

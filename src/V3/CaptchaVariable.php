@@ -9,6 +9,11 @@ use Horde_Form_Translation;
  *
  * @property string $text The CAPTCHA text
  * @property string $font The font to use
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_captcha PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class CaptchaVariable extends FigletVariable
 {

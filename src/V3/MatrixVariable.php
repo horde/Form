@@ -11,6 +11,11 @@ use Horde_Form_Translation;
  * @property array $rows A hash with row IDs as the keys and row labels as the values
  * @property array $matrix A two dimensional hash with the field values
  * @property bool|array $new_input If true, a free text field to add a new row is displayed on the top, a select box if this parameter is a value
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_matrix PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class MatrixVariable extends BaseVariable
 {

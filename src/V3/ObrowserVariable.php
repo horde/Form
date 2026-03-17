@@ -6,6 +6,11 @@ use Horde_Form_Translation;
 
 /**
  * ObrowserVariable type for relationship browser fields.
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_obrowser PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class ObrowserVariable extends BaseVariable
 {

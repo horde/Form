@@ -13,6 +13,11 @@ use Horde_Form_Translation;
  * @property string $rightHeader Right column header
  * @property int $size Number of visible rows
  * @property string $width Width in CSS units
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_assign PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class AssignVariable extends BaseVariable
 {

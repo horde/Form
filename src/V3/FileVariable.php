@@ -8,6 +8,11 @@ use Horde_Browser_Exception;
 
 /**
  * FileVariable type for file upload fields.
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_file PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class FileVariable extends BaseVariable
 {

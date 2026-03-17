@@ -37,6 +37,11 @@ namespace Horde\Form\V3;
  * @copyright 2026 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Form
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Action_reload PSR-0 legacy equivalent in lib/Horde/Form/Action/reload.php
  */
 class ReloadAction extends BaseAction
 {

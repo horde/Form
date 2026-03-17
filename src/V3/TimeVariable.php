@@ -6,6 +6,11 @@ use Horde_Form_Translation;
 
 /**
  * TimeVariable type for time input fields.
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_time PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class TimeVariable extends BaseVariable
 {

@@ -17,6 +17,8 @@ use Horde\Util\ArrayUtils;
  * The Horde_Form_Renderer class provides HTML and other renderings of
  * forms for the Horde_Form:: package.
  *
+ * @see \Horde\Form\V3\BaseRenderer PSR-4 equivalent in src/V3/
+ *
  * @author    Robert E. Coyle <robertecoyle@hotmail.com>
  * @category  Horde
  * @copyright 2001-2007 Robert E. Coyle

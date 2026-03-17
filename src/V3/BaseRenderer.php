@@ -32,6 +32,10 @@ use Horde\Form\V3\Renderer\AssetManager;
  * Uses template method pattern - defines the rendering flow, subclasses
  * implement specific rendering logic.
  *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Renderer PSR-0 legacy equivalent in lib/Horde/Form/Renderer.php
+ *
  * @author    Robert E. Coyle <robertecoyle@hotmail.com>
  * @author    Ralf Lang <ralf.lang@ralf-lang.de>
  * @category  Horde

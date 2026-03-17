@@ -9,6 +9,11 @@ use Horde_Form_Translation;
  * HourminutesecondVariable type for time selection fields.
  *
  * @property bool $show_seconds Include a form input for seconds
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_hourminutesecond PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class HourminutesecondVariable extends BaseVariable
 {

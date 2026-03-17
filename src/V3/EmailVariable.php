@@ -14,6 +14,11 @@ use Horde_Form_Translation;
  * @property string $link_name The name to use when linking to the compose page
  * @property string $delimiters A string containing valid delimiters
  * @property int $size The size of the input field
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_email PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class EmailVariable extends BaseVariable
 {

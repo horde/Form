@@ -6,6 +6,11 @@ use Horde_Form_Translation;
 
 /**
  * IntVariable type for integer input fields.
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_int PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class IntVariable extends BaseVariable
 {

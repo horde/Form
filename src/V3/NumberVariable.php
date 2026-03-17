@@ -9,6 +9,11 @@ use Horde_Nls;
  * NumberVariable type for locale-aware number input fields.
  *
  * @property int|null $fraction Maximum number of decimal places allowed
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_number PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class NumberVariable extends BaseVariable
 {

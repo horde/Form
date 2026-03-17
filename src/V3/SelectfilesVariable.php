@@ -11,6 +11,11 @@ use Horde_Form_Translation;
  * @property string $link_text The text to use in the link
  * @property string $link_style The style to use for the link
  * @property bool $icon Create the link with an icon instead of text
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_selectfiles PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class SelectfilesVariable extends BaseVariable
 {

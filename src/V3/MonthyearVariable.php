@@ -9,6 +9,11 @@ use Horde_Form_Translation;
  *
  * @property int $start_year The first available year for input
  * @property int $end_year The last available year for input
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_monthyear PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class MonthyearVariable extends BaseVariable
 {

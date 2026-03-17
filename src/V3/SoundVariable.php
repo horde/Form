@@ -9,6 +9,11 @@ use Horde_Themes;
  * SoundVariable type for sound selection fields.
  *
  * @property array $sounds Available sounds for selection
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_sound PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class SoundVariable extends BaseVariable
 {

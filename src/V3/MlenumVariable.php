@@ -9,6 +9,11 @@ use Horde_Form_Translation;
  *
  * @property array $values Values to select from
  * @property array $prompts Prompt texts for the dropdowns
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_mlenum PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class MlenumVariable extends BaseVariable
 {

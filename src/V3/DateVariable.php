@@ -10,6 +10,11 @@ use Horde_Date_Exception;
  * DateVariable type for date input fields.
  *
  * @property string $format The date format string
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_date PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class DateVariable extends BaseVariable
 {

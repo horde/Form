@@ -15,6 +15,11 @@ use Horde_Nls_Loader;
  * @property int $rows The number of rows for the textarea
  * @property int $cols The number of columns for the textarea
  * @property array $helper Array of helper options
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_address PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class AddressVariable extends LongtextVariable
 {

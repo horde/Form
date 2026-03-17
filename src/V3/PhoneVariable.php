@@ -8,6 +8,11 @@ use Horde_Form_Translation;
  * PhoneVariable type for phone number input fields.
  *
  * @property int $size The size of the input field
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_phone PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class PhoneVariable extends BaseVariable
 {

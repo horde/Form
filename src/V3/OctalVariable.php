@@ -6,6 +6,11 @@ use Horde_Form_Translation;
 
 /**
  * OctalVariable type for octal number input fields.
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_octal PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class OctalVariable extends BaseVariable
 {

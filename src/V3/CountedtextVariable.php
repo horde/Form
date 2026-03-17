@@ -15,6 +15,11 @@ use Horde_Form_Translation;
  * @property int $cols The number of columns for the textarea
  * @property array $helper Array of helper options
  * @property int $chars The maximum number of characters allowed
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_countedtext PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class CountedtextVariable extends LongtextVariable
 {

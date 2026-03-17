@@ -9,6 +9,11 @@ use Horde_Form_Translation;
  *
  * @property array $values Values available for selection
  * @property bool $checkAll Show "check all" option
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_set PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class SetVariable extends BaseVariable
 {

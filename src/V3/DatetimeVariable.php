@@ -13,6 +13,11 @@ use Horde_Form_Translation;
  * @property string|null $format_in The format to use when sending the date for storage
  * @property string $format_out The format to use when displaying the date
  * @property bool $show_seconds Include a form input for seconds
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_datetime PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class DatetimeVariable extends BaseVariable
 {

@@ -15,6 +15,11 @@ use Horde_Form_Translation;
  * @property array $helper Array of helper options
  * @property string $gpg Path to the GnuPG binary
  * @property string $temp A temporary directory
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_pgp PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class PgpVariable extends LongtextVariable
 {

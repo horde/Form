@@ -23,6 +23,9 @@ use Horde\Exception\PEAR;
  * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL
  * @package   Form
+ 
+ *
+ * @see Horde\Form\V3\BaseAction PSR-4 equivalent in src/V3/BaseAction.php
  */
 class Horde_Form_Action
 {

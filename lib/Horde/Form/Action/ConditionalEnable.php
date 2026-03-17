@@ -34,6 +34,9 @@
  * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL
  * @package   Form
+ 
+ *
+ * @see Horde\Form\V3\ConditionalenableAction PSR-4 equivalent in src/V3/ConditionalenableAction.php
  */
 class Horde_Form_Action_ConditionalEnable extends Horde_Form_Action
 {

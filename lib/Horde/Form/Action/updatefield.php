@@ -21,6 +21,9 @@
  * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL
  * @package   Form
+ 
+ *
+ * @see Horde\Form\V3\UpdatefieldAction PSR-4 equivalent in src/V3/UpdatefieldAction.php
  */
 class Horde_Form_Action_updatefield extends Horde_Form_Action
 {

@@ -10,6 +10,11 @@ use Horde_Form_Translation;
  * @property string $regex The regex pattern for validation
  * @property int $size The size of the input field
  * @property int|null $maxlength The maximum number of characters
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_ip6address PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class Ip6addressVariable extends TextVariable
 {

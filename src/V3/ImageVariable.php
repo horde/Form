@@ -15,6 +15,11 @@ use PEAR;
  * @property bool $show_upload Show the upload button
  * @property bool $show_keeporig Show the option to upload also original non-modified image
  * @property int|null $max_filesize Limit the file size
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_image PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class ImageVariable extends BaseVariable
 {

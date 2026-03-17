@@ -6,6 +6,11 @@ use Horde_Form_Translation;
 
 /**
  * IntlistVariable type for comma or space separated integer list fields.
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_intlist PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class IntlistVariable extends BaseVariable
 {

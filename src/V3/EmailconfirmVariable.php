@@ -6,6 +6,11 @@ use Horde_Form_Translation;
 
 /**
  * EmailconfirmVariable type for email input with confirmation field.
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_emailConfirm PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class EmailconfirmVariable extends BaseVariable
 {

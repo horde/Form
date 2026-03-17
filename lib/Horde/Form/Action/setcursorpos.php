@@ -23,6 +23,9 @@
  * @copyright 2006-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL
  * @package   Form
+ 
+ *
+ * @see Horde\Form\V3\SetcursorposAction PSR-4 equivalent in src/V3/SetcursorposAction.php
  */
 class Horde_Form_Action_setcursorpos extends Horde_Form_Action
 {

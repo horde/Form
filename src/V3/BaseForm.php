@@ -39,6 +39,10 @@ use Psr\Http\Message\ServerRequestInterface;
  *
  * All inputs are normalized to array internally for consistent operation.
  *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form PSR-0 legacy equivalent in lib/Horde/Form.php
+ *
  * @author    Robert E. Coyle <robertecoyle@hotmail.com>
  * @author    Chuck Hagenbuch <chuck@horde.org>
  * @author    Ralf Lang <ralf.lang@ralf-lang.de>

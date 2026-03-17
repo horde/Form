@@ -24,6 +24,8 @@ use Horde\Util\ArrayUtils;
 /**
  * Horde_Form Master Class.
  *
+ * @see \Horde\Form\V3\BaseForm PSR-4 equivalent in src/V3/
+ *
  * @author    Robert E. Coyle <robertecoyle@hotmail.com>
  * @author    Chuck Hagenbuch <chuck@horde.org>
  * @category  Horde

@@ -34,6 +34,11 @@ namespace Horde\Form\V3;
  * @copyright 2026 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Form
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Action_submit PSR-0 legacy equivalent in lib/Horde/Form/Action/submit.php
  */
 class SubmitAction extends BaseAction
 {

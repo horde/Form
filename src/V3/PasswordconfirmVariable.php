@@ -6,6 +6,11 @@ use Horde_Form_Translation;
 
 /**
  * PasswordconfirmVariable type for password input with confirmation field.
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_passwordconfirm PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class PasswordconfirmVariable extends BaseVariable
 {

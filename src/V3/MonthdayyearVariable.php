@@ -13,6 +13,11 @@ use Horde_Form_Translation;
  * @property bool $picker Do we show the DHTML calendar
  * @property string|null $format_in The format to use when sending the date for storage
  * @property string $format_out The format to use when displaying the date
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_monthdayyear PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class MonthdayyearVariable extends BaseVariable
 {

@@ -8,6 +8,11 @@ use Horde_Form_Translation;
  * CellphoneVariable type for mobile phone number input fields.
  *
  * @property int $size The size of the input field
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_cellphone PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class CellphoneVariable extends PhoneVariable
 {

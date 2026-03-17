@@ -32,6 +32,10 @@ use Horde\Form\Form;
  * Named parameters
  * - Modern factory pattern
  *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Action PSR-0 legacy equivalent in lib/Horde/Form/Action.php
+ *
  * @author    Chuck Hagenbuch <chuck@horde.org>
  * @author    Ralf Lang <ralf.lang@ralf-lang.de>
  * @category  Horde

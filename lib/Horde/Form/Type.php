@@ -139,6 +139,11 @@ class Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_spacer form type.
+ *
+ * @see \Horde\Form\V3\SpacerVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_spacer extends Horde_Form_Type
 {
     public function isValid($var, $vars, $value, $message)
@@ -156,6 +161,11 @@ class Horde_Form_Type_spacer extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_header form type.
+ *
+ * @see \Horde\Form\V3\HeaderVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_header extends Horde_Form_Type
 {
     public function isValid($var, $vars, $value, $message)
@@ -173,6 +183,11 @@ class Horde_Form_Type_header extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_description form type.
+ *
+ * @see \Horde\Form\V3\DescriptionVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_description extends Horde_Form_Type
 {
     public function isValid($var, $vars, $value, $message)
@@ -193,6 +208,11 @@ class Horde_Form_Type_description extends Horde_Form_Type
 /**
  * Simply renders its raw value in both active and inactive rendering.
  */
+/**
+ * Horde_Form_Type_html form type.
+ *
+ * @see \Horde\Form\V3\HtmlVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_html extends Horde_Form_Type
 {
     public function isValid($var, $vars, $value, $message)
@@ -210,6 +230,11 @@ class Horde_Form_Type_html extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_number form type.
+ *
+ * @see \Horde\Form\V3\NumberVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_number extends Horde_Form_Type
 {
     public $_fraction;
@@ -302,6 +327,11 @@ class Horde_Form_Type_number extends Horde_Form_Type
 /**
  * A Form type for an input line validating to an integer
  */
+/**
+ * Horde_Form_Type_int form type.
+ *
+ * @see \Horde\Form\V3\IntVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_int extends Horde_Form_Type
 {
     public function isValid($var, $vars, $value, $message)
@@ -327,6 +357,11 @@ class Horde_Form_Type_int extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_octal form type.
+ *
+ * @see \Horde\Form\V3\OctalVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_octal extends Horde_Form_Type
 {
     public function isValid($var, $vars, $value, $message)
@@ -352,6 +387,11 @@ class Horde_Form_Type_octal extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_intlist form type.
+ *
+ * @see \Horde\Form\V3\IntlistVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_intlist extends Horde_Form_Type
 {
     public function isValid($var, $vars, $value, $message)
@@ -379,6 +419,11 @@ class Horde_Form_Type_intlist extends Horde_Form_Type
 
 /**
  * A Text Box form type
+ */
+/**
+ * Horde_Form_Type_text form type.
+ *
+ * @see \Horde\Form\V3\TextVariable PSR-4 equivalent in src/V3/
  */
 class Horde_Form_Type_text extends Horde_Form_Type
 {
@@ -460,6 +505,11 @@ class Horde_Form_Type_text extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_stringlist form type.
+ *
+ * @see \Horde\Form\V3\StringlistVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_stringlist extends Horde_Form_Type_text
 {
     /**
@@ -481,6 +531,11 @@ class Horde_Form_Type_stringlist extends Horde_Form_Type_text
 
 }
 
+/**
+ * Horde_Form_Type_stringarray form type.
+ *
+ * @see \Horde\Form\V3\StringarrayVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_stringarray extends Horde_Form_Type_stringlist
 {
     public function getInfo($vars, $var, $info)
@@ -508,6 +563,11 @@ class Horde_Form_Type_stringarray extends Horde_Form_Type_stringlist
 
 }
 
+/**
+ * Horde_Form_Type_phone form type.
+ *
+ * @see \Horde\Form\V3\PhoneVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_phone extends Horde_Form_Type
 {
     /**
@@ -559,6 +619,11 @@ class Horde_Form_Type_phone extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_cellphone form type.
+ *
+ * @see \Horde\Form\V3\CellphoneVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_cellphone extends Horde_Form_Type_phone
 {
     /**
@@ -571,6 +636,11 @@ class Horde_Form_Type_cellphone extends Horde_Form_Type_phone
 
 }
 
+/**
+ * Horde_Form_Type_ipaddress form type.
+ *
+ * @see \Horde\Form\V3\IpaddressVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_ipaddress extends Horde_Form_Type_text
 {
     public function isValid($var, $vars, $value, $message)
@@ -609,6 +679,11 @@ class Horde_Form_Type_ipaddress extends Horde_Form_Type_text
 
 }
 
+/**
+ * Horde_Form_Type_ip6address form type.
+ *
+ * @see \Horde\Form\V3\Ip6addressVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_ip6address extends Horde_Form_Type_text
 {
     public function isValid($var, $vars, $value, $message)
@@ -635,6 +710,11 @@ class Horde_Form_Type_ip6address extends Horde_Form_Type_text
 
 }
 
+/**
+ * Horde_Form_Type_longtext form type.
+ *
+ * @see \Horde\Form\V3\LongtextVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_longtext extends Horde_Form_Type_text
 {
     public $_rows;
@@ -706,6 +786,11 @@ class Horde_Form_Type_longtext extends Horde_Form_Type_text
 
 }
 
+/**
+ * Horde_Form_Type_countedtext form type.
+ *
+ * @see \Horde\Form\V3\CountedtextVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_countedtext extends Horde_Form_Type_longtext
 {
     public $_chars;
@@ -764,6 +849,11 @@ class Horde_Form_Type_countedtext extends Horde_Form_Type_longtext
 
 }
 
+/**
+ * Horde_Form_Type_address form type.
+ *
+ * @see \Horde\Form\V3\AddressVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_address extends Horde_Form_Type_longtext
 {
     public function parse($address)
@@ -883,6 +973,11 @@ class Horde_Form_Type_address extends Horde_Form_Type_longtext
 
 }
 
+/**
+ * Horde_Form_Type_addresslink form type.
+ *
+ * @see \Horde\Form\V3\AddresslinkVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_addresslink extends Horde_Form_Type_address
 {
     public function isValid($var, $vars, $value, $message)
@@ -900,6 +995,11 @@ class Horde_Form_Type_addresslink extends Horde_Form_Type_address
 
 }
 
+/**
+ * Horde_Form_Type_pgp form type.
+ *
+ * @see \Horde\Form\V3\PgpVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_pgp extends Horde_Form_Type_longtext
 {
     /**
@@ -964,6 +1064,11 @@ class Horde_Form_Type_pgp extends Horde_Form_Type_longtext
 
 }
 
+/**
+ * Horde_Form_Type_smime form type.
+ *
+ * @see \Horde\Form\V3\SmimeVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_smime extends Horde_Form_Type_longtext
 {
     /**
@@ -1016,6 +1121,11 @@ class Horde_Form_Type_smime extends Horde_Form_Type_longtext
 
 }
 
+/**
+ * Horde_Form_Type_country form type.
+ *
+ * @see \Horde\Form\V3\CountryVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_country extends Horde_Form_Type_enum
 {
     /**
@@ -1043,6 +1153,11 @@ class Horde_Form_Type_country extends Horde_Form_Type_enum
 
 }
 
+/**
+ * Horde_Form_Type_file form type.
+ *
+ * @see \Horde\Form\V3\FileVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_file extends Horde_Form_Type
 {
     public function isValid($var, $vars, $value, $message)
@@ -1086,6 +1201,11 @@ class Horde_Form_Type_file extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_image form type.
+ *
+ * @see \Horde\Form\V3\ImageVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_image extends Horde_Form_Type
 {
     /**
@@ -1484,6 +1604,11 @@ class Horde_Form_Type_image extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_boolean form type.
+ *
+ * @see \Horde\Form\V3\BooleanVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_boolean extends Horde_Form_Type
 {
     public function isValid($var, $vars, $value, $message)
@@ -1507,6 +1632,11 @@ class Horde_Form_Type_boolean extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_link form type.
+ *
+ * @see \Horde\Form\V3\LinkVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_link extends Horde_Form_Type
 {
     /**
@@ -1571,6 +1701,11 @@ class Horde_Form_Type_link extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_email form type.
+ *
+ * @see \Horde\Form\V3\EmailVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_email extends Horde_Form_Type
 {
     /**
@@ -2265,6 +2400,11 @@ class Horde_Form_Type_email extends Horde_Form_Type
     }
 }
 
+/**
+ * Horde_Form_Type_matrix form type.
+ *
+ * @see \Horde\Form\V3\MatrixVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_matrix extends Horde_Form_Type
 {
     public $_cols;
@@ -2364,6 +2504,11 @@ class Horde_Form_Type_matrix extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_emailConfirm form type.
+ *
+ * @see \Horde\Form\V3\EmailconfirmVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_emailConfirm extends Horde_Form_Type
 {
     public function isValid($var, $vars, $value, $message)
@@ -2400,6 +2545,11 @@ class Horde_Form_Type_emailConfirm extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_password form type.
+ *
+ * @see \Horde\Form\V3\PasswordVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_password extends Horde_Form_Type
 {
     public function isValid($var, $vars, $value, $message)
@@ -2421,6 +2571,11 @@ class Horde_Form_Type_password extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_passwordconfirm form type.
+ *
+ * @see \Horde\Form\V3\PasswordconfirmVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_passwordconfirm extends Horde_Form_Type
 {
     public function isValid($var, $vars, $value, $message)
@@ -2455,6 +2610,11 @@ class Horde_Form_Type_passwordconfirm extends Horde_Form_Type
 /**
  * Horde_Form_Type for selecting a single value out of a list
  * For selecting multiple values, use Horde_Form_Type_multienum
+ */
+/**
+ * Horde_Form_Type_enum form type.
+ *
+ * @see \Horde\Form\V3\EnumVariable PSR-4 equivalent in src/V3/
  */
 class Horde_Form_Type_enum extends Horde_Form_Type
 {
@@ -2525,6 +2685,11 @@ class Horde_Form_Type_enum extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_mlenum form type.
+ *
+ * @see \Horde\Form\V3\MlenumVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_mlenum extends Horde_Form_Type
 {
     public $_values;
@@ -2613,6 +2778,11 @@ class Horde_Form_Type_mlenum extends Horde_Form_Type
  * A Horde_Form_Type_multienum for a multiselect box
  * @see Horde_Form_Type_enum
  */
+/**
+ * Horde_Form_Type_multienum form type.
+ *
+ * @see \Horde\Form\V3\MultienumVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_multienum extends Horde_Form_Type_enum
 {
     public $size = 5;
@@ -2679,6 +2849,11 @@ class Horde_Form_Type_multienum extends Horde_Form_Type_enum
 
 }
 
+/**
+ * Horde_Form_Type_keyval_multienum form type.
+ *
+ * @see \Horde\Form\V3\KeyvalMultienumVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_keyval_multienum extends Horde_Form_Type_multienum
 {
     public function getInfo($vars, $var, $info)
@@ -2704,6 +2879,11 @@ class Horde_Form_Type_keyval_multienum extends Horde_Form_Type_multienum
 
 }
 
+/**
+ * Horde_Form_Type_radio form type.
+ *
+ * @see \Horde\Form\V3\RadioVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_radio extends Horde_Form_Type_enum
 {
     /* Entirely implemented by Horde_Form_Type_enum; just a different
@@ -2730,6 +2910,11 @@ class Horde_Form_Type_radio extends Horde_Form_Type_enum
 
 }
 
+/**
+ * Horde_Form_Type_set form type.
+ *
+ * @see \Horde\Form\V3\SetVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_set extends Horde_Form_Type
 {
     public $_values;
@@ -2788,6 +2973,11 @@ class Horde_Form_Type_set extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_date form type.
+ *
+ * @see \Horde\Form\V3\DateVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_date extends Horde_Form_Type
 {
     public $_format;
@@ -2878,6 +3068,11 @@ class Horde_Form_Type_date extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_time form type.
+ *
+ * @see \Horde\Form\V3\TimeVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_time extends Horde_Form_Type
 {
     public function isValid($var, $vars, $value, $message)
@@ -2903,6 +3098,11 @@ class Horde_Form_Type_time extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_hourminutesecond form type.
+ *
+ * @see \Horde\Form\V3\HourminutesecondVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_hourminutesecond extends Horde_Form_Type
 {
     public $_show_seconds;
@@ -3019,6 +3219,11 @@ class Horde_Form_Type_hourminutesecond extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_monthyear form type.
+ *
+ * @see \Horde\Form\V3\MonthyearVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_monthyear extends Horde_Form_Type
 {
     public $_start_year;
@@ -3084,6 +3289,11 @@ class Horde_Form_Type_monthyear extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_monthdayyear form type.
+ *
+ * @see \Horde\Form\V3\MonthdayyearVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_monthdayyear extends Horde_Form_Type
 {
     public $_start_year;
@@ -3323,6 +3533,11 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_datetime form type.
+ *
+ * @see \Horde\Form\V3\DatetimeVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_datetime extends Horde_Form_Type
 {
     public $_mdy;
@@ -3506,6 +3721,11 @@ class Horde_Form_Type_datetime extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_colorpicker form type.
+ *
+ * @see \Horde\Form\V3\ColorpickerVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_colorpicker extends Horde_Form_Type
 {
     public function isValid($var, $vars, $value, $message)
@@ -3531,6 +3751,11 @@ class Horde_Form_Type_colorpicker extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_sound form type.
+ *
+ * @see \Horde\Form\V3\SoundVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_sound extends Horde_Form_Type
 {
     public $_sounds = [];
@@ -3568,6 +3793,11 @@ class Horde_Form_Type_sound extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_sorter form type.
+ *
+ * @see \Horde\Form\V3\SorterVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_sorter extends Horde_Form_Type
 {
     public $_instance;
@@ -3662,6 +3892,11 @@ class Horde_Form_Type_sorter extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_selectfiles form type.
+ *
+ * @see \Horde\Form\V3\SelectfilesVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_selectfiles extends Horde_Form_Type
 {
     /**
@@ -3742,6 +3977,11 @@ class Horde_Form_Type_selectfiles extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_assign form type.
+ *
+ * @see \Horde\Form\V3\AssignVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_assign extends Horde_Form_Type
 {
     public $_leftValues;
@@ -3881,6 +4121,11 @@ class Horde_Form_Type_assign extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_creditcard form type.
+ *
+ * @see \Horde\Form\V3\CreditcardVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_creditcard extends Horde_Form_Type
 {
     public function isValid($var, $vars, $value, $message)
@@ -3982,6 +4227,11 @@ class Horde_Form_Type_creditcard extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_obrowser form type.
+ *
+ * @see \Horde\Form\V3\ObrowserVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_obrowser extends Horde_Form_Type
 {
     public function isValid($var, $vars, $value, $message)
@@ -3999,6 +4249,11 @@ class Horde_Form_Type_obrowser extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_dblookup form type.
+ *
+ * @see \Horde\Form\V3\DblookupVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_dblookup extends Horde_Form_Type_enum
 {
     /**
@@ -4044,6 +4299,11 @@ class Horde_Form_Type_dblookup extends Horde_Form_Type_enum
 
 }
 
+/**
+ * Horde_Form_Type_figlet form type.
+ *
+ * @see \Horde\Form\V3\FigletVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_figlet extends Horde_Form_Type
 {
     public $_text;
@@ -4100,6 +4360,11 @@ class Horde_Form_Type_figlet extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_captcha form type.
+ *
+ * @see \Horde\Form\V3\CaptchaVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_captcha extends Horde_Form_Type_figlet
 {
     /**
@@ -4119,6 +4384,11 @@ class Horde_Form_Type_captcha extends Horde_Form_Type_figlet
 
 }
 
+/**
+ * Horde_Form_Type_category form type.
+ *
+ * @see \Horde\Form\V3\CategoryVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_category extends Horde_Form_Type
 {
     public function getInfo($vars, $var, $info)
@@ -4153,6 +4423,11 @@ class Horde_Form_Type_category extends Horde_Form_Type
 
 }
 
+/**
+ * Horde_Form_Type_invalid form type.
+ *
+ * @see \Horde\Form\V3\InvalidVariable PSR-4 equivalent in src/V3/
+ */
 class Horde_Form_Type_invalid extends Horde_Form_Type
 {
     /**

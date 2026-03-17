@@ -6,6 +6,11 @@ use Horde_Form_Translation;
 
 /**
  * HeaderVariable type for header display fields.
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_header PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class HeaderVariable extends BaseVariable
 {

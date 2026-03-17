@@ -7,6 +7,11 @@ use Horde_Form_Translation;
 
 /**
  * BooleanVariable type for true or false values.
+ 
+ *
+ * PSR-4 implementation.
+ *
+ * @see Horde_Form_Type_boolean PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
 class BooleanVariable extends BaseVariable
 {
