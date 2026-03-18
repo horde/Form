@@ -12,7 +12,9 @@
  * @package  Form
  */
 
+use Horde\Date\FormatterInterface;
 use Horde\Util\ArrayUtils;
+use function PHP81_BC\strftime;
 
 /**
  * Horde_Form_Type Class
@@ -2981,15 +2983,71 @@ class Horde_Form_Type_set extends Horde_Form_Type
 class Horde_Form_Type_date extends Horde_Form_Type
 {
     public $_format;
+    protected $_formatter;  // null = strftime, FormatterInterface = use formatter
+    protected $_locale;
+    protected $_timezone;
 
     /**
-     * Initialize a Set form type
+     * Initialize date form type
      *
-     * function init($format = '%a %d %B')
+     * @param string $format      Date format (strftime or ICU depending on formatter)
+     * @param FormatterInterface|null $formatter
+     *        null = strftime mode (default, backward compatible)
+     *        FormatterInterface instance = use formatter mode
+     * @param string|null $locale  Locale for formatting (null = auto-detect)
+     * @param string|null $timezone  Timezone identifier (default: null = UTC)
      */
     public function init(...$params)
     {
         $this->_format = $params[0] ?? '%a %d %B';
+        $this->_formatter = $params[1] ?? null;
+        $this->_locale = $params[2] ?? null;
+        $this->_timezone = $params[3] ?? null;
+
+        // Validate formatter parameter
+        if ($this->_formatter !== null && !$this->_formatter instanceof FormatterInterface) {
+            throw new InvalidArgumentException(
+                'Formatter must be null or an instance of FormatterInterface'
+            );
+        }
+    }
+
+    /**
+     * Check if using formatter mode
+     */
+    protected function _isFormatterMode()
+    {
+        return $this->_formatter instanceof FormatterInterface;
+    }
+
+    /**
+     * Resolve locale for formatting
+     *
+     * Fallback chain: params → setlocale(LC_CTYPE, 0) → 'en_US'
+     *
+     * @return string  Locale identifier
+     */
+    protected function _resolveLocale()
+    {
+        // 1. Explicit locale from init()
+        if ($this->_locale !== null) {
+            return $this->_locale;
+        }
+
+        // 2. Try system locale (LC_CTYPE is used for character classification/formatting)
+        $systemLocale = setlocale(LC_CTYPE, 0);
+        if ($systemLocale && $systemLocale !== 'C' && $systemLocale !== 'POSIX') {
+            // Normalize: 'de_DE.UTF-8' → 'de_DE'
+            $systemLocale = preg_replace('/\\..*$/', '', $systemLocale);
+            // Remove @modifiers
+            $systemLocale = preg_replace('/@.*$/', '', $systemLocale);
+            // Convert dash to underscore (en-US → en_US)
+            $systemLocale = str_replace('-', '_', $systemLocale);
+            return $systemLocale;
+        }
+
+        // 3. Fallback
+        return 'en_US';
     }
 
     public function isValid($var, $vars, $value, $message)
@@ -3044,7 +3102,20 @@ class Horde_Form_Type_date extends Horde_Form_Type
             $format = $this->_format;
         }
         if (!empty($timestamp)) {
-            return strftime($format, $timestamp) . ($showago ? Horde_Form_Type_date::getAgo($timestamp) : '');
+            if ($this->_isFormatterMode()) {
+                // Formatter mode: use formatter directly on timestamp
+                if (!is_int($timestamp)) {
+                    throw new InvalidArgumentException(
+                        'Formatter mode requires an integer timestamp, got ' . gettype($timestamp)
+                    );
+                }
+                $locale = $this->_resolveLocale();
+                $formatted = $this->_formatter->format($timestamp, $format, $locale, $this->_timezone);
+            } else {
+                // strftime mode (default, backward compatible)
+                $formatted = strftime($format, $timestamp);
+            }
+            return $formatted . ($showago ? Horde_Form_Type_date::getAgo($timestamp) : '');
         } else {
             return '';
         }
@@ -3301,21 +3372,30 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type
     public $_picker;
     public $_format_in = null;
     public $_format_out = '%x';
+    protected $_formatter;
+    protected $_locale;
+    protected $_timezone;
 
     /**
      * Return the date supplied as a Horde_Date object.
      *
      *     function init($start_year = '', $end_year = '', $picker = true,
-     *             $format_in = null, $format_out = '%x')
+     *             $format_in = null, $format_out = '%x', $formatter = null,
+     *             $locale = null, $timezone = null)
      *
      * @param int  $start_year  The first available year for input.
      * @param int  $end_year    The last available year for input.
      * @param bool $picker      Do we show the DHTML calendar?
      * @param int  $format_in   The format to use when sending the date
      *                             for storage. Defaults to Unix epoch.
-     *                             Similar to the strftime() function.
+     *                             Format syntax depends on formatter parameter.
      * @param int $format_out  The format to use when displaying the
-     *                             date. Similar to the strftime() function.
+     *                             date. Format syntax depends on formatter parameter.
+     * @param FormatterInterface|null $formatter
+     *        null = strftime mode (default, backward compatible)
+     *        FormatterInterface instance = use formatter mode
+     * @param string|null $locale  Locale for formatting (null = auto-detect)
+     * @param string|null $timezone  Timezone identifier (default: null = UTC)
      */
     public function init(...$params)
     {
@@ -3324,6 +3404,9 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type
         $picker = $params[2] ?? true;
         $format_in = $params[3] ?? null;
         $format_out = $params[4] ?? '%x';
+        $this->_formatter = $params[5] ?? null;
+        $this->_locale = $params[6] ?? null;
+        $this->_timezone = $params[7] ?? null;
 
         if (empty($start_year)) {
             $start_year = date('Y');
@@ -3337,6 +3420,51 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type
         $this->_picker = $picker;
         $this->_format_in = $format_in;
         $this->_format_out = $format_out;
+
+        // Validate formatter parameter
+        if ($this->_formatter !== null && !$this->_formatter instanceof FormatterInterface) {
+            throw new InvalidArgumentException(
+                'Formatter must be null or an instance of FormatterInterface'
+            );
+        }
+    }
+
+    /**
+     * Check if using formatter mode
+     */
+    protected function _isFormatterMode()
+    {
+        return $this->_formatter instanceof FormatterInterface;
+    }
+
+    /**
+     * Resolve locale for formatting
+     *
+     * Fallback chain: params → setlocale(LC_CTYPE, 0) → 'en_US'
+     *
+     * @return string  Locale identifier
+     */
+    protected function _resolveLocale()
+    {
+        // 1. Explicit locale from init()
+        if ($this->_locale !== null) {
+            return $this->_locale;
+        }
+
+        // 2. Try system locale (LC_CTYPE is used for character classification/formatting)
+        $systemLocale = setlocale(LC_CTYPE, 0);
+        if ($systemLocale && $systemLocale !== 'C' && $systemLocale !== 'POSIX') {
+            // Normalize: 'de_DE.UTF-8' → 'de_DE'
+            $systemLocale = preg_replace('/\\..*$/', '', $systemLocale);
+            // Remove @modifiers
+            $systemLocale = preg_replace('/@.*$/', '', $systemLocale);
+            // Convert dash to underscore (en-US → en_US)
+            $systemLocale = str_replace('-', '_', $systemLocale);
+            return $systemLocale;
+        }
+
+        // 3. Fallback
+        return 'en_US';
     }
 
     public function isValid($var, $vars, $value, $message)
@@ -3469,11 +3597,56 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type
      */
     public function formatDate($date)
     {
+        // Check if date is empty before converting to Horde_Date
+        if (is_array($date) && $this->emptyDateArray($date)) {
+            return '';
+        }
+
         if (!($date instanceof Horde_Date)) {
             $date = $this->getDateOb($date);
         }
 
-        return $date->strftime($this->_format_out);
+        if ($this->_isFormatterMode()) {
+            // Formatter mode: use Horde_Date formatter
+            $locale = $this->_resolveLocale();
+            return $date->format($this->_format_out, $this->_formatter, $locale);
+        } else {
+            // strftime mode (default)
+            return $date->strftime($this->_format_out);
+        }
+    }
+
+    /**
+     * Parse date string back to Horde_Date
+     *
+     * Used when editing existing values (parsing stored format_in string)
+     *
+     * @param string $dateString  Date string in format_in format
+     * @return Horde_Date
+     * @throws RuntimeException if parsing fails
+     */
+    protected function _parseDateString($dateString)
+    {
+        if ($this->_isFormatterMode()) {
+            // Formatter mode: use formatter->parse()
+            return $this->_formatter->parse(
+                $dateString,
+                $this->_format_in,
+                $this->_locale,
+                $this->_timezone
+            );
+        } else {
+            // strftime mode: try Horde_Date constructor or strtotime
+            try {
+                return new Horde_Date($dateString);
+            } catch (Horde_Date_Exception $e) {
+                $timestamp = strtotime($dateString);
+                if ($timestamp === false) {
+                    throw new RuntimeException("Cannot parse date: $dateString");
+                }
+                return new Horde_Date($timestamp);
+            }
+        }
     }
 
     /**
@@ -3483,7 +3656,24 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type
      */
     public function getInfo($vars, $var, $info)
     {
-        $info = $this->_validateAndFormat($var->getValue($vars), $var);
+        $value = $var->getValue($vars);
+
+        // If value is a formatted string, parse it back to Horde_Date for form fields
+        if (is_string($value) && strlen($this->_format_in)) {
+            try {
+                $date = $this->_parseDateString($value);
+                // Return as array for form fields
+                return [
+                    'year' => $date->year,
+                    'month' => $date->month,
+                    'day' => $date->mday
+                ];
+            } catch (Horde_Date_Exception | RuntimeException $e) {
+                // Parsing failed, fall through to validation
+            }
+        }
+
+        $info = $this->_validateAndFormat($value, $var);
         return $info;
     }
 
@@ -3506,7 +3696,14 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type
             if (!strlen($this->_format_in)) {
                 return $date->timestamp();
             } else {
-                return $date->strftime($this->_format_in);
+                // Format according to format_in
+                if ($this->_isFormatterMode()) {
+                    // Formatter mode
+                    return $date->format($this->_format_in, $this->_formatter, $this->_locale);
+                } else {
+                    // strftime mode
+                    return $date->strftime($this->_format_in);
+                }
             }
         }
     }
@@ -3548,17 +3745,23 @@ class Horde_Form_Type_datetime extends Horde_Form_Type
      * Return the date supplied as a Horde_Date object.
      *
      * function init($start_year = '', $end_year = '', $picker = true,
-     * $format_in = null, $format_out = '%x', $show_seconds = false)
+     * $format_in = null, $format_out = '%x', $show_seconds = false,
+     * $formatter = null, $locale = null, $timezone = null)
      *
      * @param int  $start_year  The first available year for input.
      * @param int  $end_year    The last available year for input.
      * @param bool $picker      Do we show the DHTML calendar?
      * @param int  $format_in   The format to use when sending the date
      *                             for storage. Defaults to Unix epoch.
-     *                             Similar to the strftime() function.
+     *                             Format syntax depends on formatter parameter.
      * @param int  $format_out  The format to use when displaying the
-     *                             date. Similar to the strftime() function.
+     *                             date. Format syntax depends on formatter parameter.
      * @param bool $show_seconds Include a form input for seconds.
+     * @param FormatterInterface|null $formatter
+     *        null = strftime mode (default, backward compatible)
+     *        FormatterInterface instance = use formatter mode
+     * @param string|null $locale  Locale for formatting (null = auto-detect)
+     * @param string|null $timezone  Timezone identifier (default: null = UTC)
      */
     public function init(...$params)
     {
@@ -3568,9 +3771,12 @@ class Horde_Form_Type_datetime extends Horde_Form_Type
         $format_in = $params[3] ?? null;
         $format_out = $params[4] ?? '%x';
         $show_seconds = $params[5] ?? false;
+        $formatter = $params[6] ?? null;
+        $locale = $params[7] ?? null;
+        $timezone = $params[8] ?? null;
 
         $this->_mdy = new Horde_Form_Type_monthdayyear();
-        $this->_mdy->init($start_year, $end_year, $picker, $format_in, $format_out);
+        $this->_mdy->init($start_year, $end_year, $picker, $format_in, $format_out, $formatter, $locale, $timezone);
 
         $this->_hms = new Horde_Form_Type_hourminutesecond();
         $this->_hms->init($show_seconds);
