@@ -1,4 +1,15 @@
 ---
+3.0.0-beta7:
+  api: 3.0.0-beta7
+  state:
+    release: beta
+    api: beta
+  date: 2026-03-18
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: |-
+    feat: Opt-In support for Horde\Date\Formatter (ICU support)
 3.0.0-beta6:
   api: 3.0.0-beta6
   state:
