@@ -144,6 +144,22 @@ if (!class_exists('Horde_Exception')) {
     class Horde_Exception extends Exception {}
 }
 
+// Horde_Browser_Exception stub
+if (!class_exists('Horde_Browser_Exception')) {
+    class Horde_Browser_Exception extends Exception {}
+}
+
+// Horde_Util stub
+if (!class_exists('Horde_Util')) {
+    class Horde_Util
+    {
+        public static function dispelMagicQuotes($input)
+        {
+            return $input;
+        }
+    }
+}
+
 // PEAR stub for legacy error handling
 if (!class_exists('PEAR')) {
     class PEAR
