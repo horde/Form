@@ -452,7 +452,7 @@ class Horde_Form_Variable
      *
      * @return mixed  Depending on the variable type.
      */
-    public function getInfo($vars, $info)
+    public function getInfo($vars, $info = null)
     {
         return $this->type->getInfo($vars, $this, null);
     }
