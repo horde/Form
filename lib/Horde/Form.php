@@ -202,14 +202,15 @@ class Horde_Form
     ) {
         $arr = explode(':', $type, 2);
         if (count($arr) == 2) {
-            $app = $arr[0];
+            $app = ucfirst($arr[0]);
             $name = $arr[1];
         } else {
             $app = 'Horde';
             $name = $arr[0];
         }
 
-        $class = $app . '\\Form\\V3\\' . ucfirst($name) . 'Variable';
+        $name = ucfirst($name);
+        $class = $app . '\\Form\\V3\\' . $name . 'Variable';
         $modern = class_exists($class);
         if ($modern) {
             $var = new $class(
@@ -221,11 +222,12 @@ class Horde_Form
             );
         } elseif (self::$legacy) {
             $class = $app . '_Form_Type_' . $name;
-            if (!class_exists($class)) {
-                throw new Horde_Exception(sprintf('Nonexistent class "%s" for field type "%s"', $class, $name));
-            }
-            $var = new $class();
+            $var = class_exists($class) ? new $class() : null;
         } else {
+            $var = null;
+        }
+
+        if ($var === null) {
             throw new Horde_Exception(sprintf('Nonexistent class "%s" for field type "%s"', $class, $name));
         }
 
