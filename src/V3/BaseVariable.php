@@ -344,7 +344,14 @@ class BaseVariable implements Variable
      */
     public function getTypeName(): string
     {
-        return mb_strtolower(str_replace('Horde\Form\V3\\', '', substr($this::class, 0, -8)));
+        $parts = explode('\\', $this::class);
+        $app =  strtolower($parts[0]);
+        $name =  strtolower(substr($parts[count($parts) - 1], 0, -8));
+        if ($app !== 'horde') {
+            // legacy
+            $name = $app . '_form_type_' . $name;
+        }
+        return $name;
     }
 
     /**
