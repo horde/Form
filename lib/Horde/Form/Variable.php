@@ -140,6 +140,15 @@ class Horde_Form_Variable
     }
 
     /**
+     * Forward calls to undefined methods to $this->type
+     *
+     */
+    public function __call(string $method, array $args)
+    {
+        return $this->type->$method(...$args);
+    }
+
+    /**
      * Variable constructor.
      *
      * @param string $humanName      A short description of the variable's
