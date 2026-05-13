@@ -2,6 +2,7 @@
 
 namespace Horde\Form\V3;
 
+use Horde\Util\Variables;
 use Horde_Variables;
 use Horde_Form_Translation;
 
@@ -31,7 +32,7 @@ class TablesetVariable extends BaseVariable
         $this->_header = $params[1];
     }
 
-    public function isValid(Horde_Variables $vars, $value): bool
+    public function isValid(Horde_Variables|Variables $vars, $value): bool
     {
         if (count($this->_values) == 0 || count($value) == 0) {
             return true;

@@ -4,6 +4,7 @@ namespace Horde\Form\V3;
 
 use Horde\Util\ArrayUtils;
 use Horde;
+use Horde\Util\Variables;
 use Horde_Variables;
 use Horde_Form_Translation;
 use Horde_Browser_Exception;
@@ -119,7 +120,7 @@ class ImageVariable extends BaseVariable
       *
       * @api
      */
-    public function isValid(Horde_Variables $vars, $value): bool
+    public function isValid(Horde_Variables|Variables $vars, $value): bool
     {
         if ($vars->get('remove_' . $this->getVarName())) {
             return true;

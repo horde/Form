@@ -2,6 +2,7 @@
 
 namespace Horde\Form\V3;
 
+use Horde\Util\Variables;
 use Horde_Variables;
 use Horde_Form_Translation;
 use Horde_Db_Exception;

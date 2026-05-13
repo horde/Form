@@ -14,6 +14,7 @@
 
 namespace Horde\Form\V3;
 
+use Horde\Util\Variables;
 use Horde_Variables;
 use Horde;
 use Horde_Form_Translation;
@@ -862,7 +863,7 @@ class BaseVariable implements Variable
       *
       * @internal
      */
-    protected function isValid(Horde_Variables $vars, $value): bool
+    protected function isValid(Horde_Variables|Variables $vars, $value): bool
     {
         $this->message = '<strong>Error:</strong> Variable::isValid() called - should be overridden<br />';
         return false;

@@ -2,6 +2,7 @@
 
 namespace Horde\Form\V3;
 
+use Horde\Util\Variables;
 use Horde_Variables;
 use Horde_Form_Translation;
 
@@ -53,7 +54,7 @@ class DatetimeVariable extends BaseVariable
         $this->_hms->init($show_seconds);
     }
 
-    public function isValid(Horde_Variables|array $vars, $date): bool
+    public function isValid(Horde_Variables|Variables $vars, $value): bool
     {
         /* Require all fields if one field is not empty */
         if ($this->isRequired() || $this->emptyDateArray($date) != 1 || !$this->emptyTimeArray($date)) {

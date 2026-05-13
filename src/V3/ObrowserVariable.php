@@ -2,6 +2,7 @@
 
 namespace Horde\Form\V3;
 
+use Horde\Util\Variables;
 use Horde_Variables;
 use Horde_Form_Translation;
 
@@ -15,7 +16,7 @@ use Horde_Form_Translation;
  */
 class ObrowserVariable extends BaseVariable
 {
-    public function isValid(Horde_Variables $vars, $value): bool
+    public function isValid(Horde_Variables|Variables $vars, $value): bool
     {
         return true;
     }

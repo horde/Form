@@ -2,6 +2,7 @@
 
 namespace Horde\Form\V3;
 
+use Horde\Util\Variables;
 use Horde_Variables;
 use Horde_Form_Translation;
 
@@ -37,7 +38,7 @@ class PhoneVariable extends BaseVariable
         $this->_size = $params[0] ?? 15;
     }
 
-    public function isValid(Horde_Variables $vars, $value): bool
+    public function isValid(Horde_Variables|Variables $vars, $value): bool
     {
         if (!strlen(trim((string) $value))) {
             if ($this->isRequired()) {
