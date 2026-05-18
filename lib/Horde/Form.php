@@ -824,7 +824,10 @@ class Horde_Form
 
         foreach ($this->getVariables() as $var) {
             $this->_autofilled = $var->_autofilled && $this->_autofilled;
-            if (!$var->validate($vars, $message)) {
+            $valid = $var instanceof Horde_Form_Variable
+                ? $var->validate($vars, $message)
+                : $var->validate($vars);
+            if (!$valid) {
                 $this->_errors[$var->getVarName()] = $var->getMessage();
             }
         }
@@ -834,7 +837,10 @@ class Horde_Form
         }
 
         foreach ($this->_hiddenVariables as $var) {
-            if (!$var->validate($vars, $message)) {
+            $valid = $var instanceof Horde_Form_Variable
+                ? $var->validate($vars, $message)
+                : $var->validate($vars);
+            if (!$valid) {
                 $this->_errors[$var->getVarName()] = $var->getMessage();
             }
         }
