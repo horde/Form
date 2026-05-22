@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Horde\Form\V3;
 
+use Horde\Nls\Nls;
 use Horde\Util\Variables;
-use Horde_Variables;
 use Horde_Form_Translation;
-use Horde_Nls;
+use Horde_Variables;
 
 /**
  * NumberVariable type for locale-aware number input fields.
@@ -20,6 +22,20 @@ use Horde_Nls;
 class NumberVariable extends BaseVariable
 {
     public $_fraction;
+
+    private readonly Nls $nls;
+
+    public function __construct(
+        $humanName,
+        $varName,
+        $required,
+        $readonly = false,
+        $description = null,
+        ?Nls $nls = null,
+    ) {
+        parent::__construct($humanName, $varName, $required, $readonly, $description);
+        $this->nls = $nls ?? new Nls();
+    }
 
     /**
      * Initialize a number field.
@@ -60,7 +76,7 @@ class NumberVariable extends BaseVariable
         }
 
         /* Get current locale information. */
-        $linfo = Horde_Nls::getLocaleInfo();
+        $linfo = $this->nls->getLocaleInfo();
 
         /* Build the pattern. */
         $pattern = '(-)?';
@@ -97,7 +113,7 @@ class NumberVariable extends BaseVariable
     protected function getInfoV3($vars)
     {
         $value = $vars->get($this->getVarName());
-        $linfo = Horde_Nls::getLocaleInfo();
+        $linfo = $this->nls->getLocaleInfo();
         $value = str_replace($linfo['mon_thousands_sep'], '', $value);
         return str_replace($linfo['mon_decimal_point'], '.', $value);
     }

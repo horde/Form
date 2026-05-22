@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Horde\Form\V3;
 
+use Horde\Nls\Nls;
 use Horde\Util\Variables;
-use Horde_Variables;
-use Horde_String;
 use Horde_Form_Translation;
-use Horde_Nls_Loader;
+use Horde_String;
+use Horde_Variables;
 
 /**
  * AddressVariable type for address input fields with parsing capabilities.
@@ -25,6 +27,19 @@ use Horde_Nls_Loader;
  */
 class AddressVariable extends LongtextVariable
 {
+    private readonly Nls $nls;
+
+    public function __construct(
+        $humanName,
+        $varName,
+        $required,
+        $readonly = false,
+        $description = null,
+        ?Nls $nls = null,
+    ) {
+        parent::__construct($humanName, $varName, $required, $readonly, $description);
+        $this->nls = $nls ?? new Nls();
+    }
     public function parse($address)
     {
         $info = [];
@@ -88,14 +103,14 @@ class AddressVariable extends LongtextVariable
                 $info['street'] = $addressParts[1];
             }
             if (!empty($addressParts[2])) {
-                $carsigns = Horde_Nls_Loader::loadCarsigns();
+                $carsigns = $this->nls->carsigns()->all();
                 $country = array_search(Horde_String::upper($addressParts[2]), $carsigns);
                 if ($country) {
                     $info['country'] = $country;
                 }
             }
             if (!empty($addressParts[5])) {
-                $countries = Horde_Nls_Loader::loadCountries();
+                $countries = $this->nls->countries()->all();
                 $country = array_search($addressParts[5], $countries);
                 if ($country) {
                     $info['country'] = Horde_String::lower($country);

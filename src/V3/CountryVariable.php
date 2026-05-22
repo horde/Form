@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Horde\Form\V3;
 
+use Horde\Nls\Nls;
 use Horde\Util\Variables;
-use Horde_Variables;
 use Horde_Form_Translation;
-use Horde_Nls;
+use Horde_Variables;
 
 /**
  * CountryVariable type for country selection dropdown.
@@ -20,6 +22,20 @@ use Horde_Nls;
  */
 class CountryVariable extends EnumVariable
 {
+    private readonly Nls $nls;
+
+    public function __construct(
+        $humanName,
+        $varName,
+        $required,
+        $readonly = false,
+        $description = null,
+        ?Nls $nls = null,
+    ) {
+        parent::__construct($humanName, $varName, $required, $readonly, $description);
+        $this->nls = $nls ?? new Nls();
+    }
+
     /**
      * Initialize a country field.
      *
@@ -32,7 +48,7 @@ class CountryVariable extends EnumVariable
     {
         $prompt = $params[0] ?? null;
 
-        parent::init(Horde_Nls::getCountryISO(), $prompt);
+        parent::init($this->nls->countries()->translated(), $prompt);
     }
 
     /**
