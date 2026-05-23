@@ -1420,6 +1420,7 @@ class Horde_Form_Type_image extends Horde_Form_Type
             return;
         }
 
+        // TODO: refactor globals to DI
         global $session;
 
         $varname = $var->getVarName();

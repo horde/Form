@@ -72,6 +72,7 @@ class Horde_Form_Renderer
 
     public function __construct($params = [])
     {
+        // TODO: refactor globals to DI
         global $registry;
         if (isset($registry) && is_a($registry, 'Registry')) {
             /**
@@ -516,6 +517,7 @@ class Horde_Form_Renderer
 
         /* Display any help for the field. */
         if ($var->hasHelp()) {
+            // TODO: refactor globals to DI
             global $registry;
             if (isset($registry) && $registry instanceof Horde_Registry) {
                 $link = Horde_Help::link($GLOBALS['registry']->getApp(), $var->getHelp());

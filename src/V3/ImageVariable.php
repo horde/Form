@@ -238,6 +238,7 @@ class ImageVariable extends BaseVariable
             return;
         }
 
+        // TODO: refactor globals to DI
         global $session;
 
         $varname = $this->getVarName();
@@ -349,6 +350,7 @@ class ImageVariable extends BaseVariable
             self::Deprecated('Warning: The second ($var) parameter in getImage() is deprecated/ignored');
         }
 
+        // TODO: refactor globals to DI
         global $session;
 
         $this->_getUpload($vars);
