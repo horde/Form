@@ -1228,6 +1228,72 @@ request's uploaded files tree.  For `ImageVariable`, the key is
 
 ---
 
+## Asset management and page output integration
+
+Form V3's `AssetManager` interface (`Horde\Form\V3\Renderer\AssetManager`)
+collects JS/CSS dependencies declared by form controls during rendering.
+
+### Default behavior (standalone)
+
+By default, `HtmlRenderer` creates an `HtmlAssetManager` that renders
+collected assets as inline `<script>` and `<link>` tags appended after
+the closing `</form>` tag. This is self-contained and requires no
+external dependencies.
+
+```php
+$renderer = new HtmlRenderer();
+$html = $renderer->render($form, $url, 'post');
+// $html includes <link> and <script> tags at the end
+```
+
+### Page-integrated rendering
+
+When forms are rendered inside a full Horde page (with header, topbar,
+footer), assets should be placed in `<head>` or deferred to end-of-body
+rather than appearing inline. Use `PageOutputAssetManager` from
+`horde/core`:
+
+```php
+use Horde\Core\PageOutput\PageOutputAssetManager;
+use Horde\Core\PageOutput\AssetCollector;
+use Horde\Form\V3\HtmlRenderer;
+
+// In a PSR-15 controller with DI:
+class MyController
+{
+    public function __construct(
+        private readonly AssetCollector $assetCollector,
+    ) {}
+
+    public function handle(): ResponseInterface
+    {
+        $assetManager = new PageOutputAssetManager($this->assetCollector);
+        $renderer = new HtmlRenderer(assetManager: $assetManager);
+
+        // Form HTML contains no <script>/<link> tags
+        $formHtml = $renderer->render($form, $url, 'post');
+
+        // Assets are rendered by PageComposer in head/foot
+    }
+}
+```
+
+`PageOutputAssetManager` delegates all `addScript()`, `addStylesheet()`,
+`addInlineScript()`, and `addInlineStyle()` calls to Core's
+`AssetCollector`. Its `render()` method returns an empty string because
+`PageComposer` handles actual HTML output with correct placement and
+deduplication.
+
+### Which to use
+
+| Scenario | AssetManager | Result |
+|----------|--------------|--------|
+| Standalone page / CLI / testing | `HtmlAssetManager` (default) | Inline tags after form |
+| Inside Horde chrome (header/footer) | `PageOutputAssetManager` | Assets in head/deferred foot |
+| Custom page builder | Implement `AssetManager` | Your choice |
+
+---
+
 ## Known limitations (2026-05)
 
 - **Sub-forms**: Replaced by `FieldGroup` / `Section` model (see
@@ -1239,8 +1305,6 @@ request's uploaded files tree.  For `ImageVariable`, the key is
 - **DivLayout / ListLayout**: Not yet implemented.  TableLayout is
   the only LayoutStrategy.  Responsive, table-less rendering is a
   future scope item.
-- **Asset collection**: `AssetManager` collects JS/CSS paths but has
-  no integration with Horde's page output yet.
 - **validate() / getInfo() still wrap Horde_Variables**: These
   submission-time paths still construct `new Horde_Variables($array)`.
   Rendering paths have been migrated to `resolveValue()`.

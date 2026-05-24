@@ -25,6 +25,36 @@ namespace Horde\Form\V3\Renderer;
  * - Inline scripts
  * - Inline styles
  *
+ * ## Implementations
+ *
+ * **HtmlAssetManager** (default): Self-contained. Collects assets and
+ * renders them as inline `<script>` / `<link>` tags appended after the
+ * form HTML. Suitable for standalone pages, headless rendering, and
+ * testing.
+ *
+ * **PageOutputAssetManager** (in horde/core): Delegates all calls to
+ * Core's AssetCollector. The `render()` method returns an empty string
+ * because assets are rendered by PageComposer in `<head>` or at
+ * end-of-body. Use this when rendering forms inside a full Horde page.
+ *
+ * ## Injection
+ *
+ * Pass an AssetManager to HtmlRenderer's constructor:
+ *
+ *     // Page-integrated (assets go to <head> / deferred foot):
+ *     $am = new PageOutputAssetManager($assetCollector);
+ *     $renderer = new HtmlRenderer(assetManager: $am);
+ *
+ *     // Self-contained (default, assets rendered inline):
+ *     $renderer = new HtmlRenderer();
+ *
+ * ## Implementing custom AssetManagers
+ *
+ * Implementations may return an empty string from `render()` if assets
+ * are rendered elsewhere (e.g., by a page-level composer). The
+ * BaseRenderer calls `render()` at end-of-form and appends the result;
+ * an empty string simply means no inline output.
+ *
  * @author    Ralf Lang <ralf.lang@ralf-lang.de>
  * @category  Horde
  * @copyright 2026 Horde LLC
