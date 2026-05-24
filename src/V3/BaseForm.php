@@ -24,25 +24,41 @@ use Horde_String;
 use Horde\Token\Token;
 use Horde\Token\Exception\TokenException;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\UploadedFileInterface;
 
 /**
  * Base implementation of the Form interface for Horde Form V3.
  *
  * This is a modernized implementation of Horde_Form with:
  * - Type/Variable merge (no separate Type objects)
- * - PSR-7 ServerRequest support
+ * - PSR-7 ServerRequest support (including file uploads)
  * - Named parameters throughout
  * - Strict typing
  * - Modern PHP patterns (no singleton, minimal reference passing)
  *
+ * ## Input types
+ *
  * V3 accepts multiple input types for backward compatibility:
  * - Horde_Variables (legacy Horde apps)
- * - PSR-7 ServerRequest (modern apps)
+ * - PSR-7 ServerRequest (modern apps — recommended)
  * - Plain arrays (testing, simple apps)
  *
  * All inputs are normalized to array internally for consistent operation.
  *
- * PSR-4 implementation.
+ * ## File uploads
+ *
+ * When a PSR-7 ServerRequestInterface is passed to the constructor,
+ * uploaded files are extracted via getUploadedFiles() and stored
+ * internally. During validate() and getInfo(), any variable implementing
+ * FileUploadAware receives the corresponding UploadedFileInterface
+ * before its validation or extraction logic runs.
+ *
+ * This eliminates the need for $_FILES and $GLOBALS['browser'] when
+ * using the PSR-7 input path. The legacy fallback remains active when
+ * form data is provided as an array or Horde_Variables.
+ *
+ * Files can also be set explicitly via setUploadedFiles() when the
+ * request was decomposed before reaching the form.
  *
  * @see Horde_Form PSR-0 legacy equivalent in lib/Horde/Form.php
  *
@@ -81,6 +97,13 @@ class BaseForm implements \Horde\Form\Form
      * typed internal operations.
      */
     private array $vars;
+
+    /**
+     * Uploaded files from PSR-7 request.
+     *
+     * @var array<string, UploadedFileInterface|array>
+     */
+    private array $uploadedFiles = [];
 
     /**
      * Submit button labels.
@@ -211,7 +234,9 @@ class BaseForm implements \Horde\Form\Form
         if (is_array($vars)) {
             return $vars;
         }
-        // PSR-7: read from the source matching the HTTP method.
+        // PSR-7: extract uploaded files alongside form data.
+        $this->uploadedFiles = $vars->getUploadedFiles();
+        // Read from the source matching the HTTP method.
         // POST/PUT/PATCH carry data in the body; GET/DELETE/HEAD in query.
         return match ($vars->getMethod()) {
             'POST', 'PUT', 'PATCH' => $vars->getParsedBody() ?? [],
@@ -245,6 +270,66 @@ class BaseForm implements \Horde\Form\Form
     public function setVars(Horde_Variables|ServerRequestInterface|array $vars): void
     {
         $this->vars = $this->normalizeVars($vars);
+    }
+
+    /**
+     * Set uploaded files for file-type form variables.
+     *
+     * When a PSR-7 ServerRequestInterface is passed to the constructor,
+     * uploaded files are extracted automatically. Use this method when
+     * form data is provided as an array or Horde_Variables but uploaded
+     * files are available separately (e.g., from a PSR-7 request that
+     * was decomposed before reaching the form).
+     *
+     * The array structure mirrors ServerRequestInterface::getUploadedFiles():
+     * keys are field names, values are UploadedFileInterface instances or
+     * nested arrays thereof.
+     *
+     * @param array<string, UploadedFileInterface|array> $uploadedFiles
+     *
+     * @api
+     */
+    public function setUploadedFiles(array $uploadedFiles): void
+    {
+        $this->uploadedFiles = $uploadedFiles;
+    }
+
+    /**
+     * Resolve the uploaded file for a given variable name.
+     *
+     * Navigates the uploadedFiles tree using bracket notation:
+     * - Simple: "photo" → $uploadedFiles['photo']
+     * - Nested: "object[photo][new]" → $uploadedFiles['object']['photo']['new']
+     */
+    private function getUploadedFileFor(Variable $var): ?UploadedFileInterface
+    {
+        if (empty($this->uploadedFiles)) {
+            return null;
+        }
+
+        $name = $var->getVarName();
+
+        // For ImageVariable, the upload field is varname[new]
+        if ($var instanceof ImageVariable) {
+            $name .= '[new]';
+        }
+
+        if (!str_contains($name, '[')) {
+            $file = $this->uploadedFiles[$name] ?? null;
+            return $file instanceof UploadedFileInterface ? $file : null;
+        }
+
+        // Navigate nested: "field[sub][key]" → ['field']['sub']['key']
+        $parts = explode('[', str_replace(']', '', $name));
+        $current = $this->uploadedFiles;
+        foreach ($parts as $part) {
+            if (!is_array($current) || !isset($current[$part])) {
+                return null;
+            }
+            $current = $current[$part];
+        }
+
+        return $current instanceof UploadedFileInterface ? $current : null;
     }
 
     /**
@@ -927,6 +1012,9 @@ class BaseForm implements \Horde\Form\Form
 
         // Validate all variables in enabled groups
         foreach ($this->getVariables(flat: true, withHidden: false, enabledOnly: true) as $var) {
+            if ($var instanceof FileUploadAware) {
+                $var->setUploadedFile($this->getUploadedFileFor($var));
+            }
             if (!$var->validate($varsObject)) {
                 $this->errors[$var->getVarName()] = $var->getMessage();
             }
@@ -934,6 +1022,9 @@ class BaseForm implements \Horde\Form\Form
 
         // Validate hidden variables
         foreach ($this->hiddenVariables as $var) {
+            if ($var instanceof FileUploadAware) {
+                $var->setUploadedFile($this->getUploadedFileFor($var));
+            }
             if (!$var->validate($varsObject)) {
                 $this->errors[$var->getVarName()] = $var->getMessage();
             }
@@ -1090,6 +1181,10 @@ class BaseForm implements \Horde\Form\Form
             // Skip disabled fields (not submitted by browsers)
             if ($var->isDisabled()) {
                 continue;
+            }
+
+            if ($var instanceof FileUploadAware) {
+                $var->setUploadedFile($this->getUploadedFileFor($var));
             }
 
             $varName = $var->getVarName();

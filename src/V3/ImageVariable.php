@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Horde\Form\V3;
 
 use Horde\Util\ArrayUtils;
@@ -10,21 +12,48 @@ use Horde_Form_Translation;
 use Horde_Browser_Exception;
 use Horde_Mime_Magic;
 use PEAR;
+use Psr\Http\Message\UploadedFileInterface;
 
 /**
  * ImageVariable type for image upload fields.
  *
+ * ## PSR-7 upload path (recommended for new code)
+ *
+ * When a PSR-7 ServerRequestInterface is passed to BaseForm, the uploaded
+ * file is injected via setUploadedFile() before validate() and getInfo().
+ * The variable writes the stream to a temp file and populates the same
+ * image metadata array as the legacy path (type, name, size, file).
+ *
+ * For ImageVariable, BaseForm resolves the upload at key "varname[new]"
+ * in the uploaded files tree, matching the HTML field structure used by
+ * the image upload widget.
+ *
+ * ## Legacy path (backward compatibility)
+ *
+ * When no UploadedFileInterface is injected, falls back to reading
+ * $_FILES via $GLOBALS['browser']->wasFileUploaded().
+ *
+ * ## Session-based image persistence
+ *
+ * Both paths use $GLOBALS['session'] to persist image data between
+ * requests (for preview/modify workflows). The session dependency is
+ * orthogonal to the upload source — it handles previously uploaded
+ * images, not the current upload.
+ *
  * @property bool $show_upload Show the upload button
  * @property bool $show_keeporig Show the option to upload also original non-modified image
  * @property int|null $max_filesize Limit the file size
-
- *
- * PSR-4 implementation.
  *
  * @see Horde_Form_Type_image PSR-0 legacy equivalent in lib/Horde/Form/Type.php
  */
-class ImageVariable extends BaseVariable
+class ImageVariable extends BaseVariable implements FileUploadAware
 {
+    private ?UploadedFileInterface $uploadedFile = null;
+
+    public function setUploadedFile(?UploadedFileInterface $file): void
+    {
+        $this->uploadedFile = $file;
+    }
     /**
      * Has a file been uploaded on this form submit?
      *
@@ -248,13 +277,27 @@ class ImageVariable extends BaseVariable
         }
 
         /* Check if file has been uploaded. */
-        try {
-            $new = $varname . '[new]';
+        if ($this->uploadedFile !== null) {
+            // PSR-7 path: use injected UploadedFileInterface
+            $error = $this->uploadedFile->getError();
+            if ($error === UPLOAD_ERR_OK) {
+                $this->_uploaded = true;
+            } else {
+                $this->_uploaded = new Horde_Browser_Exception(
+                    FileVariable::uploadErrorMessage($error),
+                    $error
+                );
+            }
+        } else {
+            // Legacy path: $_FILES via Horde_Browser
+            try {
+                $new = $varname . '[new]';
 
-            $GLOBALS['browser']->wasFileUploaded($new);
-            $this->_uploaded = true;
-        } catch (Horde_Browser_Exception $e) {
-            $this->_uploaded = $e;
+                $GLOBALS['browser']->wasFileUploaded($new);
+                $this->_uploaded = true;
+            } catch (Horde_Browser_Exception $e) {
+                $this->_uploaded = $e;
+            }
         }
 
         if ($this->_uploaded === true) {
@@ -274,36 +317,49 @@ class ImageVariable extends BaseVariable
                 $tmp_file = Horde::getTempFile('Horde', false);
             }
 
-            /* Get the other parts of the upload. */
-            $keys = ArrayUtils::getFieldParts($new);
-
-            /* Get the temporary file name. */
-            $file = ArrayUtils::getElement($_FILES, $keys, 'tmp_name');
-
-            /* Move the browser created temp file to the new temp file. */
-            move_uploaded_file($file, $tmp_file);
-
-            /* Get the name value. */
-            $name = ArrayUtils::getElement($_FILES, $keys, 'name');
-
-            /* Get the file type. */
-            $type = ArrayUtils::getElement($_FILES, $keys, 'type');
-            if ($type === null || $type === '' || $type === 'application/octet-stream') {
-                /* Type wasn't set on upload, try analysing the upload. */
-                $type = Horde_Mime_Magic::analyzeFile($tmp_file, $GLOBALS['conf']['mime']['magic_db'] ?? null);
-                if ($type === false) {
-                    /* Work out the type from the file name. */
-                    $type = Horde_Mime_Magic::filenameToMime($name);
+            if ($this->uploadedFile !== null) {
+                // PSR-7 path: write stream to temp file
+                $stream = $this->uploadedFile->getStream();
+                $dest = fopen($tmp_file, 'wb');
+                while (!$stream->eof()) {
+                    fwrite($dest, $stream->read(8192));
                 }
+                fclose($dest);
 
-                /* Set the type. */
-                ArrayUtils::setElement($_FILES, $keys, $type, 'type');
+                $name = $this->uploadedFile->getClientFilename();
+                $type = $this->uploadedFile->getClientMediaType();
+                $size = $this->uploadedFile->getSize();
+
+                if ($type === null || $type === '' || $type === 'application/octet-stream') {
+                    $type = Horde_Mime_Magic::analyzeFile($tmp_file, $GLOBALS['conf']['mime']['magic_db'] ?? null);
+                    if ($type === false) {
+                        $type = Horde_Mime_Magic::filenameToMime($name ?? '');
+                    }
+                }
+            } else {
+                // Legacy path: read from $_FILES
+                $new = $varname . '[new]';
+                $keys = ArrayUtils::getFieldParts($new);
+
+                $file = ArrayUtils::getElement($_FILES, $keys, 'tmp_name');
+                move_uploaded_file($file, $tmp_file);
+
+                $name = ArrayUtils::getElement($_FILES, $keys, 'name');
+                $type = ArrayUtils::getElement($_FILES, $keys, 'type');
+                if ($type === null || $type === '' || $type === 'application/octet-stream') {
+                    $type = Horde_Mime_Magic::analyzeFile($tmp_file, $GLOBALS['conf']['mime']['magic_db'] ?? null);
+                    if ($type === false) {
+                        $type = Horde_Mime_Magic::filenameToMime($name);
+                    }
+                    ArrayUtils::setElement($_FILES, $keys, $type, 'type');
+                }
+                $size = ArrayUtils::getElement($_FILES, $keys, 'size');
             }
 
             $img = [
                 'type' => $type,
                 'name' => $name,
-                'size' => ArrayUtils::getElement($_FILES, $keys, 'size'),
+                'size' => $size,
                 'file' => basename($tmp_file),
             ];
         } else {

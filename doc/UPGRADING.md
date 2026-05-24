@@ -1118,7 +1118,117 @@ transparently across the form API:
 
 ---
 
-## Known limitations (2026-04)
+## File uploads via PSR-7
+
+### Overview
+
+When a `ServerRequestInterface` is passed to BaseForm's constructor,
+uploaded files are extracted automatically via `getUploadedFiles()` and
+injected into `FileVariable` and `ImageVariable` instances before
+`validate()` and `getInfo()` run.  No `$_FILES` access or
+`$GLOBALS['browser']` dependency is needed on the PSR-7 path.
+
+### Usage
+
+```php
+use Horde\Form\V3\BaseForm;
+
+// PSR-7 request from your middleware / router
+$form = new BaseForm($request, 'Upload Document');
+$form->addVariable('Title', 'title', 'text', true);
+$form->addVariable('Document', 'document', 'file', true);
+
+if ($form->validate()) {
+    $info = $form->getInfo();
+    // $info['document'] contains:
+    //   'name'          => 'report.pdf' (client filename)
+    //   'type'          => 'application/pdf' (client media type)
+    //   'size'          => 45678 (bytes)
+    //   'tmp_name'      => '/tmp/horde_form_upload_abc123' (on-disk temp file)
+    //   'file'          => same as tmp_name
+    //   'error'         => UPLOAD_ERR_OK
+    //   'uploaded_file' => UploadedFileInterface instance
+    rename($info['document']['tmp_name'], $permanentPath);
+}
+```
+
+### Important: move_uploaded_file() does NOT work
+
+The temp file is created by writing the PSR-7 stream to disk.  PHP's
+`move_uploaded_file()` rejects it because PHP did not create it via
+its upload mechanism.  Use `rename()` or the `UploadedFileInterface`
+object's `moveTo()` method instead:
+
+```php
+// Option A: rename (simple, works on same filesystem)
+rename($info['document']['tmp_name'], $dest);
+
+// Option B: PSR-7 moveTo (works cross-filesystem, preferred)
+$info['document']['uploaded_file']->moveTo($dest);
+```
+
+### Legacy fallback
+
+When form data is provided as an array or `Horde_Variables` (i.e., not
+a full PSR-7 request), no uploaded files are extracted from the request.
+`FileVariable` and `ImageVariable` fall back to reading `$_FILES` and
+using `$GLOBALS['browser']->wasFileUploaded()`.  Existing code using
+this pattern is unchanged.
+
+### Explicit file injection
+
+When you decompose the PSR-7 request before passing form data:
+
+```php
+$formVars = $request->getParsedBody();
+$form = new BaseForm($formVars, 'Upload');
+$form->setUploadedFiles($request->getUploadedFiles());
+```
+
+This is equivalent to passing the full request.
+
+### Custom file-type variables
+
+To create a custom variable type that participates in PSR-7 file
+injection, implement `FileUploadAware`:
+
+```php
+use Horde\Form\V3\BaseVariable;
+use Horde\Form\V3\FileUploadAware;
+use Psr\Http\Message\UploadedFileInterface;
+
+class AvatarVariable extends BaseVariable implements FileUploadAware
+{
+    private ?UploadedFileInterface $uploadedFile = null;
+
+    public function setUploadedFile(?UploadedFileInterface $file): void
+    {
+        $this->uploadedFile = $file;
+    }
+
+    protected function isValid($vars, $value): bool
+    {
+        if ($this->uploadedFile !== null) {
+            if ($this->uploadedFile->getError() !== UPLOAD_ERR_OK) {
+                return $this->invalid('Upload failed.');
+            }
+            if ($this->uploadedFile->getSize() > 2_000_000) {
+                return $this->invalid('Avatar must be under 2MB.');
+            }
+            return true;
+        }
+        // Legacy fallback...
+    }
+}
+```
+
+BaseForm resolves the upload by matching the variable's name against the
+request's uploaded files tree.  For `ImageVariable`, the key is
+`{varname}[new]` to match the image upload widget's HTML structure.
+
+---
+
+## Known limitations (2026-05)
 
 - **Sub-forms**: Replaced by `FieldGroup` / `Section` model (see
   "FieldGroup and Section" below).  Groups provide structural variable
@@ -1131,8 +1241,6 @@ transparently across the form API:
   future scope item.
 - **Asset collection**: `AssetManager` collects JS/CSS paths but has
   no integration with Horde's page output yet.
-- **File uploads**: `renderFile()` produces `<input type="file">`
-  but file processing in `getInfo()` is not fully wired.
 - **validate() / getInfo() still wrap Horde_Variables**: These
   submission-time paths still construct `new Horde_Variables($array)`.
   Rendering paths have been migrated to `resolveValue()`.
