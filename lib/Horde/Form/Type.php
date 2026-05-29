@@ -1570,7 +1570,7 @@ class Horde_Form_Type_image extends Horde_Form_Type
     public function getRandomId()
     {
         if (!isset($this->_random)) {
-            $this->_random = uniqid(mt_rand());
+            $this->_random = uniqid((string)mt_rand());
         }
         return $this->_random;
     }
