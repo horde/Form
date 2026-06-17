@@ -55,8 +55,11 @@ class DatetimeVariable extends BaseVariable
         $this->_hms->init($show_seconds);
     }
 
-    public function isValid(Horde_Variables|Variables $vars, $date): bool
+    public function isValid(Horde_Variables|Variables $vars, $value): bool
     {
+        /* Local alias keeps the parameter name aligned with the parent and
+         * sibling subclasses while preserving the original body wording. */
+        $date = $value;
         /* Require all fields if one field is not empty */
         if ($this->isRequired() || $this->emptyDateArray($date) != 1 || !$this->emptyTimeArray($date)) {
             $mdy_valid = $this->_mdy->isValid($vars, $date);

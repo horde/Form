@@ -64,8 +64,11 @@ class MonthdayyearVariable extends BaseVariable
         $this->_format_out = $format_out;
     }
 
-    public function isValid(Horde_Variables|Variables $vars, $date): bool
+    public function isValid(Horde_Variables|Variables $vars, $value): bool
     {
+        /* Local alias keeps the parameter name aligned with the parent and
+         * sibling subclasses while preserving the original body wording. */
+        $date = $value;
         if (!is_array($date)) {
             if ($this->isRequired() && empty($date)) {
                 return $this->invalid('This field is required.');
