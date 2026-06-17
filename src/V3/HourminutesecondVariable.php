@@ -34,8 +34,11 @@ class HourminutesecondVariable extends BaseVariable
         $this->_show_seconds = $params[0] ?? false;
     }
 
-    public function isValid(Horde_Variables|Variables $vars, $time): bool
+    public function isValid(Horde_Variables|Variables $vars, $value): bool
     {
+        /* Local alias keeps the parameter name aligned with the parent and
+         * sibling subclasses while preserving the original body wording. */
+        $time = $value;
         if (!is_array($time)) {
             if ($this->isRequired()) {
                 return $this->invalid('Please enter a valid time.');
