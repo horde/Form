@@ -1,276 +1,14 @@
 ---
-3.0.0-beta8:
-  api: 3.0.0-beta8
-  state:
-    release: beta
-    api: beta
-  date: 2026-04-13
-  license:
-    identifier: LGPL-2.1-only
-    uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    fix: Unbreak forms without sections/tabs under php 8
-3.0.0-beta7:
-  api: 3.0.0-beta7
-  state:
-    release: beta
-    api: beta
-  date: 2026-03-18
-  license:
-    identifier: LGPL-2.1-only
-    uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    feat: Opt-In support for Horde\Date\Formatter (ICU support)
-3.0.0-beta6:
-  api: 3.0.0-beta6
-  state:
-    release: beta
-    api: beta
-  date: 2026-03-17
-  license:
-    identifier: LGPL-2.1-only
-    uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    docs(upgrading): Script based adding of phpdoc references between lib/ code and src/V3/ code
-    Merge pull request #22 from horde/feat/issue-19-baseform-implementation
-    chore(PR#22): Fix Merge conflict.
-    fix: More security casting
-    test: Reduce reliance on real externals in unit tests and prefer named parameters
-    fix: cast to string explicitly.
-    fix: Rely on new Exception class pear stub
-3.0.0-beta5:
-  api: 3.0.0-beta5
-  state:
-    release: beta
-    api: beta
-  date: 2026-03-15
-  license:
-    identifier: LGPL-2.1-only
-    uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    chore(metadata): Commit metadata due to tool failure
-    Merge pull request #21 from horde/feat/separate-compat-interfaces-from-V3
-    fix(test): fix global mocks and TextType init parameter order
-    feat(api): create distinct migration and V3-native interfaces
-    docs(api): add @api and @internal tags to V3 methods, add missing phpdoc
-    docs: complete missing PHPDoc blocks in V3 codebase
-3.0.0-beta4:
-  api: 3.0.0-beta4
-  state:
-    release: beta
-    api: beta
-  date: 2026-03-12
-  license:
-    identifier: LGPL-2.1-only
-    uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    fix(test): fix global mocks and TextType init parameter order
-    feat(api): create distinct migration and V3-native interfaces
-    docs(api): add @api and @internal tags to V3 methods, add missing phpdoc
-    docs: complete missing PHPDoc blocks in V3 codebase
-    fix: Restore deprecation warning for legacy getInfo() signature
-    test: add unit and integration tests for Form components
-    style(v3): use statements and correct email address
-    feat(v3): implement all remaining 27 variable type renderers
-    feat(v3): add 15 additional variable type renderers
-    fix(v3): fix 3 failing tests in BaseVariable
-    feat(v3): add controlMode support and three remaining actions
-    test(v3): add comprehensive CRUD form integration test
-    test(v3): add comprehensive V3 test suite
-    feat(v3): implement HTML renderer system
-    feat(v3): add renderer system interfaces and design
-    feat(v3): implement Action system with 5 core actions
-    feat(v3): implement BaseForm with PSR-7 support and multi-type input
-    docs: add V3 migration guide for lib/ vs src/V3 usage
-    fix: Use Horde_Array::setElement() to update image type
-    fix: Make V3 classes friendlier to static code analyzers
-    fix: Make _getUpload() method private
-    fix: wip: Make V3 classes friendlier to static code analyzers
-    fix: Added missing 'helper' to about() in Horde_Form_Type_address
-    fix: wip: Make V3 classes friendlier to static code analyzers
-    fix: wip: Make V3 classes friendlier to static code analyzers
-    fix: Added missing 'prompt' to about() in Horde_Form_Type_radio
-    fix: Aditional V3 fixes
-    V3: Improve credit card validation checks
-    fix: V3: Various fixes
-    fix: V3: use correct about() signature
-    fix: Add missing return to about()
-    Merge pull request #15 from horde/fix_nls_loader
-    fix: Use Horde_Nls_Loader to get instead of non-working include
-    fix: Allow horde/horde-installer-plugin in github workflows
-    fix: Create index(es) for optional named parameters in init() method
-    Update composer.json to autoload V3 classes
-    fix: Update V3 classes
-    fix: getType(): flatten named parameters before calling init()
-    Merge pull request #9 from horde/simplify-getinfo
-    fix: v3: Add "use" statement to CountryVariable class
-    fix: Add onSubmit() method in Horde_Form_Variable class
-    fix: v3: Correct about() method signatures
-    fix: v3: Add missing "use Horde_String"
-    fix: v3: Remove wrong isValid() method from LongtextVariable class
-    fix: v3: Remove unneeded check in DatetimeVariable, simplify the code
-    fix: v3: use invalid() to set the message property
-    fix: v3: Move 'type' property check from getProperty() to __get()
-    fix: v3: Use value passed to isValid() in {DateTime,Hourminutesecond,Monthdayyear}Variable classes
-    fix: v3: Add parameter deprecation warning to validate(), drop $_type property
-    fix: v3: Accept named array key for form init params
-    fix: v3: Implement getInfo() wrapper for seamless transition to V3 classes
-    v3: Merge/convert *Type classes with Horde_Form_Variable into *Variable classes
-    fix: Accept named array key for form init params
-    Simplify Horde_Form's getInfo()
-3.0.0-beta3:
-  api: 3.0.0-alpha1
-  state:
-    release: beta
-    api: alpha
-  date: 2025-07-05
-  license:
-    identifier: LGPL-2.1-only
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    fix: Horde Form Name must not contain backlash as this breaks javascript functionality
-    fix: Sync recent fixes to V3 types
-3.0.0-beta2:
-  api: 3.0.0-alpha1
-  state:
-    release: beta
-    api: alpha
-  date: 2025-07-02
-  license:
-    identifier: LGPL-2.1-only
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    fix: Repair more type initializers
-    fix: Accept both keyed and named array for monthdayyear (closes https://github.com/horde/Core/issues/26).
-3.0.0-beta1:
-  api: 3.0.0-alpha1
-  state:
-    release: beta
-    api: alpha
-  date: 2025-07-02
-  license:
-    identifier: LGPL-2.1-only
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    chore: Bump to beta version
-    fix: _renderVarDisplay_image consumes the return value https://github.com/horde/turba/issues/16
-    fix: Use getter to retrieve error message set by validate()
-    fix: Add getter and message property to Horde_Form_Variable
-    feat: V3: Implement (and use) invalid() method to set message property
-    feat: Implement (and use) invalid() method to set message property in Horde_Form_Type classes
-    chore: Add more V3 types
-    chore: Add more V3 types
-    chore: Add more V3 types
-    fix: _getInfoFromVariables on array[] form fields (found by Dmitry)
-    fix: Add missing getInfo() return values
-    fix: Add more missing message assignments
-3.0.0-alpha8:
-  api: 3.0.0-alpha1
-  state:
-    release: alpha
-    api: alpha
-  date: 2025-06-22
-  license:
-    identifier: LGPL-2.1-only
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    fix: Add missing message assignment
-    chore: Add more V3 types
-    chore: Draft V3 design
-    docs(README): Add upgrading instructions
-    fix: Discussion from #5 - use a getter and property instead of a return parameter
-3.0.0-alpha7:
-  api: 3.0.0-alpha1
-  state:
-    release: alpha
-    api: alpha
-  date: 2025-05-29
-  license:
-    identifier: LGPL-2.1-only
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    fix: Support hash key parameter format for 'set' Form Type
-    fix: Shield against access to unset array keys
-3.0.0-alpha6:
-  api: 3.0.0-alpha1
-  state:
-    release: true
-    api: true
-  date: 2025-05-21
-  license:
-    identifier: LGPL-2.1-only
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    fix: Harden "set" form type against null issues
-    fix: Add returning info array for getInfo on many field types
-    fix: Deep-array multienum form fields like [type][typeStates] = [2, 3, 4] work again with getInfo()
-    fix: Refactor getInfo to work with return values rather than updating by reference. Prepare for a result object to be passed. Provide unit test to demonstrate basic functionality.
-    ci: Modernize pipeline setup for phpunit 12 and phpstan.
-    fix: Apply php-cs-fixer
-    fix: Remove reference from signatures.
-3.0.0-alpha5:
-  api: 3.0.0alpha1
-  state:
-    release: alpha
-    api: alpha
-  date: 2024-01-10
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Original version string was 3.0.0alpha5
-    [rla] Fix deprecated string interpolation.
-    |+
-3.0.0-alpha4:
-  api: 3.0.0alpha1
-  state:
-    release: alpha
-    api: alpha
-  date: 2022-11-04
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Original version string was 3.0.0alpha4
-    [rla] Release for PHP 8.
-    |+
-3.0.0-alpha3:
-  api: 3.0.0alpha1
-  state:
-    release: alpha
-    api: alpha
-  date: 2021-03-13
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |-
-    Original version string was 3.0.0alpha3
-    |+
-3.0.0-alpha2:
-  api: 3.0.0alpha1
-  state:
-    release: alpha
-    api: alpha
-  date: 2021-02-24
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |-
-    Original version string was 3.0.0alpha2
-    |+
-3.0.0-alpha1:
-  api: 3.0.0alpha1
+3.0.0:
+  api: 3.0.0
   state:
     release: stable
     api: stable
-  date: 2021-02-24
+  date: 2026-06-30
   license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Original version string was 3.0.0alpha1
-    [mjr] SECURITY: Prevent ability to specify temporary filename (CVE-2020-8866, Reported By: Andrea Cardaci working with Trend Micro Zero Day Initiative).
-    |+
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: "chore: update CI\nci: install horde-components CI pipeline\nrefactor: Follow up on horde/form#41 variable name mismatch\nfix: Correct variable name in isValid()\ndoc: Fix style, no leading slash in class names in root namespace needed"
 3.0.0-RC5:
   api: 3.0.0-RC5
   state:
@@ -280,10 +18,7 @@
   license:
     identifier: LGPL-2.1-only
     uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    style: use "use" statements, whitespace according to PER-1
-    Cast mt_rand() to string for uniqid()
-    Fix random ID generation to cast mt_rand to string
+  notes: "style: use \"use\" statements, whitespace according to PER-1\nCast mt_rand() to string for uniqid()\nFix random ID generation to cast mt_rand to string"
 3.0.0-RC4:
   api: 3.0.0-RC4
   state:
@@ -293,15 +28,7 @@
   license:
     identifier: LGPL-2.1-only
     uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    chore(form): allow horde-installer-plugin in composer config
-    feat(form): document AssetManager page output integration
-    feat(form): Add support for PSR-7 file upload to V3 FileVariable and ImageVariable
-    chore: mark global statements for DI refactoring
-    refactor(image): Improve _getUpload, remove getUploadedFileType method - Separate upload handling from try/catch: file-not-uploaded logic - Build $img as a local array and assign to $this->_img at the end,   rather than mutating $this->_img piecemeal throughout the method - Remove getUploadedFileType static method, inline/improve its logic - Related code improvements
-    refactor: use PSR-4 version of nls
-    chore: Update workflow dependency
-    Refactor validation logic for form variables
+  notes: "chore(form): allow horde-installer-plugin in composer config\nfeat(form): document AssetManager page output integration\nfeat(form): Add support for PSR-7 file upload to V3 FileVariable and ImageVariable\nchore: mark global statements for DI refactoring\nrefactor(image): Improve _getUpload, remove getUploadedFileType method - Separate upload handling from try/catch: file-not-uploaded logic - Build $img as a local array and assign to $this->_img at the end,   rather than mutating $this->_img piecemeal throughout the method - Remove getUploadedFileType static method, inline/improve its logic - Related code improvements\nrefactor: use PSR-4 version of nls\nchore: Update workflow dependency\nRefactor validation logic for form variables"
 3.0.0-RC3:
   api: 3.0.0-RC3
   state:
@@ -311,10 +38,7 @@
   license:
     identifier: LGPL-2.1-only
     uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    fix: Accept Variables type for contravariance
-    Merge pull request #33 from horde/refactor/strftime-icu-migration
-    refactor(strftime): Migrate to native usage of IntlDateFormatter and DateTime
+  notes: "fix: Accept Variables type for contravariance\nMerge pull request #33 from horde/refactor/strftime-icu-migration\nrefactor(strftime): Migrate to native usage of IntlDateFormatter and DateTime"
 3.0.0-RC2:
   api: 3.0.0-RC2
   state:
@@ -324,10 +48,7 @@
   license:
     identifier: LGPL-2.1-only
     uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    fix: Accept Variables type for contravariance
-    Merge pull request #33 from horde/refactor/strftime-icu-migration
-    refactor(strftime): Migrate to native usage of IntlDateFormatter and DateTime
+  notes: "fix: Accept Variables type for contravariance\nMerge pull request #33 from horde/refactor/strftime-icu-migration\nrefactor(strftime): Migrate to native usage of IntlDateFormatter and DateTime"
 3.0.0-RC1:
   api: 3.0.0-RC1
   state:
@@ -337,32 +58,167 @@
   license:
     identifier: LGPL-2.1-only
     uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    fix: Allow Horde\Util\Variables class in isValid() method
-    fix: Add Delegators - 866aa1af commit "Refactor variable method calls in Html.php" broke trean config menu
-    feat: add __call magic method to delegate undefined methods to $type
-    fix(v3): Reproduce legacy type names in getTypeName()
-    refactor: Improve createVariable() logic
-    fix: Make unused $info parameter in Horde_Form_Variable::getInfo() optional
-    Fix prompt check and update getInfo call
-    Merge pull request #26 from horde6/FRAMEWORK_6_0
-    refactor: use getFieldParts() in _getInfoFromVariables()
-    refactor: simplify _getUpload and getUploadedFileType()  - use getFieldParts() instead of getArrayParts() in 'image' type  - utilize extra parameter in getElement/setElement to simplify the code  - make getUploadedFileType() static
-    refactor: use array_splice in removeVariable()
-    fix: initialize $_img variable
-    refactor(Form): modernise _currentSection handling and variable insertion
-    Initialize _img property to null
-    Merge pull request #24 from horde6/V3
-    feat: Implement transitional support to V3 classes
-    docs: Add an "old-style entrypoint" and a PSR controller demonstrating all form types
-    test: Add regression test against the File behaviour change
-    fix: Restore original behavior of getInfo() for 'file" variable type
-    chore: Add Dmitry as the primary maintainer
-    fix: Type safety issue in PHP 8.5
-    docs: Add V3 UPGRADING.md which supersedes the previous migration guide
-    docs: Reference CSS for the V3 form model
-    test: Add test cases for V3 FieldGroups (replacing nested forms)
-    feat: Flesh out V3 forms and migrations
+  notes: "fix: Allow Horde\\Util\\Variables class in isValid() method\nfix: Add Delegators - 866aa1af commit \"Refactor variable method calls in Html.php\" broke trean config menu\nfeat: add __call magic method to delegate undefined methods to $type\nfix(v3): Reproduce legacy type names in getTypeName()\nrefactor: Improve createVariable() logic\nfix: Make unused $info parameter in Horde_Form_Variable::getInfo() optional\nFix prompt check and update getInfo call\nMerge pull request #26 from horde6/FRAMEWORK_6_0\nrefactor: use getFieldParts() in _getInfoFromVariables()\nrefactor: simplify _getUpload and getUploadedFileType()  - use getFieldParts() instead of getArrayParts() in 'image' type  - utilize extra parameter in getElement/setElement to simplify the code  - make getUploadedFileType() static\nrefactor: use array_splice in removeVariable()\nfix: initialize $_img variable\nrefactor(Form): modernise _currentSection handling and variable insertion\nInitialize _img property to null\nMerge pull request #24 from horde6/V3\nfeat: Implement transitional support to V3 classes\ndocs: Add an \"old-style entrypoint\" and a PSR controller demonstrating all form types\ntest: Add regression test against the File behaviour change\nfix: Restore original behavior of getInfo() for 'file\" variable type\nchore: Add Dmitry as the primary maintainer\nfix: Type safety issue in PHP 8.5\ndocs: Add V3 UPGRADING.md which supersedes the previous migration guide\ndocs: Reference CSS for the V3 form model\ntest: Add test cases for V3 FieldGroups (replacing nested forms)\nfeat: Flesh out V3 forms and migrations"
+3.0.0-beta8:
+  api: 3.0.0-beta8
+  state:
+    release: beta
+    api: beta
+  date: 2026-04-13
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: 'fix: Unbreak forms without sections/tabs under php 8'
+3.0.0-beta7:
+  api: 3.0.0-beta7
+  state:
+    release: beta
+    api: beta
+  date: 2026-03-18
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: 'feat: Opt-In support for Horde\Date\Formatter (ICU support)'
+3.0.0-beta6:
+  api: 3.0.0-beta6
+  state:
+    release: beta
+    api: beta
+  date: 2026-03-17
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: "docs(upgrading): Script based adding of phpdoc references between lib/ code and src/V3/ code\nMerge pull request #22 from horde/feat/issue-19-baseform-implementation\nchore(PR#22): Fix Merge conflict.\nfix: More security casting\ntest: Reduce reliance on real externals in unit tests and prefer named parameters\nfix: cast to string explicitly.\nfix: Rely on new Exception class pear stub"
+3.0.0-beta5:
+  api: 3.0.0-beta5
+  state:
+    release: beta
+    api: beta
+  date: 2026-03-15
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: "chore(metadata): Commit metadata due to tool failure\nMerge pull request #21 from horde/feat/separate-compat-interfaces-from-V3\nfix(test): fix global mocks and TextType init parameter order\nfeat(api): create distinct migration and V3-native interfaces\ndocs(api): add @api and @internal tags to V3 methods, add missing phpdoc\ndocs: complete missing PHPDoc blocks in V3 codebase"
+3.0.0-beta4:
+  api: 3.0.0-beta4
+  state:
+    release: beta
+    api: beta
+  date: 2026-03-12
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: "fix(test): fix global mocks and TextType init parameter order\nfeat(api): create distinct migration and V3-native interfaces\ndocs(api): add @api and @internal tags to V3 methods, add missing phpdoc\ndocs: complete missing PHPDoc blocks in V3 codebase\nfix: Restore deprecation warning for legacy getInfo() signature\ntest: add unit and integration tests for Form components\nstyle(v3): use statements and correct email address\nfeat(v3): implement all remaining 27 variable type renderers\nfeat(v3): add 15 additional variable type renderers\nfix(v3): fix 3 failing tests in BaseVariable\nfeat(v3): add controlMode support and three remaining actions\ntest(v3): add comprehensive CRUD form integration test\ntest(v3): add comprehensive V3 test suite\nfeat(v3): implement HTML renderer system\nfeat(v3): add renderer system interfaces and design\nfeat(v3): implement Action system with 5 core actions\nfeat(v3): implement BaseForm with PSR-7 support and multi-type input\ndocs: add V3 migration guide for lib/ vs src/V3 usage\nfix: Use Horde_Array::setElement() to update image type\nfix: Make V3 classes friendlier to static code analyzers\nfix: Make _getUpload() method private\nfix: wip: Make V3 classes friendlier to static code analyzers\nfix: Added missing 'helper' to about() in Horde_Form_Type_address\nfix: wip: Make V3 classes friendlier to static code analyzers\nfix: wip: Make V3 classes friendlier to static code analyzers\nfix: Added missing 'prompt' to about() in Horde_Form_Type_radio\nfix: Aditional V3 fixes\nV3: Improve credit card validation checks\nfix: V3: Various fixes\nfix: V3: use correct about() signature\nfix: Add missing return to about()\nMerge pull request #15 from horde/fix_nls_loader\nfix: Use Horde_Nls_Loader to get instead of non-working include\nfix: Allow horde/horde-installer-plugin in github workflows\nfix: Create index(es) for optional named parameters in init() method\nUpdate composer.json to autoload V3 classes\nfix: Update V3 classes\nfix: getType(): flatten named parameters before calling init()\nMerge pull request #9 from horde/simplify-getinfo\nfix: v3: Add \"use\" statement to CountryVariable class\nfix: Add onSubmit() method in Horde_Form_Variable class\nfix: v3: Correct about() method signatures\nfix: v3: Add missing \"use Horde_String\"\nfix: v3: Remove wrong isValid() method from LongtextVariable class\nfix: v3: Remove unneeded check in DatetimeVariable, simplify the code\nfix: v3: use invalid() to set the message property\nfix: v3: Move 'type' property check from getProperty() to __get()\nfix: v3: Use value passed to isValid() in {DateTime,Hourminutesecond,Monthdayyear}Variable classes\nfix: v3: Add parameter deprecation warning to validate(), drop $_type property\nfix: v3: Accept named array key for form init params\nfix: v3: Implement getInfo() wrapper for seamless transition to V3 classes\nv3: Merge/convert *Type classes with Horde_Form_Variable into *Variable classes\nfix: Accept named array key for form init params\nSimplify Horde_Form's getInfo()"
+3.0.0-beta3:
+  api: 3.0.0-alpha1
+  state:
+    release: beta
+    api: alpha
+  date: 2025-07-05
+  license:
+    identifier: LGPL-2.1-only
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "fix: Horde Form Name must not contain backlash as this breaks javascript functionality\nfix: Sync recent fixes to V3 types\n"
+3.0.0-beta2:
+  api: 3.0.0-alpha1
+  state:
+    release: beta
+    api: alpha
+  date: 2025-07-02
+  license:
+    identifier: LGPL-2.1-only
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "fix: Repair more type initializers\nfix: Accept both keyed and named array for monthdayyear (closes https://github.com/horde/Core/issues/26).\n"
+3.0.0-beta1:
+  api: 3.0.0-alpha1
+  state:
+    release: beta
+    api: alpha
+  date: 2025-07-02
+  license:
+    identifier: LGPL-2.1-only
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "chore: Bump to beta version\nfix: _renderVarDisplay_image consumes the return value https://github.com/horde/turba/issues/16\nfix: Use getter to retrieve error message set by validate()\nfix: Add getter and message property to Horde_Form_Variable\nfeat: V3: Implement (and use) invalid() method to set message property\nfeat: Implement (and use) invalid() method to set message property in Horde_Form_Type classes\nchore: Add more V3 types\nchore: Add more V3 types\nchore: Add more V3 types\nfix: _getInfoFromVariables on array[] form fields (found by Dmitry)\nfix: Add missing getInfo() return values\nfix: Add more missing message assignments\n"
+3.0.0-alpha8:
+  api: 3.0.0-alpha1
+  state:
+    release: alpha
+    api: alpha
+  date: 2025-06-22
+  license:
+    identifier: LGPL-2.1-only
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "fix: Add missing message assignment\nchore: Add more V3 types\nchore: Draft V3 design\ndocs(README): Add upgrading instructions\nfix: Discussion from #5 - use a getter and property instead of a return parameter\n"
+3.0.0-alpha7:
+  api: 3.0.0-alpha1
+  state:
+    release: alpha
+    api: alpha
+  date: 2025-05-29
+  license:
+    identifier: LGPL-2.1-only
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "fix: Support hash key parameter format for 'set' Form Type\nfix: Shield against access to unset array keys\n"
+3.0.0-alpha6:
+  api: 3.0.0-alpha1
+  state:
+    release: true
+    api: true
+  date: 2025-05-21
+  license:
+    identifier: LGPL-2.1-only
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "fix: Harden \"set\" form type against null issues\nfix: Add returning info array for getInfo on many field types\nfix: Deep-array multienum form fields like [type][typeStates] = [2, 3, 4] work again with getInfo()\nfix: Refactor getInfo to work with return values rather than updating by reference. Prepare for a result object to be passed. Provide unit test to demonstrate basic functionality.\nci: Modernize pipeline setup for phpunit 12 and phpstan.\nfix: Apply php-cs-fixer\nfix: Remove reference from signatures.\n"
+3.0.0-alpha5:
+  api: 3.0.0alpha1
+  state:
+    release: alpha
+    api: alpha
+  date: 2024-01-10
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "Original version string was 3.0.0alpha5\n[rla] Fix deprecated string interpolation.\n|+\n"
+3.0.0-alpha4:
+  api: 3.0.0alpha1
+  state:
+    release: alpha
+    api: alpha
+  date: 2022-11-04
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "Original version string was 3.0.0alpha4\n[rla] Release for PHP 8.\n|+\n"
+3.0.0-alpha3:
+  api: 3.0.0alpha1
+  state:
+    release: alpha
+    api: alpha
+  date: 2021-03-13
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "Original version string was 3.0.0alpha3\n|+"
+3.0.0-alpha2:
+  api: 3.0.0alpha1
+  state:
+    release: alpha
+    api: alpha
+  date: 2021-02-24
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "Original version string was 3.0.0alpha2\n|+"
+3.0.0-alpha1:
+  api: 3.0.0alpha1
+  state:
+    release: stable
+    api: stable
+  date: 2021-02-24
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "Original version string was 3.0.0alpha1\n[mjr] SECURITY: Prevent ability to specify temporary filename (CVE-2020-8866, Reported By: Andrea Cardaci working with Trend Micro Zero Day Initiative).\n|+\n"
 2.0.19:
   api: 1.1.0
   state:
@@ -372,9 +228,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |+
-    [mjr] SECURITY: Prevent RCE vulnerability due to potential directory traversal in Image uploads (An independent security researcher has reported this vulnerability to SecuriTeam Secure Disclosure program).
-    
+  notes: "[mjr] SECURITY: Prevent RCE vulnerability due to potential directory traversal in Image uploads (An independent security researcher has reported this vulnerability to SecuriTeam Secure Disclosure program).\n\n"
 2.0.18:
   api: 1.1.0
   state:
@@ -384,8 +238,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] SECURITY: Fix XSS vulnerability with form sections.
+  notes: "[jan] SECURITY: Fix XSS vulnerability with form sections.\n"
 2.0.17:
   api: 1.1.0
   state:
@@ -395,8 +248,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Fix regression when submitting multiple forms (Bug #14604).
+  notes: "[jan] Fix regression when submitting multiple forms (Bug #14604).\n"
 2.0.16:
   api: 1.1.0
   state:
@@ -406,8 +258,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Keep submitted checkboxes unchecked if they default to be checked.
+  notes: "[jan] Keep submitted checkboxes unchecked if they default to be checked.\n"
 2.0.15:
   api: 1.1.0
   state:
@@ -417,8 +268,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Catch errors when checking one-time form tokens.
+  notes: "[jan] Catch errors when checking one-time form tokens.\n"
 2.0.14:
   api: 1.1.0
   state:
@@ -428,9 +278,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Fix handling of incomplete date arrays (Neal Thomas Oakey <oakey@b1-systems.de>).
-    [mjr] Fix bug when using multiple sections (Neal Thomas Oakey <oakey@b1-systems.de>).
+  notes: "[mjr] Fix handling of incomplete date arrays (Neal Thomas Oakey <oakey@b1-systems.de>).\n[mjr] Fix bug when using multiple sections (Neal Thomas Oakey <oakey@b1-systems.de>).\n"
 2.0.13:
   api: 1.1.0
   state:
@@ -440,9 +288,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).
-    [mjr] Allow non-breaking space to match in a telephone field (Request #14235).
+  notes: "[jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).\n[mjr] Allow non-breaking space to match in a telephone field (Request #14235).\n"
 2.0.12:
   api: 1.1.0
   state:
@@ -452,10 +298,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Fix field types being overwritten in certain cases.
-    [jan] Allow any empty format specifiers for the monthdayyear field (Bug #14130).
-    [jan] Mark PHP 7 as supported.
+  notes: "[jan] Fix field types being overwritten in certain cases.\n[jan] Allow any empty format specifiers for the monthdayyear field (Bug #14130).\n[jan] Mark PHP 7 as supported.\n"
 2.0.11:
   api: 1.1.0
   state:
@@ -465,8 +308,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Prevent empty email addresses from being detected as a valid "multiple" email (Bug #14063).
+  notes: "[mjr] Prevent empty email addresses from being detected as a valid \"multiple\" email (Bug #14063).\n"
 2.0.10:
   api: 1.1.0
   state:
@@ -476,8 +318,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] SECURITY: Fixed XSS in form renderer.
+  notes: "[jan] SECURITY: Fixed XSS in form renderer.\n"
 2.0.9:
   api: 1.1.0
   state:
@@ -487,8 +328,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Support loading translations from Composer-installed package.
+  notes: "[jan] Support loading translations from Composer-installed package.\n"
 2.0.8:
   api: 1.1.0
   state:
@@ -498,7 +338,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: ~
+  notes: null
 2.0.7:
   api: 1.1.0
   state:
@@ -508,8 +348,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Don't submit disabled fields.
+  notes: "[jan] Don't submit disabled fields.\n"
 2.0.6:
   api: 1.1.0
   state:
@@ -519,8 +358,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mms] Remove duplicate constructor.
+  notes: "[mms] Remove duplicate constructor.\n"
 2.0.5:
   api: 1.1.0
   state:
@@ -530,8 +368,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mms] Use changed behavior of '_formvars' in Horde_Variables.
+  notes: "[mms] Use changed behavior of '_formvars' in Horde_Variables.\n"
 2.0.4:
   api: 1.1.0
   state:
@@ -541,9 +378,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update Ukrainian translation (Andriy Kopystyansky <anri@polynet.lviv.ua>).
-    [jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+  notes: "[jan] Update Ukrainian translation (Andriy Kopystyansky <anri@polynet.lviv.ua>).\n[jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).\n"
 2.0.3:
   api: 1.1.0
   state:
@@ -553,8 +388,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update French translation (Paul De Vlieger <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+  notes: "[jan] Update French translation (Paul De Vlieger <paul.de_vlieger@moniut.univ-bpclermont.fr>).\n"
 2.0.2:
   api: 1.1.0
   state:
@@ -564,8 +398,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Add Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+  notes: "[jan] Add Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).\n"
 2.0.1:
   api: 1.1.0
   state:
@@ -575,70 +408,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Re-packaged 2.0.0 release.
-2.0.0-beta3:
-  api: 1.1.0
-  state:
-    release: beta
-    api: stable
-  date: 2012-10-12
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Original version string was 2.0.0beta3
-    [jan] Allow to pass button attribute hashes to setButtons().
-    [jan] Allow to set CSS class for 'link' form fields.
-2.0.0-beta2:
-  api: 1.1.0
-  state:
-    release: beta
-    api: stable
-  date: 2012-08-29
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Original version string was 2.0.0beta2
-    [jan] Add Horde_Form_Type_email#allowMultiple().
-2.0.0-beta1:
-  api: 1.1.0
-  state:
-    release: beta
-    api: stable
-  date: 2012-07-19
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Original version string was 2.0.0beta1
-    First beta release for Horde 5.
-2.0.0-alpha1:
-  api: 1.1.0
-  state:
-    release: alpha
-    api: stable
-  date: 2012-07-05
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Original version string was 2.0.0alpha1
-    First alpha release for Horde 5.
-    [mms] Use new Horde_Mail API.
-2.0.0-RC1:
-  api: 1.1.0
-  state:
-    release: beta
-    api: stable
-  date: 2012-10-26
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Original version string was 2.0.0RC1
-    [mjr] Fixed autoloading of some field actions.
+  notes: "[jan] Re-packaged 2.0.0 release.\n"
 2.0.0:
   api: 1.1.0
   state:
@@ -648,8 +418,57 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First stable release for Horde 5.
+  notes: "First stable release for Horde 5.\n"
+2.0.0-RC1:
+  api: 1.1.0
+  state:
+    release: beta
+    api: stable
+  date: 2012-10-26
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "Original version string was 2.0.0RC1\n[mjr] Fixed autoloading of some field actions.\n"
+2.0.0-beta3:
+  api: 1.1.0
+  state:
+    release: beta
+    api: stable
+  date: 2012-10-12
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "Original version string was 2.0.0beta3\n[jan] Allow to pass button attribute hashes to setButtons().\n[jan] Allow to set CSS class for 'link' form fields.\n"
+2.0.0-beta2:
+  api: 1.1.0
+  state:
+    release: beta
+    api: stable
+  date: 2012-08-29
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "Original version string was 2.0.0beta2\n[jan] Add Horde_Form_Type_email#allowMultiple().\n"
+2.0.0-beta1:
+  api: 1.1.0
+  state:
+    release: beta
+    api: stable
+  date: 2012-07-19
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "Original version string was 2.0.0beta1\nFirst beta release for Horde 5.\n"
+2.0.0-alpha1:
+  api: 1.1.0
+  state:
+    release: alpha
+    api: stable
+  date: 2012-07-05
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "Original version string was 2.0.0alpha1\nFirst alpha release for Horde 5.\n[mms] Use new Horde_Mail API.\n"
 1.1.1:
   api: 1.1.0
   state:
@@ -659,7 +478,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: ~
+  notes: null
 1.1.0:
   api: 1.1.0
   state:
@@ -669,8 +488,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Add parameters to specify field size of phone and email fields.
+  notes: "[jan] Add parameters to specify field size of phone and email fields.\n"
 1.0.6:
   api: 1.0.0
   state:
@@ -680,8 +498,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mms] SECURITY: Fix XSS vulnerability in email validation.
+  notes: "[mms] SECURITY: Fix XSS vulnerability in email validation.\n"
 1.0.5:
   api: 1.0.0
   state:
@@ -691,8 +508,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Add remove button to image fields (Request #9870).
+  notes: "[mjr] Add remove button to image fields (Request #9870).\n"
 1.0.4:
   api: 1.0.0
   state:
@@ -702,8 +518,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update Latvian translation.
+  notes: "[jan] Update Latvian translation.\n"
 1.0.3:
   api: 1.0.0
   state:
@@ -713,9 +528,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update Lithuanian translation.
-    [jan] Update Brazilian Portuguese translation.
+  notes: "[jan] Update Lithuanian translation.\n[jan] Update Brazilian Portuguese translation.\n"
 1.0.2:
   api: 1.0.0
   state:
@@ -725,8 +538,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Updated Slovak translation.
+  notes: "[jan] Updated Slovak translation.\n"
 1.0.1:
   api: 1.0.0
   state:
@@ -736,56 +548,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Updated Spanish translation.
-1.0.0-beta1:
-  api: 1.0.0
-  state:
-    release: beta
-    api: beta
-  date: 2011-03-16
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Original version string was 1.0.0beta1
-    Generate valid id attributes for form elements.
-1.0.0-alpha1:
-  api: 1.0.0
-  state:
-    release: alpha
-    api: alpha
-  date: 2011-03-08
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Original version string was 1.0.0alpha1
-    First alpha release for Horde 4.
-1.0.0-RC2:
-  api: 1.0.0
-  state:
-    release: beta
-    api: beta
-  date: 2011-03-29
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Original version string was 1.0.0RC2
-    Second release candidate for Horde 4.
-1.0.0-RC1:
-  api: 1.0.0
-  state:
-    release: beta
-    api: beta
-  date: 2011-03-22
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Original version string was 1.0.0RC1
-    First release candidate for Horde 4.
+  notes: "[jan] Updated Spanish translation.\n"
 1.0.0:
   api: 1.0.0
   state:
@@ -795,8 +558,47 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First stable release for Horde 4.
+  notes: "First stable release for Horde 4.\n"
+1.0.0-RC2:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-29
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "Original version string was 1.0.0RC2\nSecond release candidate for Horde 4.\n"
+1.0.0-RC1:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-22
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "Original version string was 1.0.0RC1\nFirst release candidate for Horde 4.\n"
+1.0.0-beta1:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-16
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "Original version string was 1.0.0beta1\nGenerate valid id attributes for form elements.\n"
+1.0.0-alpha1:
+  api: 1.0.0
+  state:
+    release: alpha
+    api: alpha
+  date: 2011-03-08
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "Original version string was 1.0.0alpha1\nFirst alpha release for Horde 4.\n"
 0.0.2:
   api: 0.0.2
   state:
@@ -806,8 +608,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Converted to package.xml 2.0 for pear.horde.org
+  notes: "Converted to package.xml 2.0 for pear.horde.org\n"
 0.0.1:
   api: 0.0.1
   state:
@@ -817,5 +618,4 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Initial release as a PEAR package
+  notes: "Initial release as a PEAR package\n"
