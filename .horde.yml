@@ -228,3 +228,5 @@ ci-platform:
     - ext-tokenizer
     - ext-xml
     - ext-xmlwriter
+ci-platform-flags:
+  needs_installer_plugin: true
