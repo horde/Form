@@ -1,4 +1,14 @@
 ---
+3.1.0:
+  api: 3.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2026-07-02
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: "fix(form): pass PHPUnit and PHPStan level 1 watermark\nfeat(form): accept FQCN and vendor-namespaced classes in createVariable"
 3.0.0:
   api: 3.0.0
   state:
