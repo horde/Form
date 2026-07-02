@@ -20,6 +20,7 @@ use Horde_Form;
 use Horde_Form_Type;
 use Horde_Form_Variable;
 use Horde_Variables;
+use Horde\Form\V3\Variable;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -39,6 +40,26 @@ use stdClass;
 #[CoversClass(Horde_Form::class)]
 class FormTest extends TestCase
 {
+    /**
+     * Assert that $var is a form variable regardless of era. Horde_Form's
+     * dispatch returns Horde_Form_Variable for legacy types (a wrapper
+     * around a Horde_Form_Type) and a V3 Variable instance directly for
+     * modernized types like 'text'. Both shapes are valid callers of
+     * addVariable(); tests care about the protocol, not the concrete class.
+     */
+    private static function assertIsFormVariable($var, string $message = ''): void
+    {
+        self::assertTrue(
+            $var instanceof Horde_Form_Variable || $var instanceof Variable,
+            $message !== ''
+                ? $message
+                : sprintf(
+                    'Expected Horde_Form_Variable or Horde\Form\V3\Variable, got %s',
+                    is_object($var) ? get_class($var) : gettype($var)
+                )
+        );
+    }
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -161,7 +182,7 @@ class FormTest extends TestCase
 
         $var = $form->addVariable('Name', 'name', 'text', true);
 
-        $this->assertInstanceOf(Horde_Form_Variable::class, $var);
+        self::assertIsFormVariable($var);
         $this->assertEquals('Name', $var->humanName);
         $this->assertEquals('name', $var->getVarName());
         $this->assertTrue($var->isRequired());
@@ -174,7 +195,7 @@ class FormTest extends TestCase
 
         $var = $form->addVariable('Name', 'name', 'text', true, false);
 
-        $this->assertInstanceOf(Horde_Form_Variable::class, $var);
+        self::assertIsFormVariable($var);
         $this->assertTrue($var->isRequired());
         $this->assertFalse($var->isReadonly());
     }
@@ -223,7 +244,7 @@ class FormTest extends TestCase
 
         $var = $form->addVariable('Test', 'test', 'text', true);
 
-        $this->assertInstanceOf(Horde_Form_Variable::class, $var);
+        self::assertIsFormVariable($var);
     }
 
     public function testAddVariableAddsToFormVariables(): void
@@ -289,7 +310,7 @@ class FormTest extends TestCase
 
         $var = $form->addHidden('', 'hidden_field', 'text', false);
 
-        $this->assertInstanceOf(Horde_Form_Variable::class, $var);
+        self::assertIsFormVariable($var);
         $this->assertTrue($var->isHidden());
     }
 

@@ -80,6 +80,14 @@ class EnumVariable extends BaseVariable
     {
         $value = $this->getValue($vars);
 
+        // Multi-select enums submit an array of selected keys; there is
+        // no single-key lookup to do in that case, hand it back verbatim
+        // so the caller can iterate. (Casting an array to string here
+        // triggers a PHP warning under failOnWarning.)
+        if (is_array($value)) {
+            return $value;
+        }
+
         // Look up the actual key in the values array to preserve its type.
         // Browser always sends strings, but the enum keys may be int.
         foreach ($this->_values as $key => $label) {

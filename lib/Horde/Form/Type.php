@@ -3195,13 +3195,18 @@ class Horde_Form_Type_hourminutesecond extends Horde_Form_Type
 
     public function checktime($hour, $minute, $second)
     {
-        if (!isset($hour) || $hour == '' || ($hour < 0 || $hour > 23)) {
+        // Function parameters always exist (PHPStan level 1: isset.variable),
+        // so the historical isset() guards here are dropped. Legacy callers
+        // that passed undefined array keys already trigger PHP's own
+        // "undefined array key" warning at the call site; the '' and range
+        // checks below still reject the resulting null/empty values.
+        if ($hour == '' || ($hour < 0 || $hour > 23)) {
             return false;
         }
-        if (!isset($minute) || $minute == '' || ($minute < 0 || $minute > 60)) {
+        if ($minute == '' || ($minute < 0 || $minute > 60)) {
             return false;
         }
-        if (!isset($second) || $second === '' || ($second < 0 || $second > 60)) {
+        if ($second === '' || ($second < 0 || $second > 60)) {
             return false;
         }
 
