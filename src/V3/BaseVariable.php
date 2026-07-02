@@ -341,17 +341,33 @@ class BaseVariable implements Variable
      * @return string  This variable's {@link Horde_Form_Type} name.
      *
      * Override with a simple return 'literal' string in your own types.
-      *
-      * @api
+     *
+     * The default derives the type name from the class namespace so app
+     * variables map back to their legacy `{app}_form_type_{name}` handles
+     * (used e.g. by `Horde_Core_Ui_VarRenderer::render()` when dispatching
+     * to `_renderVarInput_{typename}` methods). Three shapes are covered:
+     *
+     * - `Horde\Form\V3\FooVariable`         → `foo`
+     *   Vendor-owned horde/form variables use the bare name.
+     * - `Horde\{App}\...\FooVariable`       → `{app}_form_type_foo`
+     *   Vendor-namespaced app variables (PSR-4 `Horde\Ingo\Form\V3\…`).
+     * - `{App}\...\FooVariable`             → `{app}_form_type_foo`
+     *   Legacy pre-PSR-4 app variables (`Ingo\Form\V3\…`).
+     *
+     * @api
      */
     public function getTypeName(): string
     {
         $parts = explode('\\', $this::class);
-        $app =  strtolower($parts[0]);
-        $name =  strtolower(substr($parts[count($parts) - 1], 0, -8));
-        if ($app !== 'horde') {
-            // legacy
-            $name = $app . '_form_type_' . $name;
+        $name = strtolower(substr($parts[count($parts) - 1], 0, -8));
+        $vendor = strtolower($parts[0]);
+        if ($vendor !== 'horde') {
+            // Legacy pre-PSR-4 app layout: `{App}\...\FooVariable`.
+            return $vendor . '_form_type_' . $name;
+        }
+        if (count($parts) >= 3 && strtolower($parts[1]) !== 'form') {
+            // Vendor-namespaced app layout: `Horde\{App}\...\FooVariable`.
+            return strtolower($parts[1]) . '_form_type_' . $name;
         }
         return $name;
     }
