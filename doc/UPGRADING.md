@@ -210,14 +210,38 @@ $form->addVariable(
 ```
 
 The `$type` parameter is a string, not a Type object.  BaseForm maps
-it to a Variable class internally:
+it to a Variable class using three shapes, tried in order:
+
+1. **FQCN**. Any string containing a `\` is treated as a fully-qualified
+   class name and used as-is. Preferred for new code and required for any
+   package whose Variable classes live outside the naming conventions below
+   (for example non-Horde vendors).
+
+   ```php
+   $form->addVariable('Address(es)', 'addresses', \Horde\Ingo\Form\V3\LongemailVariable::class, false);
+   ```
+
+2. **`'app:type'`**. Resolved to `Horde\{App}\Form\V3\{Type}Variable`
+   first (matches the Composer PSR-4 map every modern Horde package
+   publishes), then to `{App}\Form\V3\{Type}Variable` as a BC fallback
+   for packages that shipped Variable classes under that root before this
+   dispatch was corrected. The legacy PSR-0 `{App}_Form_Type_{Type}`
+   class is used as a last resort when `Horde_Form::$legacy` is on.
+
+3. **bare `'type'`**. Resolved to `Horde\Form\V3\{Type}Variable`.
+
+Examples:
 
 - `'text'` -> `Horde\Form\V3\TextVariable`
 - `'enum'` -> `Horde\Form\V3\EnumVariable`
-- `'whups:priority'` -> `Whups\Form\V3\PriorityVariable`
+- `'whups:priority'` -> `Horde\Whups\Form\V3\PriorityVariable`
+  (with `Whups\Form\V3\PriorityVariable` as BC fallback)
+- `\Horde\Ingo\Form\V3\FoldersVariable::class` -> used directly
 
-This mapping is **intended**, not a compromise — it keeps the form
-definition readable and decoupled from class names.
+The string-shape mapping is **intended**, not a compromise. It keeps
+form definitions readable and decoupled from class names. The FQCN
+shape is there for the cases where a package can't or shouldn't rely
+on the naming convention.
 
 ---
 
@@ -530,8 +554,10 @@ class MyApp_Form_Type_zipcode extends Horde_Form_Type
     public function isValid($var, $vars, $value, $message) { ... }
 }
 
-// V3 — Variable subclass (Type merged in)
-namespace MyApp\Form\V3;
+// V3 — Variable subclass (Type merged in). Namespace matches the
+// package's Composer PSR-4 map, i.e. Horde\{App}\... for Horde
+// packages.
+namespace Horde\MyApp\Form\V3;
 use Horde\Form\V3\BaseVariable;
 
 class ZipcodeVariable extends BaseVariable
@@ -546,7 +572,17 @@ class ZipcodeVariable extends BaseVariable
     }
 }
 
-// Usage unchanged:
+// Preferred: pass the FQCN, no naming-convention magic required.
+$form->addVariable(
+    'ZIP', 'zip',
+    \Horde\MyApp\Form\V3\ZipcodeVariable::class,
+    true, false, null, ['US']
+);
+
+// Also supported: 'app:type' short form. Resolves to
+// Horde\MyApp\Form\V3\ZipcodeVariable, falling back to
+// MyApp\Form\V3\ZipcodeVariable for packages that shipped
+// Variable classes under the unvendored root.
 $form->addVariable('ZIP', 'zip', 'myapp:zipcode', true, false, null, ['US']);
 ```
 
