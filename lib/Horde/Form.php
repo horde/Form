@@ -182,7 +182,16 @@ class Horde_Form
      *
      * @param string  $humanName   The human-readable label for the field.
      * @param string  $varName     The internal variable name.
-     * @param string  $type        The field type identifier.
+     * @param string  $type        The field type identifier. Accepted shapes:
+     *                             - a fully-qualified class name of a V3
+     *                               Variable subclass (preferred);
+     *                             - 'app:type', resolved to
+     *                               Horde\{App}\Form\V3\{Type}Variable, then
+     *                               {App}\Form\V3\{Type}Variable, then the
+     *                               legacy {App}_Form_Type_{Type} class;
+     *                             - a bare type name, resolved to
+     *                               Horde\Form\V3\{Type}Variable then the
+     *                               legacy Horde_Form_Type_{Type} class.
      * @param array   $params      Type initialization parameters.
      * @param boolean $required    Whether the field is required.
      * @param boolean $readonly    Whether the field is read-only.
@@ -200,18 +209,56 @@ class Horde_Form
         $readonly = false,
         $description = null,
     ) {
-        $arr = explode(':', $type, 2);
-        if (count($arr) == 2) {
-            $app = ucfirst($arr[0]);
-            $name = $arr[1];
+        // Resolve $type to a concrete Variable/Type class. Three shapes are
+        // accepted, tried in order:
+        //
+        //   1. FQCN — any string containing a namespace separator is treated
+        //      as a fully-qualified class name and used as-is. This is the
+        //      preferred shape for new code and lets integrators point at a
+        //      class in any namespace (including non-Horde vendors) without
+        //      naming-convention gymnastics.
+        //
+        //   2. 'app:type' — try the vendor-namespaced convention
+        //      "Horde\{App}\Form\V3\{Type}Variable" first (matches the
+        //      Composer PSR-4 map every modern Horde package publishes),
+        //      then the historical "{App}\Form\V3\{Type}Variable" as a BC
+        //      fallback for packages that shipped variables under that
+        //      root before this dispatch was fixed.
+        //
+        //   3. bare 'type' — "Horde\Form\V3\{Type}Variable" (unchanged).
+        //
+        // Each shape falls back to the legacy PSR-0 "{App}_Form_Type_{Type}"
+        // form when self::$legacy is on, so pre-V3 packages keep working.
+        $modern = false;
+        $legacyClass = null;
+        if (str_contains($type, '\\')) {
+            $class = ltrim($type, '\\');
+            $modern = class_exists($class);
         } else {
-            $app = 'Horde';
-            $name = $arr[0];
+            $arr = explode(':', $type, 2);
+            if (count($arr) == 2) {
+                $app = ucfirst($arr[0]);
+                $name = ucfirst($arr[1]);
+                $candidates = [
+                    'Horde\\' . $app . '\\Form\\V3\\' . $name . 'Variable',
+                    $app . '\\Form\\V3\\' . $name . 'Variable',
+                ];
+                $legacyClass = $app . '_Form_Type_' . $name;
+            } else {
+                $name = ucfirst($arr[0]);
+                $candidates = ['Horde\\Form\\V3\\' . $name . 'Variable'];
+                $legacyClass = 'Horde_Form_Type_' . $name;
+            }
+            $class = $candidates[0];
+            foreach ($candidates as $candidate) {
+                if (class_exists($candidate)) {
+                    $class = $candidate;
+                    $modern = true;
+                    break;
+                }
+            }
         }
 
-        $name = ucfirst($name);
-        $class = $app . '\\Form\\V3\\' . $name . 'Variable';
-        $modern = class_exists($class);
         if ($modern) {
             $var = new $class(
                 $humanName,
@@ -220,15 +267,15 @@ class Horde_Form
                 $readonly,
                 $description
             );
-        } elseif (self::$legacy) {
-            $class = $app . '_Form_Type_' . $name;
-            $var = class_exists($class) ? new $class() : null;
+        } elseif (self::$legacy && $legacyClass !== null && class_exists($legacyClass)) {
+            $class = $legacyClass;
+            $var = new $class();
         } else {
             $var = null;
         }
 
         if ($var === null) {
-            throw new Horde_Exception(sprintf('Nonexistent class "%s" for field type "%s"', $class, $name));
+            throw new Horde_Exception(sprintf('Nonexistent class "%s" for field type "%s"', $class, $type));
         }
 
         // retrieve list of parameters
