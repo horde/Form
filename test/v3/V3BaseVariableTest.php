@@ -175,6 +175,24 @@ class V3BaseVariableTest extends TestCase
         $this->assertEquals('text', $var->getTypeName());
     }
 
+    public function testGetTypeNameForVendorNamespacedAppVariable(): void
+    {
+        // `Horde\Fakeapp\Form\V3\FoldersVariable` — modern PSR-4 app layout.
+        // See test/v3/fixtures/GetTypeNameFixtures.php.
+        $var = new \Horde\Fakeapp\Form\V3\FoldersVariable('Folder', 'folder', false);
+
+        $this->assertEquals('fakeapp_form_type_folders', $var->getTypeName());
+    }
+
+    public function testGetTypeNameForLegacyAppVariable(): void
+    {
+        // `Fakeapp\Form\V3\FoldersVariable` — pre-PSR-4 legacy app layout.
+        // See test/v3/fixtures/GetTypeNameFixtures.php.
+        $var = new \Fakeapp\Form\V3\FoldersVariable('Folder', 'folder', false);
+
+        $this->assertEquals('fakeapp_form_type_folders', $var->getTypeName());
+    }
+
     public function testIsRequired(): void
     {
         $requiredVar = new TextVariable('Name', 'name', true);

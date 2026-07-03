@@ -7,6 +7,10 @@
 // Load Composer autoloader
 require_once __DIR__ . '/../vendor/autoload.php';
 
+// Fixture classes declared in namespaces that PSR-4 autoloading in test/
+// cannot express (see BaseVariable::getTypeName() coverage).
+require_once __DIR__ . '/v3/fixtures/GetTypeNameFixtures.php';
+
 // Setup minimal global mocks for Horde dependencies
 // These are needed by Horde_Form when form tokens are enabled
 
