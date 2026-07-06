@@ -1,4 +1,14 @@
 ---
+3.1.2:
+  api: 3.1.2
+  state:
+    release: stable
+    api: stable
+  date: 2026-07-06
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: 'chore: Remove dead symlinks which should not be checked in'
 3.1.1:
   api: 3.1.1
   state:
