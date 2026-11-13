@@ -35,7 +35,7 @@
         "validation",
         "crud"
     ],
-    "time": "2026-07-06",
+    "time": "2026-11-13",
     "repositories": [],
     "require": {
         "php": "^7.4 || ^8",

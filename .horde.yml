@@ -33,7 +33,7 @@ authors:
     active: false
     role: lead
 version:
-  release: 3.1.2
+  release: 3.1.3
   api: 3.0.0alpha1
 state:
   release: stable
@@ -97,7 +97,7 @@ ci-platform:
     - ext-xml
     - ext-xmlwriter
   '8.1':
-    - php: '>=8.1'
+    - php: ^8.1
     - composer-plugin-api: ^2.2.0
     - ext-ctype
     - ext-dom
@@ -119,7 +119,7 @@ ci-platform:
     - ext-xml
     - ext-xmlwriter
   '8.2':
-    - php: '>=8.1'
+    - php: ^8.2
     - composer-plugin-api: ^2.2.0
     - ext-ctype
     - ext-dom
@@ -141,7 +141,7 @@ ci-platform:
     - ext-xml
     - ext-xmlwriter
   '8.3':
-    - php: '>=8.1'
+    - php: ^8.3
     - composer-plugin-api: ^2.2.0
     - ext-ctype
     - ext-dom
@@ -163,7 +163,7 @@ ci-platform:
     - ext-xml
     - ext-xmlwriter
   '8.4':
-    - php: '>=8.1'
+    - php: ^8.4
     - composer-plugin-api: ^2.2.0
     - ext-ctype
     - ext-dom
@@ -185,7 +185,7 @@ ci-platform:
     - ext-xml
     - ext-xmlwriter
   '8.5':
-    - php: '>=8.1'
+    - php: ^8.5
     - composer-plugin-api: ^2.2.0
     - ext-ctype
     - ext-dom
@@ -207,7 +207,7 @@ ci-platform:
     - ext-xml
     - ext-xmlwriter
   '8.6':
-    - php: '>=8.1'
+    - php: ^8.6
     - composer-plugin-api: ^2.2.0
     - ext-ctype
     - ext-dom
