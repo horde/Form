@@ -13,6 +13,7 @@ use Horde_Browser_Exception;
 use Horde_Mime_Magic;
 use PEAR;
 use Psr\Http\Message\UploadedFileInterface;
+use RuntimeException;
 
 /**
  * ImageVariable type for image upload fields.
@@ -438,18 +439,23 @@ class ImageVariable extends BaseVariable implements FileUploadAware
     public function loadImageData($image)
     {
         /* No existing image data to load. */
-        if (!isset($image['load'])) {
+        if (!isset($image['load']['data'])
+            || !is_string($image['load']['data'])) {
             return;
         }
 
-        /* Save the data to the temp dir. */
-        $tmp_file = Horde::getTempDir() . '/' . $image['load']['file'];
-        if ($fd = fopen($tmp_file, 'w')) {
-            fwrite($fd, $image['load']['data']);
-            fclose($fd);
+        /* Use a server-generated name instead of the submitted filename. */
+        $tmp_file = Horde::getTempFile('horde_form_', false, '', false, true);
+        if ($tmp_file === false) {
+            throw new RuntimeException('Unable to create temporary image file.');
         }
 
-        $image['img'] = [ 'file' => $image['load']['file'] ];
+        if (file_put_contents($tmp_file, $image['load']['data']) === false) {
+            unlink($tmp_file);
+            throw new RuntimeException('Unable to write temporary image file.');
+        }
+
+        $image['img'] = [ 'file' => basename($tmp_file) ];
         unset($image['load']);
 
         return $image;
